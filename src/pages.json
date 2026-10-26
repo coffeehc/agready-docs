@@ -34,5 +34,11 @@
     "path": "/blog/verifiable-agent-tasks/",
     "title": "Give an agent a task you can actually verify \u2014 AgReady",
     "description": "A clear deliverable is only half the brief. Define the evidence that will tell you whether the work is correct."
+  },
+  {
+    "source": "src/about.html",
+    "path": "/about/",
+    "title": "About AgReady \u2014 Our foundation and direction",
+    "description": "AgReady grew out of a branch of xAgent. Learn about its product direction and the principles of clear scope, human judgment and verifiable work."
   }
 ]

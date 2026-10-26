@@ -35,7 +35,7 @@ test('invalid analytics ID and unsafe origin fail closed',()=>{
 test('all content pages have real navigation, preview safeguards and no unconfirmed release paths',()=>{
  build();
  const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
- assert.equal(pages.length,6);
+ assert.equal(pages.length,7);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page.path);
@@ -58,4 +58,19 @@ test('every production page has its own canonical URL and sitemap entry',()=>{
   assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+p.path+'</loc>'));
  }
  build();
+});
+
+test('brand and navigation stay consistent across all eight pages',()=>{
+ build();
+ const paths=['/',...JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path)];
+ for(const path of paths){
+  const html=readFileSync('dist'+path+'index.html','utf8');
+  assert.equal((html.match(/AgReady<span class="brand-suffix">\.ai<\/span>/g)||[]).length,2,path);
+  assert.doesNotMatch(html,/>agready</);
+  assert.doesNotMatch(html,/Built for deliberate agentic work/);
+  assert.match(html,/<a href="\/about\/">About<\/a><\/nav>/);
+  assert.match(html,/class="footer-link" href="\/faq\/">FAQ/);
+  assert.doesNotMatch(html,/href="\/apps\/"/);
+ }
+ assert.match(readFileSync('dist/about/index.html','utf8'),/grew out of a branch of xAgent/);
 });

@@ -20,7 +20,7 @@ The default build is deliberately **noindex** and has **analytics disabled**. Pr
 
 - `src/index.html`: homepage copy and semantic structure.
 - `src/site.config.mjs`: homepage title and description.
-- `src/pages.json`: route, title and description manifest for six content pages.
+- `src/pages.json`: route, title and description manifest for seven content pages.
 - `src/product.html`, `src/docs*.html`, `src/faq.html`, `src/blog*.html`: reviewed HTML editorial sources.
 - `public/styles.css`: responsive layout and design system.
 - `public/app.js`: privacy dialog and optional, opt-in GA4 adapter.
@@ -32,7 +32,7 @@ The site uses plain HTML with a small multi-page build process. It does not rend
 
 ## Content boundaries
 
-The workflow panel is explicitly illustrative, not a product screenshot or a measured execution. Capability copy is based on the current `agready` source repository and is labelled accordingly. Before publication, verify every claim against the intended public release, replace the illustration with an approved real demo where useful, and connect a genuine acquisition route. Navigation opens Product, Docs, Blog and FAQ. The homepage preparation section is **not an installer**. The Blog example is explicitly fictional, with no measured product result.
+The workflow panel is explicitly illustrative, not a product screenshot or a measured execution. Capability copy is based on the current `agready` source repository and is labelled accordingly. Before publication, verify every claim against the intended public release, replace the illustration with an approved real demo where useful, and connect a genuine acquisition route. Navigation opens Product, Docs, Blog and About, with FAQ in the footer. The homepage preparation section is **not an installer**. The Blog example is explicitly fictional, with no measured product result.
 
 No invented pricing, trial, customers, testimonials, benchmarks, download links, or license grants are included. The old 0.0.13 commercial release is not mixed into the current homepage.
 
