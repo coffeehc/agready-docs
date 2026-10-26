@@ -13,7 +13,7 @@ test('preview is noindex, analytics disabled and all linked local assets exist',
  assert.doesNotMatch(html,/rel="canonical"/);
  assert.doesNotMatch(html,/property="og:(?:url|image)"/);
  assert.match(readFileSync('dist/_headers','utf8'),/X-Robots-Tag: noindex/);
- for(const match of html.matchAll(/(?:href|src)="(\/[^"]*)"/g)) assert.ok(existsSync('dist'+(match[1]==='/'?'/index.html':match[1])),match[1]);
+ for(const match of html.matchAll(/(?:href|src)="(\/[^"]*)"/g)) { const path=match[1].split('#')[0]; assert.ok(existsSync('dist'+path+(path.endsWith('/')?'index.html':'')),path); }
  for(const match of html.matchAll(/href="#([^"]+)"/g)) assert.ok(html.includes(`id="${match[1]}"`),match[1]);
  assert.match(readFileSync('dist/robots.txt','utf8'),/Disallow: \//);
 });
@@ -30,4 +30,28 @@ test('invalid analytics ID and unsafe origin fail closed',()=>{
  assert.throws(()=>build({SITE_ORIGIN:'http://example.com'}));
  assert.throws(()=>build({SITE_ORIGIN:'https://example.com/path'}));
  build();
+});
+
+test('getting started guide is real, release-scoped and preview-safe',()=>{
+ build();
+ const home=readFileSync('dist/index.html','utf8');
+ const guide=readFileSync('dist/docs/getting-started/index.html','utf8');
+ assert.match(home,/href="\/docs\/getting-started\/"/);
+ assert.equal((guide.match(/<h1\b/g)||[]).length,1);
+ assert.match(guide,/name="robots" content="noindex,nofollow"/);
+ assert.match(guide,/Downloading a binary does not mean the product is free/);
+ assert.match(guide,/releases\/tag\/v0.1.1/);
+ assert.match(guide,/does not provide an AgReady account signup/);
+ assert.doesNotMatch(guide,/github.com\/coffeehc\/agready\/blob|10\.88\.|\/Users\/coffee/);
+ for(const match of guide.matchAll(/href="#([^"]+)"/g)) assert.ok(guide.includes(`id="${match[1]}"`),match[1]);
+ for(const match of guide.matchAll(/(?:href|src)="(\/[^"]*)"/g)) {const path=match[1].split('#')[0];assert.ok(existsSync('dist'+path+(path.endsWith('/')?'index.html':'')),path);}
+});
+test('icons use SVG and no Actions workflow is included',()=>{
+ for(const file of ['src/index.html','src/getting-started.html']) {
+  const html=readFileSync(file,'utf8');
+  assert.doesNotMatch(html,/[↗↓≡×]/);
+  assert.match(html,/<svg class="icon/);
+  for(const tag of html.matchAll(/<svg[^>]*>/g)) {assert.match(tag[0],/aria-hidden="true"/);assert.match(tag[0],/focusable="false"/);}
+ }
+ assert.equal(existsSync('.github/workflows/check.yml'),false);
 });

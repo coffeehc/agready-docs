@@ -19,6 +19,7 @@ The default build is deliberately **noindex** and has **analytics disabled**. Pr
 ## Source layout
 
 - `src/index.html`: homepage copy and semantic structure.
+- `src/getting-started.html`: a release-scoped guide at `/docs/getting-started/`, with verified public release and installation references.
 - `src/site.config.mjs`: shared title and description.
 - `public/styles.css`: responsive layout and design system.
 - `public/app.js`: privacy dialog and optional, opt-in GA4 adapter.
@@ -26,13 +27,13 @@ The default build is deliberately **noindex** and has **analytics disabled**. Pr
 - `content/docs/`, `content/blog/`: future editorial sources, not public placeholder pages.
 - `docs/launch-checklist.md`: requirements and outstanding setup before launch.
 
-The first version intentionally uses plain HTML and a tiny build process. It does not pretend to render Markdown yet. When Docs and Blog are commissioned, migrate the shell to an established Markdown-capable static generator or add a reviewed Markdown pipeline. Keep `/docs/` and `/blog/` as the planned public URLs. Do not add empty navigation links before there is usable content.
+The first version intentionally uses plain HTML and a tiny build process. It does not pretend to render Markdown yet. When Docs and Blog are commissioned, migrate the shell to an established Markdown-capable static generator or add a reviewed Markdown pipeline. Keep `/docs/` and `/blog/` as the planned content families; the first static guide already lives at `/docs/getting-started/`. Do not add empty navigation links before there is usable content.
 
 ## Content boundaries
 
-The workflow panel is explicitly illustrative, not a product screenshot or a measured execution. Capability copy is based on the current `agready/xagent` development branch and is labelled accordingly. Before publication, verify every claim against the intended public release, replace the illustration with an approved real demo where useful, and connect a genuine acquisition route. The current Get started link opens a preparation checklist, **not an installer**.
+The workflow panel is explicitly illustrative, not a product screenshot or a measured execution. Capability copy is based on the current `agready/xagent` development branch and is labelled accordingly. Before publication, verify every claim against the intended public release, replace the illustration with an approved real demo where useful, and connect a genuine acquisition route. The Get started link opens a real guide with existing official xAgent v0.1.1 release resources. It is **not an AgReady signup or a free-use promise**. The public release still uses the xAgent name; development-branch capabilities must not be presented as released features.
 
-No invented pricing, trial, customers, testimonials, benchmarks, download links, or license grants are included. The old 0.0.13 commercial release is not mixed into the current homepage.
+No invented pricing, trial, customers, testimonials, benchmarks, download links, or license grants are included. Icons use inline SVG rather than font glyphs. Run checks before committing; do not add or run CI. Cloudflare Git-connected preview builds remain separate from checks. The old 0.0.13 commercial release is not mixed into the current homepage.
 
 ## Analytics
 
