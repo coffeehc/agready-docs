@@ -40,5 +40,11 @@
     "path": "/about/",
     "title": "About AgReady \u2014 Our foundation and direction",
     "description": "AgReady grew out of a branch of xAgent. Learn about its product direction and the principles of clear scope, human judgment and verifiable work."
+  },
+  {
+    "source": "src/getting-started.html",
+    "path": "/docs/getting-started/",
+    "title": "Get started \u2014 AgReady illustrated setup and first-task guide",
+    "description": "Prepare an AgReady instance, understand model configuration and review a bounded first task. Screens illustrate the current development interface."
   }
 ]

@@ -20,7 +20,7 @@ The default build is deliberately **noindex** and has **analytics disabled**. Pr
 
 - `src/index.html`: homepage copy and semantic structure.
 - `src/site.config.mjs`: homepage title and description.
-- `src/pages.json`: route, title and description manifest for seven content pages.
+- `src/pages.json`: route, title and description manifest for eight content pages.
 - `src/product.html`, `src/docs*.html`, `src/faq.html`, `src/blog*.html`: reviewed HTML editorial sources.
 - `public/styles.css`: responsive layout and design system.
 - `public/app.js`: privacy dialog and optional, opt-in GA4 adapter.
@@ -61,3 +61,7 @@ The Server installer installs only AgReady. Independently released plugins use `
 ## Static asset versions
 
 The build emits SHA-256 content-hashed CSS and JavaScript filenames and rewrites every page to those URLs. Identical asset bytes keep the same URL; changes produce a new URL so stale domain caches cannot mix old CSS with new HTML. Legacy unversioned copies remain for previously cached HTML, but newly generated pages do not reference them.
+
+## Illustrated Get started guide
+
+`src/getting-started.html` and the original images under `public/images/getting-started/` form the setup and first-task guide. Captions explain controls and the example result; screens reflect the development interface, not a promise of release equivalence. No clean-install or real-model acceptance claim is made. Image filenames include content hashes; original bytes are preserved.

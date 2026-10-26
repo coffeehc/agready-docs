@@ -36,7 +36,7 @@ test('invalid analytics ID and unsafe origin fail closed',()=>{
 test('all content pages have real navigation, preview safeguards and no unconfirmed release paths',()=>{
  build();
  const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
- assert.equal(pages.length,7);
+ assert.equal(pages.length,8);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page.path);
@@ -61,7 +61,7 @@ test('every production page has its own canonical URL and sitemap entry',()=>{
  build();
 });
 
-test('brand and navigation stay consistent across all eight pages',()=>{
+test('brand and navigation stay consistent across all nine pages',()=>{
  build();
  const paths=['/',...JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path)];
  for(const path of paths){
@@ -86,14 +86,14 @@ test('public contact email appears on every page and About without private forwa
  assert.match(readFileSync('dist/about/index.html','utf8'),/<h2>Contact<\/h2>/);
 });
 
-test('dedicated Get started CTA links to real preparation checklist, never last-child styling',()=>{
+test('dedicated Get started CTA links to the tutorial, never last-child styling',()=>{
  build();
  const home=readFileSync('dist/index.html','utf8');
  assert.match(home,/id="start"/);
  assert.match(home,/This is a preparation checklist/);
  for(const path of ['/',...JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path)]){
   const html=readFileSync('dist'+path+'index.html','utf8');
-  assert.match(html,/<\/nav><a class="nav-cta" href="\/#start"/);
+  assert.match(html,/<\/nav><a class="nav-cta" href="\/docs\/getting-started\/"/);
  }
  const css=readFileSync('dist/styles.css','utf8');
  assert.doesNotMatch(css,/nav a:last-child/);
@@ -116,4 +116,16 @@ test('all pages reference matching content-hashed CSS and JS consistently',()=>{
    assert.ok(!html.includes('"/'+name+'"'),path);
   }
  }
+});
+
+test('tutorial uses practical captions and bounded example results',()=>{
+ build();
+ const html=readFileSync('dist/docs/getting-started/index.html','utf8');
+ assert.equal((html.match(/<figure class="tutorial-figure">/g)||[]).length,10);
+ assert.match(html,/Screens reflect the current development interface; details may vary by version/);
+ assert.match(html,/Example result: three actions/);
+ assert.match(html,/fictional placeholders/);
+ assert.doesNotMatch(html,/Illustrative UI with demo data|0.0.1-ui-mock|xUI 4.2.42|640 ms|WebSocket/);
+ assert.doesNotMatch(html,/\/Users\/|localhost|127\.0\.0\.1|xagent-releases/);
+ assert.doesNotMatch(html,/<img[^>]*src="[^"]*(?:08-workspace|09-approval)/);
 });
