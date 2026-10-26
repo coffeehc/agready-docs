@@ -129,3 +129,12 @@ test('tutorial uses practical captions and bounded example results',()=>{
  assert.doesNotMatch(html,/\/Users\/|localhost|127\.0\.0\.1|xagent-releases/);
  assert.doesNotMatch(html,/<img[^>]*src="[^"]*(?:08-workspace|09-approval)/);
 });
+
+test('About links to the public GitHub profile without publishing the privacy draft',()=>{
+ build();
+ const html=readFileSync('dist/about/index.html','utf8');
+ assert.match(html,/href="https:\/\/github.com\/coffeehc">coffeehc on GitHub/);
+ assert.match(html,/mailto:hello@agready.ai/);
+ assert.ok(!existsSync('dist/docs/privacy-notice-unpublished-draft.md'));
+ assert.ok(!existsSync('dist/privacy/index.html'));
+});
