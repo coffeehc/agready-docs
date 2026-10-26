@@ -46,5 +46,11 @@
     "path": "/docs/getting-started/",
     "title": "Get started \u2014 AgReady illustrated setup and first-task guide",
     "description": "Prepare an AgReady instance, understand model configuration and review a bounded first task. Screens illustrate the current development interface."
+  },
+  {
+    "source": "src/privacy.html",
+    "path": "/privacy/",
+    "title": "Website Privacy Notice \u2014 AgReady",
+    "description": "Website delivery, performance measurement, Google Analytics preferences and public contact information for AgReady.ai."
   }
 ]

@@ -5,7 +5,9 @@
   const key = 'agready.analytics-choice.v1';
   let choice = 'unset';
   try { choice = localStorage.getItem(key) || 'unset'; } catch { /* Privacy modes can block storage. */ }
+  if (!['accepted', 'declined'].includes(choice)) choice = 'unset';
   let loaded = false;
+  const banner = document.getElementById('analytics-banner');
   const dialog = document.getElementById('privacy-dialog');
   const accept = document.getElementById('analytics-accept');
   const feedback = document.getElementById('consent-feedback');
@@ -28,8 +30,9 @@
     document.head.appendChild(script);
   }
   function describe() {
-    status.textContent = !configured ? 'Analytics is not configured. No Google Analytics script is loaded.' : choice === 'accepted' ? 'You have allowed optional Google Analytics on this browser.' : 'Optional Google Analytics is off. It loads only if you choose to allow it.';
+    status.textContent = !configured ? 'Google Analytics is not configured. No Google Analytics script is loaded.' : choice === 'accepted' ? 'You have allowed optional Google Analytics on this browser. This preference does not control Cloudflare measurement.' : 'Optional Google Analytics is off. It loads only if you choose to allow it. This preference does not control Cloudflare measurement.';
     accept.disabled = !configured;
+    banner.hidden = !configured || choice !== 'unset';
   }
   function save(next) {
     choice = next;
@@ -49,11 +52,18 @@
       // Reload on a future visit respects the declined choice. Previously sent data cannot be recalled here.
     }
     describe();
-    feedback.textContent = next === 'accepted' ? 'Analytics allowed. You can withdraw this choice here.' : 'Analytics declined. Data already sent is not deleted by this choice.';
+    feedback.textContent = next === 'accepted' ? 'Google Analytics allowed. You can withdraw this choice here; Cloudflare measurement is separate.' : 'Google Analytics declined. This does not disable Cloudflare measurement or delete information previously sent.';
   }
   document.getElementById('privacy-open').addEventListener('click', () => { describe(); dialog.showModal(); });
   accept.addEventListener('click', () => { if(configured) save('accepted'); });
   document.getElementById('analytics-decline').addEventListener('click', () => save('declined'));
+  function chooseFromBanner(next) {
+    const moveFocus = banner.contains(document.activeElement);
+    save(next);
+    if (moveFocus) document.getElementById('main').focus({preventScroll:true});
+  }
+  document.getElementById('banner-accept').addEventListener('click', () => { if (configured) chooseFromBanner('accepted'); });
+  document.getElementById('banner-decline').addEventListener('click', () => chooseFromBanner('declined'));
   document.querySelectorAll('[data-cta]').forEach(link => link.addEventListener('click', () => {
     if (configured && choice === 'accepted' && window.gtag) window.gtag('event', 'navigation_click', { cta_name: link.dataset.cta, page_location: location.origin + location.pathname, page_referrer: '' });
   }));

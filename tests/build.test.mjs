@@ -36,7 +36,7 @@ test('invalid analytics ID and unsafe origin fail closed',()=>{
 test('all content pages have real navigation, preview safeguards and no unconfirmed release paths',()=>{
  build();
  const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
- assert.equal(pages.length,8);
+ assert.equal(pages.length,9);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page.path);
@@ -61,7 +61,7 @@ test('every production page has its own canonical URL and sitemap entry',()=>{
  build();
 });
 
-test('brand and navigation stay consistent across all nine pages',()=>{
+test('brand and navigation stay consistent across all ten pages',()=>{
  build();
  const paths=['/',...JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path)];
  for(const path of paths){
@@ -136,5 +136,34 @@ test('About links to the public GitHub profile without publishing the privacy dr
  assert.match(html,/href="https:\/\/github.com\/coffeehc">coffeehc on GitHub/);
  assert.match(html,/mailto:hello@agready.ai/);
  assert.ok(!existsSync('dist/docs/privacy-notice-unpublished-draft.md'));
- assert.ok(!existsSync('dist/privacy/index.html'));
+ assert.ok(existsSync('dist/privacy/index.html'));
+});
+
+test('privacy copy distinguishes optional Google Analytics from Cloudflare',()=>{
+ build();
+ for(const path of ['/',...JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path)]){
+  const html=readFileSync('dist'+path+'index.html','utf8');
+  assert.match(html,/Google Analytics is not configured/);
+  assert.match(html,/does not disable Cloudflare measurement/);
+  assert.match(html,/>Allow Google Analytics<\/button>/);
+  assert.match(html,/>Decline Google Analytics<\/button>/);
+  assert.match(html,/href="\/privacy\/"/);
+  assert.doesNotMatch(html,/does not load third-party analytics by default|Allow analytics<|Decline analytics</);
+ }
+ const notice=readFileSync('dist/privacy/index.html','utf8');
+ assert.match(notice,/Project profile:/);
+ assert.match(notice,/Google-hosted mailbox/);
+ assert.doesNotMatch(notice,/Internal publication blockers|@gmail\.com|personal operator|company-operated|GDPR compliant/);
+});
+
+test('consent banner uses native keyboard controls and stays non-modal',()=>{
+ build();
+ const html=readFileSync('dist/index.html','utf8');
+ assert.match(html,/id="analytics-banner"[^>]*role="region"[^>]*hidden/);
+ assert.match(html,/<main tabindex="-1" id="main"/);
+ for(const id of ['banner-accept','banner-decline']) assert.ok(html.includes('id="'+id+'" class="button secondary" type="button"'));
+ const css=readFileSync('public/styles.css','utf8');
+ assert.match(css,/analytics-banner\[hidden\]\{display:none/);
+ assert.doesNotMatch(css,/\.analytics-banner\{[^}]*position:(?:fixed|absolute)/);
+ assert.match(css,/a:focus-visible,button:focus-visible/);
 });
