@@ -32,7 +32,7 @@ The site uses plain HTML with a small multi-page build process. It does not rend
 
 ## Content boundaries
 
-The workflow panel is explicitly illustrative, not a product screenshot or a measured execution. Capability copy is based on the current `agready/xagent` development branch and is labelled accordingly. Before publication, verify every claim against the intended public release, replace the illustration with an approved real demo where useful, and connect a genuine acquisition route. Navigation opens Product, Docs, Blog and FAQ. The homepage preparation section is **not an installer**. The Blog example is explicitly fictional, with no measured product result.
+The workflow panel is explicitly illustrative, not a product screenshot or a measured execution. Capability copy is based on the current `agready` source repository and is labelled accordingly. Before publication, verify every claim against the intended public release, replace the illustration with an approved real demo where useful, and connect a genuine acquisition route. Navigation opens Product, Docs, Blog and FAQ. The homepage preparation section is **not an installer**. The Blog example is explicitly fictional, with no measured product result.
 
 No invented pricing, trial, customers, testimonials, benchmarks, download links, or license grants are included. The old 0.0.13 commercial release is not mixed into the current homepage.
 
@@ -45,3 +45,15 @@ Custom events are limited to `page_view` and `navigation_click` with predefined 
 The preview privacy dialog is not a complete legal policy. Operator identity, contact, purposes, retention, transfer disclosures and applicable consent requirements must be reviewed before enabling analytics. Withdrawal disables further calls from this adapter and attempts to expire first-party GA cookies; it does not erase historical data sent to Google.
 
 `GOOGLE_SITE_VERIFICATION` optionally adds a URL-prefix ownership verification meta value. A Domain property is verified through DNS separately. No Google property, data stream, DNS record or account was created by this draft.
+
+## AgReady Server releases
+
+Latest product release: [AgReady v0.0.1](https://github.com/coffeehc/agready-docs/releases/tag/v0.0.1).
+
+[Release notes](changelog/v0.0.1.md) · [Release index](releases.json) · [Download catalog](https://download.agready.ai/agready/versions.json)
+
+```bash
+curl -fsSL https://download.agready.ai/agready/install.sh | bash
+```
+
+The Server installer installs only AgReady. Independently released plugins use `https://download.agready.ai/agready/agentplugins/install.sh --plugins <names>`; they are not bundled with this Server release. Existing xAgent installations require the separate migration tool; normal installation and upgrade do not migrate their data.

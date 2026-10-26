@@ -1,0 +1,76 @@
+{
+  "schema": "agready.release-index/v1",
+  "latest": "0.0.1",
+  "releases": [
+    {
+      "version": "0.0.1",
+      "tag": "v0.0.1",
+      "date": "2026-10-26",
+      "url": "https://github.com/coffeehc/agready-docs/releases/tag/v0.0.1",
+      "download_base": "https://download.agready.ai/agready/0.0.1",
+      "source_revision": "9d6fc32fc7d5f3387c6307cb489a360931a7ec09",
+      "assets": [
+        {
+          "name": "BINARY_SHA256SUMS",
+          "size": 406,
+          "sha256": "206bc5b823b75aa2423208ffe911e4c862c0c15b548e33c3b7ebd4580f20c100",
+          "url": "https://download.agready.ai/agready/0.0.1/BINARY_SHA256SUMS"
+        },
+        {
+          "name": "EULA.md",
+          "size": 9428,
+          "sha256": "e946cd5d29320ebe4f6f488df21b001b67ec03fb10c66e471ee338a77f63f649",
+          "url": "https://download.agready.ai/agready/0.0.1/EULA.md"
+        },
+        {
+          "name": "LICENSE",
+          "size": 1385,
+          "sha256": "08cc75fe8fe7efa74adc835fc014110b28b10b6a3e764c55fd2d16318ba52980",
+          "url": "https://download.agready.ai/agready/0.0.1/LICENSE"
+        },
+        {
+          "name": "SHA256SUMS",
+          "size": 731,
+          "sha256": "9dabd514342bbf0bb729a8814ba6c41ee4462637f5f1b1789311ea83de53c795",
+          "url": "https://download.agready.ai/agready/0.0.1/SHA256SUMS"
+        },
+        {
+          "name": "THIRD_PARTY_NOTICES.md",
+          "size": 3652,
+          "sha256": "5d0a9072d81578a5ee0709fec29f7b1ebdec140fad480606079dcac2426f0945",
+          "url": "https://download.agready.ai/agready/0.0.1/THIRD_PARTY_NOTICES.md"
+        },
+        {
+          "name": "agready-v0.0.1-darwin-amd64.tar.gz",
+          "size": 40786999,
+          "sha256": "caa9383347bb9f43e23540db4832de5f5f17f22e53d6e8595f2ac9b5172ac60f",
+          "url": "https://download.agready.ai/agready/0.0.1/agready-v0.0.1-darwin-amd64.tar.gz"
+        },
+        {
+          "name": "agready-v0.0.1-darwin-arm64.tar.gz",
+          "size": 38445181,
+          "sha256": "bee938b505a023c709fda727a42442a44cff4989767e57dc2777a0bc402154af",
+          "url": "https://download.agready.ai/agready/0.0.1/agready-v0.0.1-darwin-arm64.tar.gz"
+        },
+        {
+          "name": "agready-v0.0.1-linux-amd64.tar.gz",
+          "size": 40166304,
+          "sha256": "4a4dfa8b502c70d63c1c9dbdcf47be0474b88e0b8681723b932229f6bdd51da1",
+          "url": "https://download.agready.ai/agready/0.0.1/agready-v0.0.1-linux-amd64.tar.gz"
+        },
+        {
+          "name": "agready-v0.0.1-linux-arm64.tar.gz",
+          "size": 36917618,
+          "sha256": "6740a1dfcc35b4a82a46b635ca07a81a7098b319b1f58c8f598563bba997c113",
+          "url": "https://download.agready.ai/agready/0.0.1/agready-v0.0.1-linux-arm64.tar.gz"
+        },
+        {
+          "name": "release.json",
+          "size": 224,
+          "sha256": "97d7cb885e1a15012baa18c55e9dd73704e35d266ae3b157941faeee6bc6307b",
+          "url": "https://download.agready.ai/agready/0.0.1/release.json"
+        }
+      ]
+    }
+  ]
+}
