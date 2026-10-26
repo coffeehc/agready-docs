@@ -74,3 +74,13 @@ test('brand and navigation stay consistent across all eight pages',()=>{
  }
  assert.match(readFileSync('dist/about/index.html','utf8'),/grew out of a branch of xAgent/);
 });
+
+test('public contact email appears on every page and About without private forwarding details',()=>{
+ build();
+ for(const path of ['/',...JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path)]){
+  const html=readFileSync('dist'+path+'index.html','utf8');
+  assert.match(html,/<a class="footer-link" href="mailto:hello@agready.ai">hello@agready.ai<\/a>/);
+  assert.doesNotMatch(html,/@gmail\.com/);
+ }
+ assert.match(readFileSync('dist/about/index.html','utf8'),/<h2>Contact<\/h2>/);
+});

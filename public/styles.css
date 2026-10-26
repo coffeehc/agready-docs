@@ -16,3 +16,5 @@
 .brand-suffix{font-size:.7em;letter-spacing:-.5px;color:var(--muted);margin-left:-9px;align-self:baseline}.footer-link{font-size:11px;color:var(--muted);min-height:44px;display:inline-flex;align-items:center}.footer-link:hover{color:var(--green);text-decoration:underline}
 
 .footer>.brand{margin-right:auto}
+
+.footer{flex-wrap:wrap}.footer-link{overflow-wrap:anywhere}
