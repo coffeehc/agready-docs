@@ -1,5 +1,5 @@
-# Planned English blog sources
+# English Blog editorial notes
 
-Reserve original evidence-led articles here. No public placeholder is generated.
+Current HTML sources live in `src/blog.html` and `src/blog-verifiable-agent-tasks.html`; routes are listed in `src/pages.json`. This folder is not rendered.
 
-A useful first article should contain a bounded task, actual inputs, version/model configuration, output, elapsed time and cost where measured, intervention points and limitations. Do not publish fabricated benchmarks or reinterpret cumulative tokens as context-window size.
+The first article is a general method with explicitly fictional inputs, not a case study. Future product reports should state actual inputs, tested version, configuration, measured results and limitations. Do not fabricate performance, costs or customer outcomes.

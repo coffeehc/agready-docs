@@ -1,6 +1,6 @@
-# AgReady website — first homepage draft
+# AgReady website — English content draft
 
-A dependency-free, responsive English homepage starter for `agready.ai`. This is a **source draft**, not a deployed website or a product release. The commercial AgReady product is not represented as open source.
+A dependency-free, responsive English website starter for `agready.ai`. This is a **source draft**, not a deployed website or a product release. The commercial AgReady product is not represented as open source.
 
 ## Run
 
@@ -19,18 +19,20 @@ The default build is deliberately **noindex** and has **analytics disabled**. Pr
 ## Source layout
 
 - `src/index.html`: homepage copy and semantic structure.
-- `src/site.config.mjs`: shared title and description.
+- `src/site.config.mjs`: homepage title and description.
+- `src/pages.json`: route, title and description manifest for six content pages.
+- `src/product.html`, `src/docs*.html`, `src/faq.html`, `src/blog*.html`: reviewed HTML editorial sources.
 - `public/styles.css`: responsive layout and design system.
 - `public/app.js`: privacy dialog and optional, opt-in GA4 adapter.
 - `scripts/build.mjs`: dependency-free build, metadata, sitemap and robots generation.
-- `content/docs/`, `content/blog/`: future editorial sources, not public placeholder pages.
+- `content/docs/`, `content/blog/`: editorial conventions and future Markdown migration notes.
 - `docs/launch-checklist.md`: requirements and outstanding setup before launch.
 
-The first version intentionally uses plain HTML and a tiny build process. It does not pretend to render Markdown yet. When Docs and Blog are commissioned, migrate the shell to an established Markdown-capable static generator or add a reviewed Markdown pipeline. Keep `/docs/` and `/blog/` as the planned public URLs. Do not add empty navigation links before there is usable content.
+The site uses plain HTML with a small multi-page build process. It does not render Markdown. Every published route in `src/pages.json` has substantive content; page-specific metadata and the production sitemap are generated from that manifest. Preview output remains noindex. Header/footer markup is currently duplicated between source pages; keep them consistent when editing. A shared-template or Markdown pipeline can be introduced separately.
 
 ## Content boundaries
 
-The workflow panel is explicitly illustrative, not a product screenshot or a measured execution. Capability copy is based on the current `agready/xagent` development branch and is labelled accordingly. Before publication, verify every claim against the intended public release, replace the illustration with an approved real demo where useful, and connect a genuine acquisition route. The current Get started link opens a preparation checklist, **not an installer**.
+The workflow panel is explicitly illustrative, not a product screenshot or a measured execution. Capability copy is based on the current `agready/xagent` development branch and is labelled accordingly. Before publication, verify every claim against the intended public release, replace the illustration with an approved real demo where useful, and connect a genuine acquisition route. Navigation opens Product, Docs, Blog and FAQ. The homepage preparation section is **not an installer**. The Blog example is explicitly fictional, with no measured product result.
 
 No invented pricing, trial, customers, testimonials, benchmarks, download links, or license grants are included. The old 0.0.13 commercial release is not mixed into the current homepage.
 

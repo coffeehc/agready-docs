@@ -13,7 +13,7 @@ test('preview is noindex, analytics disabled and all linked local assets exist',
  assert.doesNotMatch(html,/rel="canonical"/);
  assert.doesNotMatch(html,/property="og:(?:url|image)"/);
  assert.match(readFileSync('dist/_headers','utf8'),/X-Robots-Tag: noindex/);
- for(const match of html.matchAll(/(?:href|src)="(\/[^"]*)"/g)) assert.ok(existsSync('dist'+(match[1]==='/'?'/index.html':match[1])),match[1]);
+ for(const match of html.matchAll(/(?:href|src)="(\/[^"]*)"/g)) assert.ok(existsSync('dist'+(match[1].endsWith('/')?match[1]+'index.html':match[1])),match[1]);
  for(const match of html.matchAll(/href="#([^"]+)"/g)) assert.ok(html.includes(`id="${match[1]}"`),match[1]);
  assert.match(readFileSync('dist/robots.txt','utf8'),/Disallow: \//);
 });
@@ -29,5 +29,33 @@ test('invalid analytics ID and unsafe origin fail closed',()=>{
  assert.throws(()=>build({GA4_MEASUREMENT_ID:'https://evil.test'}));
  assert.throws(()=>build({SITE_ORIGIN:'http://example.com'}));
  assert.throws(()=>build({SITE_ORIGIN:'https://example.com/path'}));
+ build();
+});
+
+test('all content pages have real navigation, preview safeguards and no unconfirmed release paths',()=>{
+ build();
+ const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
+ assert.equal(pages.length,6);
+ for(const page of pages){
+  const html=readFileSync('dist'+page.path+'index.html','utf8');
+  assert.equal((html.match(/<h1\b/g)||[]).length,1,page.path);
+  assert.match(html,/name="robots" content="noindex,nofollow"/);
+  assert.match(html,/name="ga4-measurement-id" content=""/);
+  assert.doesNotMatch(html,/rel="canonical"|xagent-releases|xagent\.xiagaogao|github\.com\/coffeehc\/agready|localhost|127\.0\.0\.1|\{\{[A-Z_]+\}\}/);
+  for(const m of html.matchAll(/(?:href|src)="(\/[^"#]*)(?:#([^"]+))?"/g)){
+   const file='dist'+(m[1].endsWith('/')?m[1]+'index.html':m[1]);
+   assert.ok(existsSync(file),page.path+' -> '+m[1]);
+   if(m[2]) assert.ok(readFileSync(file,'utf8').includes('id="'+m[2]+'"'));
+  }
+  for(const m of html.matchAll(/href="#([^"]+)"/g)) assert.ok(html.includes('id="'+m[1]+'"'));
+ }
+ assert.ok(!existsSync('.github/workflows/check.yml'));
+});
+test('every production page has its own canonical URL and sitemap entry',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ for(const p of JSON.parse(readFileSync('src/pages.json','utf8'))){
+  assert.ok(readFileSync('dist'+p.path+'index.html','utf8').includes('rel="canonical" href="https://agready.ai'+p.path+'"'));
+  assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+p.path+'</loc>'));
+ }
  build();
 });

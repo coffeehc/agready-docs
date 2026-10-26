@@ -1,0 +1,38 @@
+[
+  {
+    "source": "src/product.html",
+    "path": "/product/",
+    "title": "A workspace for work that takes more than one step. \u2014 AgReady",
+    "description": "AgReady brings task context, tools and reusable instructions into a session, so an assignment can be worked on and reviewed as a whole."
+  },
+  {
+    "source": "src/docs.html",
+    "path": "/docs/",
+    "title": "Understand the work before you run it. \u2014 AgReady",
+    "description": "A short guide to the concepts behind AgReady and the decisions to make before giving an agent a task."
+  },
+  {
+    "source": "src/docs-core-concepts.html",
+    "path": "/docs/core-concepts/",
+    "title": "Core concepts \u2014 AgReady",
+    "description": "A practical vocabulary for understanding how a task is organized, what can act on it, and what still needs your judgment."
+  },
+  {
+    "source": "src/faq.html",
+    "path": "/faq/",
+    "title": "Frequently asked questions \u2014 AgReady",
+    "description": "Clear answers about this preview, the product concepts and the choices that remain yours."
+  },
+  {
+    "source": "src/blog.html",
+    "path": "/blog/",
+    "title": "Notes on deliberate agentic work. \u2014 AgReady",
+    "description": "Practical methods for defining tasks, inspecting results and keeping the scope of work clear."
+  },
+  {
+    "source": "src/blog-verifiable-agent-tasks.html",
+    "path": "/blog/verifiable-agent-tasks/",
+    "title": "Give an agent a task you can actually verify \u2014 AgReady",
+    "description": "A clear deliverable is only half the brief. Define the evidence that will tell you whether the work is correct."
+  }
+]

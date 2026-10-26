@@ -1,5 +1,5 @@
-# Planned documentation sources
+# Documentation editorial notes
 
-Reserve Markdown source content here. No empty public pages or nav links are generated.
+Current HTML sources live in `src/docs.html` and `src/docs-core-concepts.html`; routes are listed in `src/pages.json`. This folder is not rendered.
 
-Initial sequence: overview, release prerequisites, installation, model configuration, first task, permissions and recovery, troubleshooting. Each article must state the tested version, inputs, steps, observable success and error recovery. Do not invent installation commands.
+Concept descriptions must distinguish development behavior from released availability. Installation, model setup and troubleshooting guides remain pending a confirmed deployment path and tested version. Do not invent commands or substitute an older product distribution.
