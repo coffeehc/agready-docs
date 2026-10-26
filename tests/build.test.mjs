@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
 import {readFileSync,existsSync} from 'node:fs';
 function build(env={}){execFileSync(process.execPath,['scripts/build.mjs'],{stdio:'pipe',env:{...process.env,GA4_MEASUREMENT_ID:'',GOOGLE_SITE_VERIFICATION:'',SITE_PUBLISH:'false',...env}});return readFileSync('dist/index.html','utf8');}
 test('preview is noindex, analytics disabled and all linked local assets exist',()=>{
@@ -98,4 +99,21 @@ test('dedicated Get started CTA links to real preparation checklist, never last-
  assert.doesNotMatch(css,/nav a:last-child/);
  assert.match(css,/a:focus-visible/);
  assert.match(css,/\.nav-cta\{/);
+});
+
+test('all pages reference matching content-hashed CSS and JS consistently',()=>{
+ build();
+ const paths=['/',...JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path)];
+ for(const name of ['styles.css','app.js']){
+  const source=readFileSync('public/'+name);
+  const hash=createHash('sha256').update(source).digest('hex').slice(0,16);
+  const dot=name.lastIndexOf('.');
+  const hashed=name.slice(0,dot)+'.'+hash+name.slice(dot);
+  assert.deepEqual(readFileSync('dist/'+hashed),source);
+  for(const path of paths){
+   const html=readFileSync('dist'+path+'index.html','utf8');
+   assert.ok(html.includes('"/'+hashed+'"'),path);
+   assert.ok(!html.includes('"/'+name+'"'),path);
+  }
+ }
 });

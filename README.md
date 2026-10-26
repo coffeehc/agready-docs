@@ -57,3 +57,7 @@ curl -fsSL https://download.agready.ai/agready/install.sh | bash
 ```
 
 The Server installer installs only AgReady. Independently released plugins use `https://download.agready.ai/agready/agentplugins/install.sh --plugins <names>`; they are not bundled with this Server release. Existing xAgent installations require the separate migration tool; normal installation and upgrade do not migrate their data.
+
+## Static asset versions
+
+The build emits SHA-256 content-hashed CSS and JavaScript filenames and rewrites every page to those URLs. Identical asset bytes keep the same URL; changes produce a new URL so stale domain caches cannot mix old CSS with new HTML. Legacy unversioned copies remain for previously cached HTML, but newly generated pages do not reference them.

@@ -1,5 +1,6 @@
 import { readFile, writeFile, mkdir, cp, rm } from 'node:fs/promises';
 import { dirname } from 'node:path';
+import { createHash } from 'node:crypto';
 import { site } from '../src/site.config.mjs';
 const escape = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const origin = new URL(process.env.SITE_ORIGIN || 'https://agready.ai');
@@ -11,9 +12,22 @@ const verification = process.env.GOOGLE_SITE_VERIFICATION || '';
 await rm('dist', { recursive:true, force:true });
 await mkdir('dist', {recursive:true});
 await cp('public', 'dist', {recursive:true});
+// Content-addressed URLs prevent an older cached asset from styling a new page.
+// Keep legacy names for previously cached HTML; new pages only use hashed URLs.
+const assets = {};
+for (const name of ['styles.css', 'app.js']) {
+ const bytes = await readFile('public/'+name);
+ const hash = createHash('sha256').update(bytes).digest('hex').slice(0,16);
+ const dot = name.lastIndexOf('.');
+ const versioned = name.slice(0,dot)+'.'+hash+name.slice(dot);
+ await writeFile('dist/'+versioned, bytes);
+ assets['/'+name] = '/'+versioned;
+}
+
 const pages = [{source:'src/index.html',path:'/',title:site.title,description:site.description}, ...JSON.parse(await readFile('src/pages.json','utf8'))];
 for (const page of pages) {
  let html = await readFile(page.source,'utf8');
+ for (const [original, versioned] of Object.entries(assets)) html = html.replaceAll('\"'+original+'\"', '\"'+versioned+'\"');
  const values = { TITLE:page.title, DESCRIPTION:page.description, PAGE_PATH:page.path, ORIGIN:origin.origin, ROBOTS:publish?'index,follow':'noindex,nofollow', GA_ID:ga, VERIFICATION:verification };
  html = html.replace(/\{\{([A-Z_]+)\}\}/g,(_,k)=>escape(values[k] ?? ''));
  if (!publish) html = html.replace(/<link rel="canonical"[^>]*>/g, '').replace(/<meta property="og:(?:url|image)"[^>]*>/g, '');
