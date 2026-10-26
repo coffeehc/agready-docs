@@ -167,3 +167,31 @@ test('consent banner uses native keyboard controls and stays non-modal',()=>{
  assert.doesNotMatch(css,/\.analytics-banner\{[^}]*position:(?:fixed|absolute)/);
  assert.match(css,/a:focus-visible,button:focus-visible/);
 });
+
+test('404 output is noindex, not canonicalized and excluded from the ten-page sitemap',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const missing=readFileSync('dist/404.html','utf8');
+ assert.match(missing,/noindex,nofollow/);
+ assert.doesNotMatch(missing,/rel="canonical"|property="og:url"/);
+ assert.match(missing,/href="\/"/);assert.match(missing,/href="\/docs\/"/);
+ assert.match(missing,/name="ga4-measurement-id" content=""/);
+ const sitemap=readFileSync('dist/sitemap.xml','utf8');
+ assert.equal((sitemap.match(/<loc>/g)||[]).length,10);
+ assert.doesNotMatch(sitemap,/404/);
+ assert.ok(!existsSync('dist/_redirects'));
+ build();
+});
+test('Pages preview host noindex headers survive both build modes',()=>{
+ for(const publish of ['false','true']){
+  build({SITE_PUBLISH:publish,SITE_ORIGIN:'https://agready.ai'});
+  const headers=readFileSync('dist/_headers','utf8');
+  assert.ok(headers.includes('https://agready-docs.pages.dev/*\n  X-Robots-Tag: noindex'));
+  assert.ok(headers.includes('https://:version.agready-docs.pages.dev/*\n  X-Robots-Tag: noindex'));
+  assert.equal(headers.includes('\n/*\n'),publish==='false');
+  assert.doesNotMatch(headers,/https:\/\/agready.ai/);
+ }
+ assert.throws(()=>build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready-docs.pages.dev'}));
+ assert.throws(()=>build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://example.com'}));
+ build();
+ assert.match(readFileSync('dist/robots.txt','utf8'),/Disallow: \//);
+});

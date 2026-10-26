@@ -40,3 +40,12 @@ References:
 - https://support.google.com/analytics/answer/9539598
 - https://support.google.com/webmasters/answer/9008080
 - https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites
+
+## Search-safety build checks
+
+- A top-level `404.html` prevents Cloudflare Pages from treating missing paths as an SPA fallback. It has Home/Docs links, no canonical, and is excluded from the sitemap.
+- Every build emits noindex headers for `agready-docs.pages.dev` and its branch/commit preview subdomains, using Cloudflare Pages absolute-host and named-placeholder syntax.
+- Indexable builds require exactly `SITE_ORIGIN=https://agready.ai`; preview defaults remain noindex with an empty sitemap and `Disallow: /`.
+- Robots exclusion is not proof of non-indexing: disallowing crawling can prevent a crawler from reading noindex directives. Enabling indexing or changing the robots strategy requires a separate approved publication decision.
+- Live 404 status and response headers must be verified after a future approved push; local tests validate build output, not Cloudflare's deployed routing.
+- References: https://developers.cloudflare.com/pages/configuration/headers/ and https://developers.cloudflare.com/pages/configuration/serving-pages/.
