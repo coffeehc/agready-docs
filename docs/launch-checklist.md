@@ -30,8 +30,7 @@
 - [ ] If a product app is added later, define verified activation/completion events there rather than inferring them from homepage clicks.
 
 ## Future content
-- [x] Add a release-scoped getting-started guide at `/docs/getting-started/`, linking verified public xAgent v0.1.1 resources.
-- [ ] Confirm the final AgReady commercial access route before offering signup, trial or purchase actions.
+- [ ] Publish a release-specific Quickstart before linking `/docs/`.
 - [ ] Publish one reproducible case before linking a Use Cases index.
 - [ ] Publish the first evidence-based article before linking `/blog/`.
 - [ ] Add author/date/version/source metadata, canonical URLs and sitemap entries per real page.

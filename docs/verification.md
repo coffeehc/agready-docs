@@ -1,7 +1,7 @@
 # Verification status
 
 - Node build: passed (preview default; analytics disabled).
-- Node tests: 10 passed. Includes linked-asset/anchor existence, one H1, preview indexing safety, production metadata and escaping, invalid ID/origin rejection, real guide links and version scope, SVG icon safety, absent Actions workflow, default analytics off, opt-in, query/hash stripping in manually queued events, repeat acceptance, withdrawal, persisted decline and blocked storage.
+- Node tests: 8 passed. Includes linked-asset/anchor existence, one H1, preview indexing safety, production metadata and escaping, invalid ID/origin rejection, default analytics off, opt-in, query/hash stripping in manually queued events, repeat acceptance, withdrawal, persisted decline and blocked storage.
 - Real Google account/property setup: not performed.
 - Actual Google network collection and DebugView: not verified; tests use a simulated DOM and event queue, not a real property.
 - Browser visual and responsive QA: **not completed**. The build environment did not support launching Chromium or accessing the preview server from the browser environment. A real browser pass is required before public release.
