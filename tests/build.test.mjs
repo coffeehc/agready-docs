@@ -13,7 +13,7 @@ test('preview is noindex, analytics disabled and all linked local assets exist',
  assert.doesNotMatch(html,/rel="canonical"/);
  assert.doesNotMatch(html,/property="og:(?:url|image)"/);
  assert.match(readFileSync('dist/_headers','utf8'),/X-Robots-Tag: noindex/);
- for(const match of html.matchAll(/(?:href|src)="(\/[^"]*)"/g)) assert.ok(existsSync('dist'+(match[1].endsWith('/')?match[1]+'index.html':match[1])),match[1]);
+ for(const match of html.matchAll(/(?:href|src)="(\/[^"]*)"/g)){ const [path,hash]=match[1].split('#'); const file='dist'+(path.endsWith('/')?path+'index.html':path); assert.ok(existsSync(file),match[1]); if(hash) assert.ok(readFileSync(file,'utf8').includes('id="'+hash+'"')); }
  for(const match of html.matchAll(/href="#([^"]+)"/g)) assert.ok(html.includes(`id="${match[1]}"`),match[1]);
  assert.match(readFileSync('dist/robots.txt','utf8'),/Disallow: \//);
 });
@@ -83,4 +83,19 @@ test('public contact email appears on every page and About without private forwa
   assert.doesNotMatch(html,/@gmail\.com/);
  }
  assert.match(readFileSync('dist/about/index.html','utf8'),/<h2>Contact<\/h2>/);
+});
+
+test('dedicated Get started CTA links to real preparation checklist, never last-child styling',()=>{
+ build();
+ const home=readFileSync('dist/index.html','utf8');
+ assert.match(home,/id="start"/);
+ assert.match(home,/This is a preparation checklist/);
+ for(const path of ['/',...JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path)]){
+  const html=readFileSync('dist'+path+'index.html','utf8');
+  assert.match(html,/<\/nav><a class="nav-cta" href="\/#start"/);
+ }
+ const css=readFileSync('dist/styles.css','utf8');
+ assert.doesNotMatch(css,/nav a:last-child/);
+ assert.match(css,/a:focus-visible/);
+ assert.match(css,/\.nav-cta\{/);
 });
