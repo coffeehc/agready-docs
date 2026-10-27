@@ -285,7 +285,7 @@ test('four substantive guides have real links, version scope and no internal evi
  for(const name of names){
   const html=readFileSync('dist/docs/'+name+'/index.html','utf8');
   assert.ok(docs.includes('href="/docs/'+name+'/"'));
-  assert.ok((html.match(/<h2>/g)||[]).length>=4);
+  assert.ok((html.match(/<h2\b/g)||[]).length>=4);
   assert.doesNotMatch(html,/INTERNAL ONLY|INTERNAL-EVIDENCE|e5942c56|github.com\/coffeehc\/agready\/|accompanying interface images/);
   if(name!=='install-and-start') assert.match(html,/October 2026 development interface/);
  }
@@ -293,4 +293,32 @@ test('four substantive guides have real links, version scope and no internal evi
  const start=readFileSync('dist/docs/getting-started/index.html','utf8');
  for(const name of names) assert.ok(start.includes('href="/docs/'+name+'/"'));
  for(const id of ['access','setup','model','task','review','stop','troubleshooting']) assert.ok(start.includes('id="'+id+'"'));
+});
+
+test('all seven docs routes have shared accessible navigation and real page TOC anchors',()=>{
+ build(); const pages=JSON.parse(readFileSync('src/pages.json','utf8')).filter(p=>p.path.startsWith('/docs/'));
+ assert.equal(pages.length,7);
+ for(const page of pages){
+  const html=readFileSync('dist'+page.path+'index.html','utf8');
+  assert.match(html,/class="docs-sidebar"/);assert.match(html,/<details class="docs-mobile-menu"><summary>Documentation menu<\/summary>/);
+  const navs=[...html.matchAll(/<nav aria-label="Documentation(?: mobile)?" class="docs-navigation">([\s\S]*?)<\/nav>/g)];
+  assert.equal(navs.length,2);
+  for(const [,nav] of navs){
+   assert.equal((nav.match(/aria-current="page"/g)||[]).length,1);
+   assert.ok(nav.includes('href="'+page.path+'" aria-current="page"'));
+   for(const item of pages) assert.ok(nav.includes('href="'+item.path+'"'),item.path);
+   assert.doesNotMatch(nav,/href="\/blog/);
+  }
+  const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(ids.length,new Set(ids).size);
+  if(page.path!=='/docs/'){
+   const toc=html.match(/<nav aria-label="On this page">([\s\S]*?)<\/nav>/)[1];
+   const main=html.match(/<main\b[\s\S]*?<\/main>/)[0];
+   const headings=[...main.matchAll(/<h2[^>]*id="([^"]+)"/g)].map(m=>m[1]);
+   assert.ok(headings.length>=3);
+   for(const id of headings) assert.ok(toc.includes('href="#'+id+'"'));
+   assert.equal((toc.match(/href="#/g)||[]).length,headings.length);
+  }
+ }
+ const css=readFileSync('public/styles.css','utf8');
+ assert.match(css,/@media\(max-width:900px\)/);assert.match(css,/summary:focus-visible/);
 });

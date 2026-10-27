@@ -2,6 +2,7 @@ import { readFile, writeFile, mkdir, cp, rm } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import { createHash } from 'node:crypto';
 import { site } from '../src/site.config.mjs';
+import { addDocumentationNavigation } from './docs-navigation.mjs';
 const escape = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const origin = new URL(process.env.SITE_ORIGIN || 'https://agready.ai');
 if (origin.protocol !== 'https:' || origin.pathname !== '/' || origin.search || origin.hash || origin.username || origin.password) throw new Error('SITE_ORIGIN must be an HTTPS origin without a path, credentials or query.');
@@ -28,6 +29,7 @@ for (const name of ['styles.css', 'app.js']) {
 const pages = [{source:'src/index.html',path:'/',title:site.title,description:site.description}, ...JSON.parse(await readFile('src/pages.json','utf8'))];
 for (const page of [...pages, {source:'src/404.html',path:'/404.html',output:'dist/404.html',notFound:true}]) {
  let html = await readFile(page.source,'utf8');
+ html = addDocumentationNavigation(html,page,pages);
  for (const [original, versioned] of Object.entries(assets)) html = html.replaceAll('\"'+original+'\"', '\"'+versioned+'\"');
  const values = { TITLE:page.title, DESCRIPTION:page.description, PAGE_PATH:page.path, ORIGIN:origin.origin, ROBOTS:publish&&!page.notFound?'index,follow':'noindex,nofollow', GA_ID:ga, VERIFICATION:verification };
  html = html.replace(/\{\{([A-Z_]+)\}\}/g,(_,k)=>escape(values[k] ?? ''));

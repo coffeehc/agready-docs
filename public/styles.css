@@ -27,3 +27,19 @@
 
 /* Consent stays in document flow, never covering the page or trapping focus. */
 .analytics-banner[hidden]{display:none}.analytics-banner{background:#e9ede2;border-bottom:1px solid var(--line)}.analytics-banner-inner{display:flex;align-items:center;gap:28px;padding-top:22px;padding-bottom:22px}.analytics-banner h2{font-size:20px;letter-spacing:-.4px;margin:0 0 8px}.analytics-banner p{font-size:13px;line-height:1.65;margin:0}.analytics-banner a{text-decoration:underline}.analytics-banner-actions{display:flex;gap:12px;flex-shrink:0}.analytics-banner-actions .button{border:1px solid #a8b29f;background:var(--paper);min-height:44px}.analytics-banner-actions .button:hover{background:#dce3d2}@media(max-width:1000px){.analytics-banner-inner{flex-direction:column;align-items:stretch;gap:16px}.analytics-banner-actions{flex-wrap:wrap}.analytics-banner-actions .button{flex:1 1 180px}}
+
+/* Documentation navigation is rendered at build time; native details needs no JS. */
+.docs-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:44px;align-items:start}
+.docs-sidebar{padding:65px 0 48px;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
+.docs-content{min-width:0}.docs-layout .docs-article{width:100%;max-width:900px;margin:0}
+.docs-navigation ul{padding:0;margin:0;list-style:none}.docs-nav-group+.docs-nav-group{margin-top:23px}
+.docs-nav-heading{margin:0 0 7px;font-size:11px;font-weight:700;letter-spacing:.5px;color:var(--muted)}
+.docs-navigation a{display:flex;align-items:center;min-height:44px;padding:9px 12px;border-radius:6px;font-size:14px;line-height:1.45;overflow-wrap:anywhere}
+.docs-navigation a:hover{background:#e8ecdf}.docs-navigation a[aria-current="page"]{background:#e3ebd6;color:var(--green);font-weight:700;border-left:3px solid var(--green)}
+.docs-mobile-menu{display:none}.docs-page-toc{margin:26px 0;border-block:1px solid var(--line);padding:6px 0}
+.docs-page-toc summary,.docs-mobile-menu summary{cursor:pointer;min-height:44px;padding:13px 4px;font-size:14px;font-weight:600;color:var(--ink)}
+summary:focus-visible{outline:3px solid #6c8934;outline-offset:4px}
+.reading-page .docs-page-toc ul{list-style:none;padding:0;margin:0 0 10px}.reading-page .docs-page-toc li+li{margin-top:0}
+.docs-page-toc a{display:block;padding:10px 4px;min-height:44px;font-size:14px;line-height:1.6;overflow-wrap:anywhere}
+.docs-article h2[id]{scroll-margin-top:20px}.docs-article pre{max-width:100%;overflow-x:auto}.docs-article code{overflow-wrap:anywhere}
+@media(max-width:900px){.docs-layout{display:block}.docs-sidebar{display:none}.docs-mobile-menu{display:block;margin-top:24px;border-block:1px solid var(--line);padding:6px 0}.docs-mobile-menu .docs-navigation{padding:10px 0 20px}.docs-layout .docs-article{padding-top:30px}.docs-nav-group+.docs-nav-group{margin-top:16px}}
