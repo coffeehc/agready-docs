@@ -88,5 +88,35 @@
     "path": "/docs/files-and-workspace/",
     "title": "Use files and retrieve your work \u2014 AgReady",
     "description": "Attach files to an AgReady task, check processing, use workspace files and inspect downloaded results."
+  },
+  {
+    "source": "src/docs-memory-and-context.html",
+    "path": "/docs/memory-and-context/",
+    "title": "Manage memory and current context \u2014 AgReady",
+    "description": "Inspect long-term memory in AgReady, add useful preferences and correct stale information without confusing memory with conversation context."
+  },
+  {
+    "source": "src/docs-skills-and-reusable-work.html",
+    "path": "/docs/skills-and-reusable-work/",
+    "title": "Use skills for repeatable work \u2014 AgReady",
+    "description": "Find, inspect and load reusable instructions in AgReady. Import a skill or request one, then check it with a bounded task."
+  },
+  {
+    "source": "src/docs-tools-and-runtime-assets.html",
+    "path": "/docs/tools-and-runtime-assets/",
+    "title": "Connect tools and integrations \u2014 AgReady",
+    "description": "Find available tools in AgReady, load the tools a task needs and diagnose connection, permission and execution-environment problems."
+  },
+  {
+    "source": "src/docs-human-oversight.html",
+    "path": "/docs/human-oversight/",
+    "title": "Review actions and keep control \u2014 AgReady",
+    "description": "Set task boundaries, inspect approvals and check completed actions before stopping, retrying or taking over work in AgReady."
+  },
+  {
+    "source": "src/docs-operations.html",
+    "path": "/docs/operations/",
+    "title": "Plan upgrades and recovery \u2014 AgReady",
+    "description": "Prepare AgReady maintenance, check backups and understand the separate steps and limits of upgrades, restoration and validation."
   }
 ]

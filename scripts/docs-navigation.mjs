@@ -3,6 +3,9 @@ export const documentationGroups = [
  {title:'Start here',pages:[['/docs/','Documentation overview'],['/docs/getting-started/','Get started']]},
  {title:'Set up your instance',pages:[['/docs/install-and-start/','Install and start'],['/docs/model-configuration/','Model configuration']]},
  {title:'Work with an agent',pages:[['/docs/sessions-and-context/','Sessions and context'],['/docs/files-and-workspace/','Files and workspace']]},
+ {title:'Context and reusable work',pages:[['/docs/memory-and-context/','Memory and context'],['/docs/skills-and-reusable-work/','Skills']]},
+ {title:'Tools and human control',pages:[['/docs/tools-and-runtime-assets/','Tools and integrations'],['/docs/human-oversight/','Human oversight']]},
+ {title:'Operate your instance',pages:[['/docs/operations/','Upgrades and recovery']]},
  {title:'Understand the concepts',pages:[['/docs/core-concepts/','Core concepts']]}
 ];
 function navigation(path,label){

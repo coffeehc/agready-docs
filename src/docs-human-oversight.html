@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="site-revision" content="docs-depth-v21"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title><meta name="description" content="{{DESCRIPTION}}"><meta name="robots" content="{{ROBOTS}}">
+<meta name="google-site-verification" content="{{VERIFICATION}}"><meta name="ga4-measurement-id" content="{{GA_ID}}">
+<link rel="canonical" href="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:type" content="website"><meta property="og:title" content="{{TITLE}}"><meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:image" content="{{ORIGIN}}/social.svg"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header"><div class="container nav"><a class="brand" href="/" aria-label="AgReady home"><span class="brand-mark" aria-hidden="true">a<span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></span>AgReady<span class="brand-suffix">.ai</span></a><nav aria-label="Main navigation"><a href="/product/">Product</a><a href="/docs/">Docs</a><a href="/blog/">Blog</a><a href="/about/">About</a></nav><a class="nav-cta" href="/docs/getting-started/" aria-label="Get started: setup and first-task guide">Get started</a></div></header><section id="analytics-banner" class="analytics-banner" role="region" aria-labelledby="analytics-banner-title" hidden><div class="container analytics-banner-inner"><div><h2 id="analytics-banner-title">Optional Google Analytics</h2><p>Allow Google Analytics to measure page visits and selected navigation clicks? You can use this site without it and change your choice in the footer. This choice does not control Cloudflare performance measurement. <a href="/privacy/">Privacy notice</a>.</p></div><div class="analytics-banner-actions"><button id="banner-accept" class="button secondary" type="button">Allow Google Analytics</button><button id="banner-decline" class="button secondary" type="button">Decline Google Analytics</button></div></div></section>
+<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">DOCUMENTATION</div><h1>Review actions and keep control</h1>
+<p class="reading-lead">Set the boundary before work starts, review any approval request, and check what actually happened before repeating or taking over an action. Human oversight is a working practice supported by controls—not a promise that every operation will always produce a confirmation dialog.</p>
+<p>These controls describe the October 2026 development interface. Approval behavior depends on the operation, policy, account and release. AgReady's broader Agent Ready vision should not be read as a guarantee that every business system has a fully implemented human-takeover mode today.</p>
+<h2>State the boundary in the task</h2>
+<p>Separate reading from changing and preparing from sending. For example:</p>
+<pre class="task-template">Prepare a draft reply using the supplied notes. Show it in this conversation.
+Do not send it, update the account or publish anything.
+Ask me before any external action.</pre>
+<p>Name the allowed resources and the output you want. Configure appropriate access and policy controls as well: a written instruction is important, but it is not a technical substitute for limiting account permissions.</p>
+<h2>Read an approval request</h2>
+<p>When <strong>Tool execution requires approval</strong> appears:</p>
+<ol>
+<li>Confirm the tool and requesting session. A forwarded request may concern another session's actual action.</li>
+<li>Read the operation preview. Where shown, inspect the command, working directory, recipient, subject or content.</li>
+<li>Check resource scope and allowed destinations, not just the risk label.</li>
+<li>Decide whether the exact action is within your intent and whether the displayed information is sufficient.</li>
+<li>Approve only an appropriate scope, or <strong>Reject</strong> and explain what must change.</li>
+</ol>
+<p>A vague or unexpected request is a reason to clarify, not to approve so that the task can continue.</p>
+<h2>Choose the narrowest useful scope</h2>
+<p>Depending on the request, the interface can offer <strong>Allow once</strong>, <strong>Allow for this task</strong>, or <strong>Allow for this session</strong>. Only the scopes allowed by that request are shown.</p>
+<p>Prefer one-time approval when you only intend the displayed action. Before allowing reuse, inspect the resources to which that reusable approval applies. A session-wide choice should not be made merely to avoid future interruptions.</p>
+<p>Approval is permission to attempt an operation; it is not evidence that the operation succeeded. After the decision, inspect the resulting status and output. If submission fails or the result is uncertain, check the pending request before deciding again.</p>
+<h2>Do not rely on a dialog for every action</h2>
+<p>The product evaluates approval policies and some operations can proceed without an interactive prompt. Do not assume that an absent prompt means the operation was harmless, or that a low-risk label replaces your review. Use account permissions, appropriate policy and a narrowly scoped task together.</p>
+<p>The <strong>Approvals</strong> page can help you inspect requests and records associated with your user. It is not a replacement for checking the affected external system when delivery or a write is uncertain.</p>
+<h2>Stop and take over without duplicating work</h2>
+<p>Use <strong>Stop current run</strong> when you need to interrupt an active run. Stopping is not a rollback, and it does not establish that all queued work or external effects disappeared.</p>
+<p>Before acting manually:</p>
+<ol>
+<li>Inspect the latest status, messages and tool results.</li>
+<li>Identify what is completed, still pending and uncertain.</li>
+<li>For an external action, check the actual destination or account when appropriate. Do not send the same message again merely because the conversation stopped.</li>
+<li>Tell the agent that you are handling the remaining step and specify that it must not repeat it.</li>
+<li>If you later resume, state what you completed and what is still authorized.</li>
+</ol>
+<p>This is a safe handover procedure, not a claim of a universal “take over every connected app” button. Where the outcome cannot be determined, pause the dependent action and ask the administrator or service owner to help establish the state.</p>
+<h2>Review the deliverable too</h2>
+<p>Permissions and successful tool responses do not prove that a result is correct. Compare facts, recipients, amounts, filenames and scope with the original request. Keep approval of an action separate from acceptance of its output.</p><p>See the <a href="/agent-ready/">Agent Ready vision</a> for the broader direction, or <a href="/docs/sessions-and-context/">sessions and context</a> for session lifecycle controls.</p><p><a href="/docs/">All documentation</a></p></main>
+<footer class="container footer"><a class="brand" href="/">AgReady<span class="brand-suffix">.ai</span></a><a class="footer-link" href="/faq/">FAQ</a><a class="footer-link" href="/privacy/">Privacy</a><a class="footer-link" href="mailto:hello@agready.ai">hello@agready.ai</a><button class="privacy-link" id="privacy-open" type="button">Google Analytics preference</button><span class="footer-year">© 2026 AgReady</span></footer>
+<dialog id="privacy-dialog" aria-labelledby="privacy-title"><form method="dialog"><button class="dialog-close" aria-label="Close Google Analytics preference"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg></button></form><div class="eyebrow">YOUR CHOICE</div><h2 id="privacy-title">Google Analytics preference</h2><p id="analytics-status">Google Analytics is not configured. No Google Analytics script is loaded.</p><p>Cloudflare provides website delivery and performance measurement separately. This preference controls only optional Google Analytics; it does not disable Cloudflare measurement.</p><p>If Google Analytics is configured and you allow it, this site measures page visits and selected navigation clicks. Its integration omits URL query parameters and does not intentionally send task content, file contents or email addresses. These limits describe this integration, not every service used to deliver the website.</p><p>Your choice is saved in this browser. Declining Google Analytics does not affect page access. You can change this preference here or clear this site's browser data.</p><p>Read the <a href="/privacy/">Website Privacy Notice</a> for website delivery, performance measurement and contact information.</p><div class="consent-actions"><button class="button primary" id="analytics-accept" type="button">Allow Google Analytics</button><button class="button secondary" id="analytics-decline" type="button">Decline Google Analytics</button></div><p id="consent-feedback" role="status" aria-live="polite"></p></dialog>
+</body></html>

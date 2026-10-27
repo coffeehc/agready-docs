@@ -36,7 +36,7 @@ test('invalid analytics ID and unsafe origin fail closed',()=>{
 test('all content pages have real navigation, preview safeguards and no unconfirmed release paths',()=>{
  build();
  const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
- assert.equal(pages.length,15);
+ assert.equal(pages.length,20);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page.path);
@@ -176,7 +176,7 @@ test('404 output is noindex, not canonicalized and excluded from the content sit
  assert.match(missing,/href="\/"/);assert.match(missing,/href="\/docs\/"/);
  assert.match(missing,/name="ga4-measurement-id" content=""/);
  const sitemap=readFileSync('dist/sitemap.xml','utf8');
- assert.equal((sitemap.match(/<loc>/g)||[]).length,16);
+ assert.equal((sitemap.match(/<loc>/g)||[]).length,21);
  assert.doesNotMatch(sitemap,/404/);
  assert.ok(!existsSync('dist/_redirects'));
  build();
@@ -295,9 +295,9 @@ test('four substantive guides have real links, version scope and no internal evi
  for(const id of ['access','setup','model','task','review','stop','troubleshooting']) assert.ok(start.includes('id="'+id+'"'));
 });
 
-test('all seven docs routes have shared accessible navigation and real page TOC anchors',()=>{
+test('all docs routes have shared accessible navigation and real page TOC anchors',()=>{
  build(); const pages=JSON.parse(readFileSync('src/pages.json','utf8')).filter(p=>p.path.startsWith('/docs/'));
- assert.equal(pages.length,7);
+ assert.equal(pages.length,12);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.match(html,/class="docs-sidebar"/);assert.match(html,/<details class="docs-mobile-menu"><summary>Documentation menu<\/summary>/);
@@ -321,4 +321,20 @@ test('all seven docs routes have shared accessible navigation and real page TOC 
  }
  const css=readFileSync('public/styles.css','utf8');
  assert.match(css,/@media\(max-width:900px\)/);assert.match(css,/summary:focus-visible/);
+});
+
+test('advanced guidance keeps version and recovery boundaries with shared navigation',()=>{
+ build();
+ const names=['memory-and-context','skills-and-reusable-work','tools-and-runtime-assets','human-oversight','operations'];
+ const docs=readFileSync('dist/docs/index.html','utf8');
+ for(const name of names){
+  const page=readFileSync('dist/docs/'+name+'/index.html','utf8');
+  assert.ok((page.match(/<h2\b/g)||[]).length>=5);
+  assert.ok(docs.includes('href="/docs/'+name+'/"'));
+  assert.doesNotMatch(page,/INTERNAL|e5942c56|9d6fc32|github.com\/coffeehc\/agready\/|successful live test/);
+ }
+ const ops=readFileSync('dist/docs/operations/index.html','utf8');
+ assert.match(ops,/separate database backup/);assert.match(ops,/credentials and the decryption key/);
+ assert.match(ops,/Ready for cutover/);assert.match(ops,/Confirmation cleans up/);
+ assert.doesNotMatch(ops,/agready(?:-server)? backup restore --continue/);
 });
