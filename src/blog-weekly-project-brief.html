@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="site-revision" content="weekly-brief-v17"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title><meta name="description" content="{{DESCRIPTION}}"><meta name="robots" content="{{ROBOTS}}">
+<meta name="google-site-verification" content="{{VERIFICATION}}"><meta name="ga4-measurement-id" content="{{GA_ID}}">
+<link rel="canonical" href="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:type" content="website"><meta property="og:title" content="{{TITLE}}"><meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:image" content="{{ORIGIN}}/social.svg"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header"><div class="container nav"><a class="brand" href="/" aria-label="AgReady home"><span class="brand-mark" aria-hidden="true">a<span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></span>AgReady<span class="brand-suffix">.ai</span></a><nav aria-label="Main navigation"><a href="/product/">Product</a><a href="/docs/">Docs</a><a href="/blog/">Blog</a><a href="/about/">About</a></nav><a class="nav-cta" href="/docs/getting-started/" aria-label="Get started: setup and first-task guide">Get started</a></div></header><section id="analytics-banner" class="analytics-banner" role="region" aria-labelledby="analytics-banner-title" hidden><div class="container analytics-banner-inner"><div><h2 id="analytics-banner-title">Optional Google Analytics</h2><p>Allow Google Analytics to measure page visits and selected navigation clicks? You can use this site without it and change your choice in the footer. This choice does not control Cloudflare performance measurement. <a href="/privacy/">Privacy notice</a>.</p></div><div class="analytics-banner-actions"><button id="banner-accept" class="button secondary" type="button">Allow Google Analytics</button><button id="banner-decline" class="button secondary" type="button">Decline Google Analytics</button></div></div></section>
+<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">WORKED EXAMPLE · OCTOBER 27, 2026</div><h1>Turn scattered project notes into a weekly brief</h1><p class="reading-lead">Keep the change, the evidence and the unanswered decision. Leave out the confident story your notes cannot support.</p>
+<p class="article-context">This fictional example shows a text-only drafting workflow. The sample brief is an editorial example, not a report of an AgReady execution or a customer result.</p>
+<section><h2>One week, one audience, one cutoff</h2><p>A weekly update is not a transcript. Its reader needs to know what changed, what remains blocked and which decision needs attention. The difficult part is preserving those distinctions while shortening the source material.</p><p>For this example, the audience is a project sponsor. The reporting window is October 19–23, 2026, with a cutoff of Friday at 17:00 UTC. The project is a small help-center refresh. We will draft a brief, not send it or update a project system.</p></section>
+<section><h2>The source packet</h2><p>Give each note an ID before asking for a summary. Keep dates and the meaning of any counts. Remove confidential information that is not needed for the draft.</p>
+<pre class="task-template">[N1] Monday, Oct 19, 09:00 UTC — planning
+Help-center refresh: 12 articles in scope. Six drafts ready for review.
+Priya owns the content. Friday is a target for a preview, not public launch.
+
+[N2] Wednesday, Oct 21, 14:00 UTC — content check
+Nine of the same 12 articles now have drafts ready for review.
+Two of those nine still need product review. None is approved to publish.
+
+[N3] Thursday, Oct 22, 11:00 UTC — preview test
+The preview build is available to the internal reviewers.
+Mobile navigation has a broken link. Leo will investigate; no fix date yet.
+
+[N4] Friday, Oct 23, 16:00 UTC — review update
+Product review completed for the two articles mentioned in N2.
+Publication approval is still pending for all articles.
+The navigation issue is still open. The sponsor must decide whether
+Monday's wider preview may proceed with the known issue.
+
+[N5] Friday, Oct 23, 18:30 UTC — late message
+Leo reports a navigation fix. Verification is scheduled for Monday.</pre>
+<p>N5 is outside the cutoff. It may be relevant later, but quietly folding it into Friday's status would change what the brief means. Also, “draft ready,” “product reviewed” and “approved to publish” are different states.</p></section>
+<section><h2>A prompt you can reuse</h2><p>Copy the prompt below together with the source packet. For your own project, replace the audience, window and notes; keep the boundaries that matter.</p>
+<pre class="task-template">Draft a weekly project brief for the sponsor using only notes N1–N5.
+Reporting window: October 19–23, 2026; cutoff: Oct 23 at 17:00 UTC.
+Do not browse, edit source notes, update systems or send the brief.
+
+Write at most 220 words, excluding the title, in these sections:
+- Progress: changes supported by notes within the reporting window.
+- Open risk: what remains unresolved at the cutoff.
+- Decision needed: the specific question for the sponsor.
+- After cutoff: relevant later information, clearly separate.
+
+Attach note IDs to factual statements. Show arithmetic for any change
+in counts. Keep draft readiness, product review and publication approval
+separate. Do not assign a status color, invent a deadline, or turn a
+reported fix into a verified fix. If the notes do not establish an owner
+or outcome, say so rather than filling the gap.
+Return a draft for human review, not a claim that it has been sent.</pre></section>
+<section><h2>Example brief</h2><div class="sample-note"><strong>Help-center refresh — week ending October 23</strong>
+<p><strong>Progress.</strong> Drafts ready for review increased from 6 to 9 of the same 12 articles: 9 − 6 = 3 additional drafts. [N1, N2] Product review finished for the two articles flagged on Wednesday; publication approval remains pending for all articles. [N2, N4] The internal preview build is available. [N3]</p>
+<p><strong>Open risk.</strong> At the 17:00 UTC cutoff, the mobile navigation issue remained open. Leo owns the investigation; the notes do not establish a fix deadline. [N3, N4]</p>
+<p><strong>Decision needed.</strong> May Monday's wider preview proceed with the known navigation issue? The sponsor's decision is not recorded. [N4]</p>
+<p><strong>After cutoff.</strong> At 18:30 UTC, Leo reported a fix, with verification scheduled for Monday. This is not a verified resolution and does not change the cutoff status above. [N5]</p></div>
+<p>Notice what is absent: no “75% complete,” no launch announcement and no “issue resolved.” Nine ready drafts out of twelve is a draft-readiness count, not a measure of the whole project's completion.</p></section>
+<section><h2>Review before sharing</h2><ol><li><strong>Trace the nouns and numbers.</strong> Check every note ID. Confirm the denominator is still the same twelve articles before accepting the increase of three.</li><li><strong>Check the clock.</strong> N5 must remain after the cutoff. If you move the cutoff, regenerate the brief and label the new reporting time.</li><li><strong>Check the state transitions.</strong> Product review is not publication approval. A reported fix is not a verified resolution.</li><li><strong>Check the decision.</strong> The brief should ask about the wider preview, not silently approve it or invent the sponsor's answer.</li><li><strong>Check the audience.</strong> Remove unnecessary personal or sensitive details, confirm the intended recipients, and approve the final wording before sharing it yourself.</li></ol><p>If a sentence fails, give a targeted correction: “Keep the late fix in After cutoff and do not call it verified.” You do not need to rewrite the entire prompt.</p></section>
+<section><h2>Use the brief as a draft, not a new source of truth</h2><p>Keep the source packet beside the reviewed brief. If someone corrects a fact, update or add the underlying note before producing another version. Otherwise, the next summary may repeat a polished mistake.</p><p>For the general task-briefing method, read <a href="/blog/verifiable-agent-tasks/">Give an agent a task you can actually verify</a>. To prepare an AgReady instance and a bounded first task, follow <a href="/docs/getting-started/">Get started</a>. This example needs only supplied text; it does not assume access to your project tools.</p></section></main>
+<footer class="container footer"><a class="brand" href="/">AgReady<span class="brand-suffix">.ai</span></a><a class="footer-link" href="/faq/">FAQ</a><a class="footer-link" href="/privacy/">Privacy</a><a class="footer-link" href="mailto:hello@agready.ai">hello@agready.ai</a><button class="privacy-link" id="privacy-open" type="button">Google Analytics preference</button><span class="footer-year">© 2026 AgReady</span></footer>
+<dialog id="privacy-dialog" aria-labelledby="privacy-title"><form method="dialog"><button class="dialog-close" aria-label="Close Google Analytics preference"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg></button></form><div class="eyebrow">YOUR CHOICE</div><h2 id="privacy-title">Google Analytics preference</h2><p id="analytics-status">Google Analytics is not configured. No Google Analytics script is loaded.</p><p>Cloudflare provides website delivery and performance measurement separately. This preference controls only optional Google Analytics; it does not disable Cloudflare measurement.</p><p>If Google Analytics is configured and you allow it, this site measures page visits and selected navigation clicks. Its integration omits URL query parameters and does not intentionally send task content, file contents or email addresses. These limits describe this integration, not every service used to deliver the website.</p><p>Your choice is saved in this browser. Declining Google Analytics does not affect page access. You can change this preference here or clear this site's browser data.</p><p>Read the <a href="/privacy/">Website Privacy Notice</a> for website delivery, performance measurement and contact information.</p><div class="consent-actions"><button class="button primary" id="analytics-accept" type="button">Allow Google Analytics</button><button class="button secondary" id="analytics-decline" type="button">Decline Google Analytics</button></div><p id="consent-feedback" role="status" aria-live="polite"></p></dialog>
+</body></html>

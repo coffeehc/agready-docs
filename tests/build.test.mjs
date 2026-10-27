@@ -36,13 +36,13 @@ test('invalid analytics ID and unsafe origin fail closed',()=>{
 test('all content pages have real navigation, preview safeguards and no unconfirmed release paths',()=>{
  build();
  const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
- assert.equal(pages.length,9);
+ assert.equal(pages.length,10);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page.path);
   assert.match(html,/name="robots" content="noindex,nofollow"/);
   assert.match(html,/name="ga4-measurement-id" content=""/);
-  assert.doesNotMatch(html,/rel="canonical"|xagent-releases|xagent\.xiagaogao|github\.com\/coffeehc\/agready(?:\/|["?#])|localhost|127\.0\.0\.1|\{\{[A-Z_]+\}\}/);
+  assert.doesNotMatch(html,/rel="canonical"|xagent-releases|xagent\.xiagaogao|github\.com\/coffeehc\/agready(?:\/|["?#])|localhost|\{\{[A-Z_]+\}\}/);
   for(const m of html.matchAll(/(?:href|src)="(\/[^"#]*)(?:#([^"]+))?"/g)){
    const file='dist'+(m[1].endsWith('/')?m[1]+'index.html':m[1]);
    assert.ok(existsSync(file),page.path+' -> '+m[1]);
@@ -61,7 +61,7 @@ test('every production page has its own canonical URL and sitemap entry',()=>{
  build();
 });
 
-test('brand and navigation stay consistent across all ten pages',()=>{
+test('brand and navigation stay consistent across all content pages',()=>{
  build();
  const paths=['/',...JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path)];
  for(const path of paths){
@@ -126,7 +126,7 @@ test('tutorial uses practical captions and bounded example results',()=>{
  assert.match(html,/Example result: three actions/);
  assert.match(html,/fictional placeholders/);
  assert.doesNotMatch(html,/Illustrative UI with demo data|0.0.1-ui-mock|xUI 4.2.42|640 ms|WebSocket/);
- assert.doesNotMatch(html,/\/Users\/|localhost|127\.0\.0\.1|xagent-releases/);
+ assert.doesNotMatch(html,/\/Users\/|localhost|xagent-releases/);
  assert.doesNotMatch(html,/<img[^>]*src="[^"]*(?:08-workspace|09-approval)/);
 });
 
@@ -168,7 +168,7 @@ test('consent banner uses native keyboard controls and stays non-modal',()=>{
  assert.match(css,/a:focus-visible,button:focus-visible/);
 });
 
-test('404 output is noindex, not canonicalized and excluded from the ten-page sitemap',()=>{
+test('404 output is noindex, not canonicalized and excluded from the content sitemap',()=>{
  build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
  const missing=readFileSync('dist/404.html','utf8');
  assert.match(missing,/noindex,nofollow/);
@@ -176,7 +176,7 @@ test('404 output is noindex, not canonicalized and excluded from the ten-page si
  assert.match(missing,/href="\/"/);assert.match(missing,/href="\/docs\/"/);
  assert.match(missing,/name="ga4-measurement-id" content=""/);
  const sitemap=readFileSync('dist/sitemap.xml','utf8');
- assert.equal((sitemap.match(/<loc>/g)||[]).length,10);
+ assert.equal((sitemap.match(/<loc>/g)||[]).length,11);
  assert.doesNotMatch(sitemap,/404/);
  assert.ok(!existsSync('dist/_redirects'));
  build();
@@ -221,4 +221,28 @@ test('first-use links point to AgReady release, licensing and the tutorial',()=>
  for(const name of ['LICENSE','EULA.md','SHA256SUMS','BINARY_SHA256SUMS']) assert.ok(guide.includes('/releases/download/v0.0.1/'+name));
  assert.match(guide,/AMD64 or ARM64/);
  assert.doesNotMatch(readFileSync('README.md','utf8'),/curl[^\n]*\|\s*bash/);
+});
+
+test('weekly brief keeps a fictional, source-linked example and explicit cutoff',()=>{
+ build();
+ const html=readFileSync('dist/blog/weekly-project-brief/index.html','utf8');
+ assert.match(html,/fictional example/);
+ assert.match(html,/not a report of an AgReady execution/);
+ for(const id of ['N1','N2','N3','N4','N5']) assert.ok(html.includes('['+id+']'));
+ assert.match(html,/After cutoff/); assert.match(html,/9 − 6 = 3/);
+ assert.match(html,/not a verified resolution/);
+ assert.match(html,/href="\/docs\/getting-started\/"/);
+ for(const path of ['dist/blog/index.html','dist/blog/verifiable-agent-tasks/index.html']) assert.ok(readFileSync(path,'utf8').includes('href="/blog/weekly-project-brief/"'));
+});
+
+test('startup guide scopes source-derived platform behavior without private repository links',()=>{
+ build(); const html=readFileSync('dist/docs/getting-started/index.html','utf8');
+ assert.match(html,/installer source associated with v0.0.1/);
+ assert.match(html,/agready-server/);
+ assert.match(html,/http:\/\/127\.0\.0\.1:18888\//);
+ assert.match(html,/not a statement that the server binds only to loopback/);
+ assert.match(html,/does not automatically activate a managed service/);
+ assert.match(html,/\$HOME\/\.local\/bin\/agready/);
+ assert.doesNotMatch(html,/github\.com\/coffeehc\/agready\//);
+ assert.doesNotMatch(html,/curl[^<]*\|\s*bash/);
 });

@@ -52,5 +52,11 @@
     "path": "/privacy/",
     "title": "Website Privacy Notice \u2014 AgReady",
     "description": "Website delivery, performance measurement, Google Analytics preferences and public contact information for AgReady.ai."
+  },
+  {
+    "source": "src/blog-weekly-project-brief.html",
+    "path": "/blog/weekly-project-brief/",
+    "title": "Turn scattered project notes into a weekly brief \u2014 AgReady",
+    "description": "A fictional source packet, reusable prompt and worked weekly brief that keeps progress, risks, decisions and late updates distinct."
   }
 ]
