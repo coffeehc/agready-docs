@@ -1,6 +1,6 @@
-# AgReady website — English content draft
+# AgReady website
 
-A dependency-free, responsive English website starter for `agready.ai`. This is a **source draft**, not a deployed website or a product release. The commercial AgReady product is not represented as open source.
+Source for the dependency-free, responsive English website deployed at `agready.ai`. Website source and AgReady Server product releases have separate roles. The commercial AgReady product is not represented as open source.
 
 ## Run
 
@@ -20,7 +20,7 @@ The default build is deliberately **noindex** and has **analytics disabled**. Pr
 
 - `src/index.html`: homepage copy and semantic structure.
 - `src/site.config.mjs`: homepage title and description.
-- `src/pages.json`: route, title and description manifest for eight content pages.
+- `src/pages.json`: route, title and description manifest for nine content pages (ten public pages including the homepage; the separate 404 is excluded).
 - `src/product.html`, `src/docs*.html`, `src/faq.html`, `src/blog*.html`: reviewed HTML editorial sources.
 - `public/styles.css`: responsive layout and design system.
 - `public/app.js`: privacy dialog and optional, opt-in GA4 adapter.
@@ -38,7 +38,7 @@ No invented pricing, trial, customers, testimonials, benchmarks, download links,
 
 ## Analytics
 
-`GA4_MEASUREMENT_ID` is optional and must match `G-[A-Z0-9]+`. A blank ID means no third-party tag, even after an attempted acceptance. A configured ID still loads no tag until the visitor allows analytics through Privacy & analytics. Decline works without affecting the website. The first-party choice is stored under `agready.analytics-choice.v1`.
+`GA4_MEASUREMENT_ID` is optional and must match `G-[A-Z0-9]+`. A blank ID means no Google Analytics tag, even after an attempted acceptance. A configured ID still loads no tag until the visitor allows analytics through the Google Analytics preference controls. Decline works without affecting the website. The first-party choice is stored under `agready.analytics-choice.v1`.
 
 Custom events are limited to `page_view` and `navigation_click` with predefined CTA names. Application code strips query and hash from page locations and omits referrers. No prompt, user input or file content is collected by this page. **In GA4, disable Enhanced Measurement and unwanted data sharing before activation**; remotely configured automatic events are outside this adapter's scope. Realtime collection and privacy behavior still require live verification with the actual property before launch. Do not put a Measurement Protocol secret in frontend code.
 
@@ -52,9 +52,19 @@ Latest product release: [AgReady v0.0.1](https://github.com/coffeehc/agready-doc
 
 [Release notes](changelog/v0.0.1.md) · [Release index](releases.json) · [Download catalog](https://download.agready.ai/agready/versions.json)
 
+Download the installer first, then inspect its contents and the release terms before deciding to run it. The following commands are the two-step installation sequence documented in the official v0.0.1 release; downloading does not execute it.
+
 ```bash
-curl -fsSL https://download.agready.ai/agready/install.sh | bash
+curl -fsSL https://download.agready.ai/agready/install.sh -o install-agready.sh
 ```
+
+After reviewing the downloaded script, on the intended deployment machine:
+
+```bash
+bash install-agready.sh
+```
+
+This website change did not execute the installer or verify startup behavior. Select the correct platform archive and compare it with the release's `SHA256SUMS` when downloading an archive manually.
 
 The Server installer installs only AgReady. Independently released plugins use `https://download.agready.ai/agready/agentplugins/install.sh --plugins <names>`; they are not bundled with this Server release. Existing xAgent installations require the separate migration tool; normal installation and upgrade do not migrate their data.
 

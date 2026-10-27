@@ -42,7 +42,7 @@ test('all content pages have real navigation, preview safeguards and no unconfir
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page.path);
   assert.match(html,/name="robots" content="noindex,nofollow"/);
   assert.match(html,/name="ga4-measurement-id" content=""/);
-  assert.doesNotMatch(html,/rel="canonical"|xagent-releases|xagent\.xiagaogao|github\.com\/coffeehc\/agready|localhost|127\.0\.0\.1|\{\{[A-Z_]+\}\}/);
+  assert.doesNotMatch(html,/rel="canonical"|xagent-releases|xagent\.xiagaogao|github\.com\/coffeehc\/agready(?:\/|["?#])|localhost|127\.0\.0\.1|\{\{[A-Z_]+\}\}/);
   for(const m of html.matchAll(/(?:href|src)="(\/[^"#]*)(?:#([^"]+))?"/g)){
    const file='dist'+(m[1].endsWith('/')?m[1]+'index.html':m[1]);
    assert.ok(existsSync(file),page.path+' -> '+m[1]);
@@ -211,4 +211,14 @@ test('Search Console token persists only in the published homepage head',()=>{
  assert.ok(!preview.includes(token));
  assert.match(preview,/name="robots" content="noindex,nofollow"/);
  assert.match(preview,/name="ga4-measurement-id" content=""/);
+});
+
+test('first-use links point to AgReady release, licensing and the tutorial',()=>{
+ const home=build();
+ assert.match(home,/class="button dark" href="\/docs\/getting-started\/"/);
+ const guide=readFileSync('dist/docs/getting-started/index.html','utf8');
+ assert.match(guide,/https:\/\/github.com\/coffeehc\/agready-docs\/releases\/tag\/v0.0.1/);
+ for(const name of ['LICENSE','EULA.md','SHA256SUMS','BINARY_SHA256SUMS']) assert.ok(guide.includes('/releases/download/v0.0.1/'+name));
+ assert.match(guide,/AMD64 or ARM64/);
+ assert.doesNotMatch(readFileSync('README.md','utf8'),/curl[^\n]*\|\s*bash/);
 });
