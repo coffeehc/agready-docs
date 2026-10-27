@@ -9,7 +9,7 @@ const publish = process.env.SITE_PUBLISH === 'true';
 if (publish && origin.origin !== 'https://agready.ai') throw new Error('Published SITE_ORIGIN must be https://agready.ai.');
 const ga = process.env.GA4_MEASUREMENT_ID || '';
 if (ga && !/^G-[A-Z0-9]+$/.test(ga)) throw new Error('GA4_MEASUREMENT_ID must be a GA4 G- identifier.');
-const verification = process.env.GOOGLE_SITE_VERIFICATION || '';
+const verification = process.env.GOOGLE_SITE_VERIFICATION || site.googleSiteVerification || '';
 await rm('dist', { recursive:true, force:true });
 await mkdir('dist', {recursive:true});
 await cp('public', 'dist', {recursive:true});
@@ -31,6 +31,12 @@ for (const page of [...pages, {source:'src/404.html',path:'/404.html',output:'di
  for (const [original, versioned] of Object.entries(assets)) html = html.replaceAll('\"'+original+'\"', '\"'+versioned+'\"');
  const values = { TITLE:page.title, DESCRIPTION:page.description, PAGE_PATH:page.path, ORIGIN:origin.origin, ROBOTS:publish&&!page.notFound?'index,follow':'noindex,nofollow', GA_ID:ga, VERIFICATION:verification };
  html = html.replace(/\{\{([A-Z_]+)\}\}/g,(_,k)=>escape(values[k] ?? ''));
+ // Publish the public ownership token only on the production homepage.
+ html = html.replace(/<meta name="google-site-verification"[^>]*>\s*/g, '');
+ if (publish && page.path === '/' && verification) {
+  html = html.replace('</head>', `<meta name="google-site-verification" content="${escape(verification)}" />\n</head>`);
+ }
+
  if (!publish || page.notFound) html = html.replace(/<link rel="canonical"[^>]*>/g, '').replace(/<meta property="og:(?:url|image)"[^>]*>/g, '');
  const output = page.output || 'dist'+page.path+'index.html';
  await mkdir(dirname(output),{recursive:true});

@@ -44,7 +44,7 @@ Custom events are limited to `page_view` and `navigation_click` with predefined 
 
 The preview privacy dialog is not a complete legal policy. Operator identity, contact, purposes, retention, transfer disclosures and applicable consent requirements must be reviewed before enabling analytics. Withdrawal disables further calls from this adapter and attempts to expire first-party GA cookies; it does not erase historical data sent to Google.
 
-`GOOGLE_SITE_VERIFICATION` optionally adds a URL-prefix ownership verification meta value. A Domain property is verified through DNS separately. No Google property, data stream, DNS record or account was created by this draft.
+`src/site.config.mjs` retains the approved public Search Console verification marker. Only a `SITE_PUBLISH=true` build emits it, in the homepage head; preview builds, other pages and the 404 omit it. `GOOGLE_SITE_VERIFICATION` can explicitly override this value for a separately approved ownership change. Keep the approved marker in place while verification is in use. A Domain property is verified through DNS separately. No Google property, data stream, DNS record or account was created by this draft.
 
 ## AgReady Server releases
 

@@ -195,3 +195,20 @@ test('Pages preview host noindex headers survive both build modes',()=>{
  build();
  assert.match(readFileSync('dist/robots.txt','utf8'),/Disallow: \//);
 });
+
+test('Search Console token persists only in the published homepage head',()=>{
+ const token='TtCSefdKI5OtPV_p2mX9OihOAAK1kOdfoERM1Z3HgV4';
+ const published=build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const head=published.split('</head>')[0];
+ assert.ok(head.includes('<meta name="google-site-verification" content="'+token+'" />'));
+ assert.equal((published.match(/name="google-site-verification"/g)||[]).length,1);
+ for(const p of JSON.parse(readFileSync('src/pages.json','utf8'))){
+  assert.doesNotMatch(readFileSync('dist'+p.path+'index.html','utf8'),/google-site-verification/);
+ }
+ assert.doesNotMatch(readFileSync('dist/404.html','utf8'),/google-site-verification/);
+ const preview=build({GOOGLE_SITE_VERIFICATION:token});
+ assert.doesNotMatch(preview,/google-site-verification/);
+ assert.ok(!preview.includes(token));
+ assert.match(preview,/name="robots" content="noindex,nofollow"/);
+ assert.match(preview,/name="ga4-measurement-id" content=""/);
+});
