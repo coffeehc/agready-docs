@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="site-revision" content="agent-ready-v19"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title><meta name="description" content="{{DESCRIPTION}}"><meta name="robots" content="{{ROBOTS}}">
+<meta name="google-site-verification" content="{{VERIFICATION}}"><meta name="ga4-measurement-id" content="{{GA_ID}}">
+<link rel="canonical" href="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:type" content="website"><meta property="og:title" content="{{TITLE}}"><meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:image" content="{{ORIGIN}}/social.svg"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header"><div class="container nav"><a class="brand" href="/" aria-label="AgReady home"><span class="brand-mark" aria-hidden="true">a<span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></span>AgReady<span class="brand-suffix">.ai</span></a><nav aria-label="Main navigation"><a href="/product/">Product</a><a href="/docs/">Docs</a><a href="/blog/">Blog</a><a href="/about/">About</a></nav><a class="nav-cta" href="/docs/getting-started/" aria-label="Get started: setup and first-task guide">Get started</a></div></header><section id="analytics-banner" class="analytics-banner" role="region" aria-labelledby="analytics-banner-title" hidden><div class="container analytics-banner-inner"><div><h2 id="analytics-banner-title">Optional Google Analytics</h2><p>Allow Google Analytics to measure page visits and selected navigation clicks? You can use this site without it and change your choice in the footer. This choice does not control Cloudflare performance measurement. <a href="/privacy/">Privacy notice</a>.</p></div><div class="analytics-banner-actions"><button id="banner-accept" class="button secondary" type="button">Allow Google Analytics</button><button id="banner-decline" class="button secondary" type="button">Decline Google Analytics</button></div></div></section>
+<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">DOCUMENTATION</div><h1>Configure and test a model connection</h1>
+<p class="reading-lead">Configure a model connection, test it, and verify a small task before making it your default. Saving the form alone does not demonstrate that the provider accepted a request.</p>
+<p>These controls describe the October 2026 development interface; labels and availability may differ in your installed release.</p>
+<h2>Prepare the connection details</h2>
+<p>Get the API protocol, upstream model identifier, Base URL and credentials from your provider or instance administrator. Use a model and account you are authorized to access. Model requests can leave your machine; consider the provider's data policy before supplying private content.</p>
+<p>During initial setup, use <strong>Configure model</strong>. For subsequent management, open <strong>System config → Model config</strong> where that interface is available.</p>
+<h2>Fill the fields deliberately</h2>
+<dl class="troubleshooting">
+<dt>Provider type</dt><dd><p>The protocol actually supported by the endpoint</p><p>A provider's brand name alone does not establish its API protocol.</p></dd>
+<dt>Model name</dt><dd><p>A stable, recognizable name for this connection in AgReady</p><p>It is not necessarily the provider's model ID.</p></dd>
+<dt>Upstream model</dt><dd><p>The exact identifier accepted by the provider</p><p>A marketing model name may not be a valid API identifier.</p></dd>
+<dt>Base URL</dt><dd><p>The endpoint supplied for that protocol</p><p>Do not copy a URL from a different provider or the illustrated setup guide.</p></dd>
+<dt>API Key</dt><dd><p>The credential for that endpoint, entered only in your instance</p><p>Never include it in an example, screenshot or support request.</p></dd>
+<dt>Context tokens and capability settings</dt><dd><p>Values supported by the model and connection</p><p>A larger configured value does not increase the provider's actual limit or add capabilities.</p></dd>
+</dl>
+<p><code>https://api.example.com/v1</code> and <code>example-chat-model</code> in the <a href="/docs/getting-started/#model">illustrated walkthrough</a> are fictional placeholders, not working configuration values. This guide does not claim universal provider compatibility.</p>
+<h2>Test, save and verify</h2>
+<ol>
+<li>Use <strong>Test connection</strong> on your own configuration.</li>
+<li>Expand <strong>Latest test result</strong> and read the actual status. Do not infer success from the form closing or a saved notification.</li>
+<li>If the test passes, use <strong>Save model</strong> and confirm the intended configuration appears in the model list.</li>
+<li>Open <strong>Main Agent</strong>, check the selected model, and run the <a href="/docs/getting-started/#task">small first task</a>.</li>
+<li>Check the response against the supplied notes. Only then choose the model as your default for routine work.</li>
+</ol>
+<p>A connection test verifies less than a complete task. A text response does not establish that image input or tool use works. Verify additional capabilities separately with appropriate, non-sensitive inputs.</p>
+<h2>Diagnose a failure</h2>
+<ul>
+<li><strong>Connection test fails:</strong> compare the protocol, Base URL and exact upstream ID against the provider's instructions. Check credentials and account/quota messages when the error points there.</li>
+<li><strong>Saved but does not work:</strong> inspect the real test result. The interface can retain a saved configuration after a failed test.</li>
+<li><strong>The wrong model answers:</strong> check the selected model in the session rather than assuming the default changed an existing selection.</li>
+<li><strong>A long task hits a limit:</strong> check the configured context capacity against the actual model. Shorten irrelevant input; do not increase a number merely to suppress a warning.</li>
+<li><strong>Chat works but tools fail:</strong> inspect the tool environment and permissions. Replacing model credentials is not a general fix for missing tools.</li>
+</ul>
+<p>Change one relevant setting at a time and retain the new error if it changes. For support, share the version, provider/protocol name when appropriate, failing step and a redacted error—not keys, headers, full configuration or private task content.</p><p><a href="/docs/">All documentation</a> · <a href="/docs/getting-started/">Get started</a></p></main>
+<footer class="container footer"><a class="brand" href="/">AgReady<span class="brand-suffix">.ai</span></a><a class="footer-link" href="/faq/">FAQ</a><a class="footer-link" href="/privacy/">Privacy</a><a class="footer-link" href="mailto:hello@agready.ai">hello@agready.ai</a><button class="privacy-link" id="privacy-open" type="button">Google Analytics preference</button><span class="footer-year">© 2026 AgReady</span></footer>
+<dialog id="privacy-dialog" aria-labelledby="privacy-title"><form method="dialog"><button class="dialog-close" aria-label="Close Google Analytics preference"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg></button></form><div class="eyebrow">YOUR CHOICE</div><h2 id="privacy-title">Google Analytics preference</h2><p id="analytics-status">Google Analytics is not configured. No Google Analytics script is loaded.</p><p>Cloudflare provides website delivery and performance measurement separately. This preference controls only optional Google Analytics; it does not disable Cloudflare measurement.</p><p>If Google Analytics is configured and you allow it, this site measures page visits and selected navigation clicks. Its integration omits URL query parameters and does not intentionally send task content, file contents or email addresses. These limits describe this integration, not every service used to deliver the website.</p><p>Your choice is saved in this browser. Declining Google Analytics does not affect page access. You can change this preference here or clear this site's browser data.</p><p>Read the <a href="/privacy/">Website Privacy Notice</a> for website delivery, performance measurement and contact information.</p><div class="consent-actions"><button class="button primary" id="analytics-accept" type="button">Allow Google Analytics</button><button class="button secondary" id="analytics-decline" type="button">Decline Google Analytics</button></div><p id="consent-feedback" role="status" aria-live="polite"></p></dialog>
+</body></html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="site-revision" content="agent-ready-v19"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title><meta name="description" content="{{DESCRIPTION}}"><meta name="robots" content="{{ROBOTS}}">
+<meta name="google-site-verification" content="{{VERIFICATION}}"><meta name="ga4-measurement-id" content="{{GA_ID}}">
+<link rel="canonical" href="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:type" content="website"><meta property="og:title" content="{{TITLE}}"><meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:image" content="{{ORIGIN}}/social.svg"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header"><div class="container nav"><a class="brand" href="/" aria-label="AgReady home"><span class="brand-mark" aria-hidden="true">a<span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></span>AgReady<span class="brand-suffix">.ai</span></a><nav aria-label="Main navigation"><a href="/product/">Product</a><a href="/docs/">Docs</a><a href="/blog/">Blog</a><a href="/about/">About</a></nav><a class="nav-cta" href="/docs/getting-started/" aria-label="Get started: setup and first-task guide">Get started</a></div></header><section id="analytics-banner" class="analytics-banner" role="region" aria-labelledby="analytics-banner-title" hidden><div class="container analytics-banner-inner"><div><h2 id="analytics-banner-title">Optional Google Analytics</h2><p>Allow Google Analytics to measure page visits and selected navigation clicks? You can use this site without it and change your choice in the footer. This choice does not control Cloudflare performance measurement. <a href="/privacy/">Privacy notice</a>.</p></div><div class="analytics-banner-actions"><button id="banner-accept" class="button secondary" type="button">Allow Google Analytics</button><button id="banner-decline" class="button secondary" type="button">Decline Google Analytics</button></div></div></section>
+<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">DOCUMENTATION</div><h1>Install and start AgReady</h1>
+<p class="reading-lead">Install AgReady on the machine that will host your instance, start its server, and open that instance in your browser. The AgReady website is documentation—not a hosted account or your running instance.</p>
+<p>This guide covers the v0.0.1 release and its associated installer defaults. The download entrypoint and platform modules can change independently. Review the installer you actually download. These instructions are based on release materials, not a claim that a clean installation was tested here.</p>
+<h2>Before installing</h2>
+<ul>
+<li>Choose Linux or macOS, then the matching amd64 or arm64 package. Do not choose by operating system alone.</li>
+<li>Read the <a href="https://github.com/coffeehc/agready-docs/releases/tag/v0.0.1">release notes</a>, LICENSE and EULA. A public download does not grant an open-source license.</li>
+<li>Decide which machine will store the instance's configuration and data. On a remote server, arrange an administrator-approved access method before opening the UI.</li>
+<li>Keep the provider credentials you intend to use available privately. Do not put them in a support message or shell command copied into public logs.</li>
+</ul>
+<p>The release includes Server archives with the Web UI. Runtime Assets and tool plugins are separate; installing the Server does not prove tools are ready.</p>
+<h2>Download and review the installer</h2>
+<p>Download without executing:</p>
+<pre class="task-template">curl -fsSL https://download.agready.ai/agready/install.sh -o install-agready.sh</pre>
+<p>Inspect the saved script and the platform modules it retrieves. Confirm its destinations and requested privileges before running it:</p>
+<pre class="task-template">bash install-agready.sh</pre>
+<p>For manually downloaded archives, use the release's SHA256SUMS for archive checksums. BINARY_SHA256SUMS describes binary checksums; do not compare an archive to a binary digest. A checksum establishes a match with the supplied digest, not permission to use the software.</p>
+<h2>Start on Linux</h2>
+<p>The default installation puts the executable at <code>/usr/local/bin/agready</code> and uses <code>/opt/agready/server</code> as the server working directory. The installer uses elevated privileges where needed, creates a systemd service named <code>agready-server</code>, enables and restarts it, and checks readiness.</p>
+<p>Inspect the final installer output. To investigate without restarting:</p>
+<pre class="task-template">systemctl status agready-server --no-pager
+journalctl -u agready-server -n 100 --no-pager</pre>
+<p>Access to service details and journals depends on your permissions. If the unit is missing or access is denied, ask the administrator to inspect the installation rather than changing permissions or rerunning setup blindly.</p>
+<h2>Start on macOS</h2>
+<p>The macOS installer does not automatically activate a managed service. For a fresh installation using the default paths, the printed start command is equivalent to:</p>
+<pre class="task-template">cd &quot;$HOME/.local/share/agready/server&quot; &amp;&amp; &quot;$HOME/.local/bin/agready&quot; start</pre>
+<p>Use the actual command printed by your installer if you selected different paths or it found an existing executable. Inspect the terminal output to determine whether startup succeeded.</p>
+<h2>Open your instance</h2>
+<p>The Linux installer defaults to checking <code>http://127.0.0.1:18888/</code> for readiness. This is a local check, not a statement that the server listens only on loopback. In a browser on the same machine, that address refers to that machine. On your laptop, it does not refer to a remote server.</p>
+<p>For a remote instance, use the address or secure connection method approved by its administrator. Do not disable certificate checks or authentication, or open a public port merely to make the page load. Do not infer a macOS address from a Linux readiness check; confirm your actual startup configuration.</p>
+<h2>Confirm the next step</h2>
+<p>A successful download is not a running service. A running service is not yet a configured model. Once the instance opens, follow <a href="/docs/getting-started/#setup">Get started</a> to initialize it, then test a real model connection and run the small text-only task.</p>
+<p>If a login screen appears instead of first-time setup, do not initialize the instance again. Ask its administrator for access. For other failures, use the <a href="/docs/getting-started/#troubleshooting">diagnostic checks</a>.</p><p><a href="/docs/">All documentation</a> · <a href="/docs/getting-started/">Get started</a></p></main>
+<footer class="container footer"><a class="brand" href="/">AgReady<span class="brand-suffix">.ai</span></a><a class="footer-link" href="/faq/">FAQ</a><a class="footer-link" href="/privacy/">Privacy</a><a class="footer-link" href="mailto:hello@agready.ai">hello@agready.ai</a><button class="privacy-link" id="privacy-open" type="button">Google Analytics preference</button><span class="footer-year">© 2026 AgReady</span></footer>
+<dialog id="privacy-dialog" aria-labelledby="privacy-title"><form method="dialog"><button class="dialog-close" aria-label="Close Google Analytics preference"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg></button></form><div class="eyebrow">YOUR CHOICE</div><h2 id="privacy-title">Google Analytics preference</h2><p id="analytics-status">Google Analytics is not configured. No Google Analytics script is loaded.</p><p>Cloudflare provides website delivery and performance measurement separately. This preference controls only optional Google Analytics; it does not disable Cloudflare measurement.</p><p>If Google Analytics is configured and you allow it, this site measures page visits and selected navigation clicks. Its integration omits URL query parameters and does not intentionally send task content, file contents or email addresses. These limits describe this integration, not every service used to deliver the website.</p><p>Your choice is saved in this browser. Declining Google Analytics does not affect page access. You can change this preference here or clear this site's browser data.</p><p>Read the <a href="/privacy/">Website Privacy Notice</a> for website delivery, performance measurement and contact information.</p><div class="consent-actions"><button class="button primary" id="analytics-accept" type="button">Allow Google Analytics</button><button class="button secondary" id="analytics-decline" type="button">Decline Google Analytics</button></div><p id="consent-feedback" role="status" aria-live="polite"></p></dialog>
+</body></html>

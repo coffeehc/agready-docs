@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="site-revision" content="agent-ready-v19"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title><meta name="description" content="{{DESCRIPTION}}"><meta name="robots" content="{{ROBOTS}}">
+<meta name="google-site-verification" content="{{VERIFICATION}}"><meta name="ga4-measurement-id" content="{{GA_ID}}">
+<link rel="canonical" href="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:type" content="website"><meta property="og:title" content="{{TITLE}}"><meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:image" content="{{ORIGIN}}/social.svg"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header"><div class="container nav"><a class="brand" href="/" aria-label="AgReady home"><span class="brand-mark" aria-hidden="true">a<span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></span>AgReady<span class="brand-suffix">.ai</span></a><nav aria-label="Main navigation"><a href="/product/">Product</a><a href="/docs/">Docs</a><a href="/blog/">Blog</a><a href="/about/">About</a></nav><a class="nav-cta" href="/docs/getting-started/" aria-label="Get started: setup and first-task guide">Get started</a></div></header><section id="analytics-banner" class="analytics-banner" role="region" aria-labelledby="analytics-banner-title" hidden><div class="container analytics-banner-inner"><div><h2 id="analytics-banner-title">Optional Google Analytics</h2><p>Allow Google Analytics to measure page visits and selected navigation clicks? You can use this site without it and change your choice in the footer. This choice does not control Cloudflare performance measurement. <a href="/privacy/">Privacy notice</a>.</p></div><div class="analytics-banner-actions"><button id="banner-accept" class="button secondary" type="button">Allow Google Analytics</button><button id="banner-decline" class="button secondary" type="button">Decline Google Analytics</button></div></div></section>
+<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">DOCUMENTATION</div><h1>Work with sessions and context</h1>
+<p class="reading-lead">Use a session to keep one assignment's conversation together. State the goal and allowed actions explicitly, then review each result before continuing. A session history is not a promise that every earlier message is sent verbatim to the model forever.</p>
+<p>These controls describe the October 2026 development interface; labels and availability may differ in your installed release.</p>
+<h2>Start a bounded assignment</h2>
+<ol>
+<li>Open <strong>Main Agent</strong> for the introductory text-only exercise, or open the existing session for the assignment you are continuing.</li>
+<li>Check the selected model.</li>
+<li>In <strong>Message AgReady</strong>, supply the relevant input, requested output and limits. For example: “Compare these two supplied notes. Return differences in the conversation. Do not browse, change files or send messages.”</li>
+<li>Use <strong>Send message</strong> once. Watch the displayed state and any error or approval request.</li>
+<li>Review the response against your input before adding the next instruction.</li>
+</ol>
+<p>When a separate agent session is appropriate and available, use <strong>New agent session</strong>, select an available agent, enter a session name and choose <strong>Create session</strong>. Enter the concrete assignment after opening it. If no suitable agent is available, do not assume one has been installed or configured.</p>
+<h2>Continue without losing the objective</h2>
+<p>For a correction to the same deliverable, stay in the session and specify exactly what should change. Quote a short source passage or identify the attached file when the correction depends on it. For a substantially different assignment, use a separate session where available and provide its required inputs explicitly.</p>
+<p>Do not assume a new session inherits all earlier material, permissions or files. A useful opening brief includes:</p>
+<ul>
+<li>the outcome and output format;</li>
+<li>which supplied material is authoritative;</li>
+<li>actions allowed now and actions requiring approval;</li>
+<li>unresolved questions and a concrete acceptance check.</li>
+</ul>
+<h2>Understand history and context</h2>
+<p>The conversation you can browse and the material assembled for the next model request are related but not identical. Long conversations can be compressed into summaries while recent material is retained. Compression is not a guarantee that every detail survives unchanged.</p>
+<p>Where context usage is shown, distinguish estimated input from provider-observed usage and reserved output. Treat it as a diagnostic aid, not proof of unlimited capacity. If the interface says context compression is in progress, wait until it finishes rather than repeating the operation.</p>
+<p>For consequential facts, repeat the short authoritative statement or refer back to its source. If an answer contradicts an earlier instruction, point out that discrepancy rather than relying on the agent to infer the correction.</p>
+<h2>Stop, archive, restore or clear</h2>
+<dl class="troubleshooting">
+<dt>Stop current run</dt><dd><p>Interrupt work that is currently running</p><p>It does not undo an external action or prove every queued message has been removed. Inspect the resulting state.</p></dd>
+<dt>Archive</dt><dd><p>Put an available session aside as read-only</p><p>Archiving stops active execution; it is not deletion or a backup. Some managed sessions have separate lifecycle restrictions.</p></dd>
+<dt>Restore</dt><dd><p>Make an archived session available again</p><p>Restoration does not automatically resume the runner or consume its queued work. Inspect the restored state before asking it to continue.</p></dd>
+<dt><code>/clear-history</code></dt><dd><p>Deliberately reset the current session's conversation context</p><p>This resets the visible history boundary and related context state. It is not a secure-erasure command or a way to undo completed actions.</p></dd>
+</dl>
+<p>Do not clear history as routine troubleshooting. Preserve any information you still need first, and use the command only when you intend a reset. Main Agent is not a disposable session; deletion controls are limited to eligible sub-sessions. Review the displayed confirmation before deleting anything.</p>
+<h2>If nothing appears</h2>
+<p>Confirm the selected session and model, then check whether the message was actually submitted. An active run, pending approval, processing attachment or connection error needs a different response. Do not repeatedly resend while the previous outcome is unknown. Use the <a href="/docs/getting-started/#troubleshooting">diagnostic checks</a>, then retry a small text-only request once the state is clear.</p><p><a href="/docs/">All documentation</a> · <a href="/docs/getting-started/">Get started</a></p></main>
+<footer class="container footer"><a class="brand" href="/">AgReady<span class="brand-suffix">.ai</span></a><a class="footer-link" href="/faq/">FAQ</a><a class="footer-link" href="/privacy/">Privacy</a><a class="footer-link" href="mailto:hello@agready.ai">hello@agready.ai</a><button class="privacy-link" id="privacy-open" type="button">Google Analytics preference</button><span class="footer-year">© 2026 AgReady</span></footer>
+<dialog id="privacy-dialog" aria-labelledby="privacy-title"><form method="dialog"><button class="dialog-close" aria-label="Close Google Analytics preference"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg></button></form><div class="eyebrow">YOUR CHOICE</div><h2 id="privacy-title">Google Analytics preference</h2><p id="analytics-status">Google Analytics is not configured. No Google Analytics script is loaded.</p><p>Cloudflare provides website delivery and performance measurement separately. This preference controls only optional Google Analytics; it does not disable Cloudflare measurement.</p><p>If Google Analytics is configured and you allow it, this site measures page visits and selected navigation clicks. Its integration omits URL query parameters and does not intentionally send task content, file contents or email addresses. These limits describe this integration, not every service used to deliver the website.</p><p>Your choice is saved in this browser. Declining Google Analytics does not affect page access. You can change this preference here or clear this site's browser data.</p><p>Read the <a href="/privacy/">Website Privacy Notice</a> for website delivery, performance measurement and contact information.</p><div class="consent-actions"><button class="button primary" id="analytics-accept" type="button">Allow Google Analytics</button><button class="button secondary" id="analytics-decline" type="button">Decline Google Analytics</button></div><p id="consent-feedback" role="status" aria-live="polite"></p></dialog>
+</body></html>

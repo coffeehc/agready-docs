@@ -2,14 +2,14 @@
   {
     "source": "src/product.html",
     "path": "/product/",
-    "title": "A workspace for work that takes more than one step. \u2014 AgReady",
-    "description": "AgReady brings task context, tools and reusable instructions into a session, so an assignment can be worked on and reviewed as a whole."
+    "title": "What is AgReady? \u2014 AI agent workspace",
+    "description": "Learn who AgReady is for, how to give an agent a task and review its work, and how the product relates to the Agent Ready vision."
   },
   {
     "source": "src/docs.html",
     "path": "/docs/",
-    "title": "Understand the work before you run it. \u2014 AgReady",
-    "description": "A short guide to the concepts behind AgReady and the decisions to make before giving an agent a task."
+    "title": "AgReady documentation \u2014 Setup, concepts and first tasks",
+    "description": "Start using AgReady with setup guidance, context and tool concepts, task examples, human control and first-use diagnostic checks."
   },
   {
     "source": "src/docs-core-concepts.html",
@@ -58,5 +58,35 @@
     "path": "/blog/weekly-project-brief/",
     "title": "Turn scattered project notes into a weekly brief \u2014 AgReady",
     "description": "A fictional source packet, reusable prompt and worked weekly brief that keeps progress, risks, decisions and late updates distinct."
+  },
+  {
+    "source": "src/agent-ready.html",
+    "path": "/agent-ready/",
+    "title": "What is Agent Ready? \u2014 The idea behind AgReady",
+    "description": "The author\u2019s vision of business systems operated by AI agents through open APIs, with people retaining observation, intervention and direct control."
+  },
+  {
+    "source": "src/docs-install-and-start.html",
+    "path": "/docs/install-and-start/",
+    "title": "Install and start AgReady \u2014 AgReady",
+    "description": "Install AgReady Server on Linux or macOS, check startup and open your instance using release-specific installation guidance."
+  },
+  {
+    "source": "src/docs-model-configuration.html",
+    "path": "/docs/model-configuration/",
+    "title": "Configure and test a model connection \u2014 AgReady",
+    "description": "Set the provider protocol, model identifier and credentials in AgReady, test the connection and verify a small task."
+  },
+  {
+    "source": "src/docs-sessions-and-context.html",
+    "path": "/docs/sessions-and-context/",
+    "title": "Work with sessions and context \u2014 AgReady",
+    "description": "Keep an assignment organized in AgReady, manage context and understand the boundaries of stopping, archiving and clearing a session."
+  },
+  {
+    "source": "src/docs-files-and-workspace.html",
+    "path": "/docs/files-and-workspace/",
+    "title": "Use files and retrieve your work \u2014 AgReady",
+    "description": "Attach files to an AgReady task, check processing, use workspace files and inspect downloaded results."
   }
 ]

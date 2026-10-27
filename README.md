@@ -20,7 +20,7 @@ The default build is deliberately **noindex** and has **analytics disabled**. Pr
 
 - `src/index.html`: homepage copy and semantic structure.
 - `src/site.config.mjs`: homepage title and description.
-- `src/pages.json`: route, title and description manifest for ten content pages (eleven public pages including the homepage; the separate 404 is excluded).
+- `src/pages.json`: route, title and description manifest for fifteen content pages (sixteen public pages including the homepage; the separate 404 is excluded).
 - `src/product.html`, `src/docs*.html`, `src/faq.html`, `src/blog*.html`: reviewed HTML editorial sources.
 - `public/styles.css`: responsive layout and design system.
 - `public/app.js`: privacy dialog and optional, opt-in GA4 adapter.

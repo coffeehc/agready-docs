@@ -36,7 +36,7 @@ test('invalid analytics ID and unsafe origin fail closed',()=>{
 test('all content pages have real navigation, preview safeguards and no unconfirmed release paths',()=>{
  build();
  const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
- assert.equal(pages.length,10);
+ assert.equal(pages.length,15);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page.path);
@@ -176,7 +176,7 @@ test('404 output is noindex, not canonicalized and excluded from the content sit
  assert.match(missing,/href="\/"/);assert.match(missing,/href="\/docs\/"/);
  assert.match(missing,/name="ga4-measurement-id" content=""/);
  const sitemap=readFileSync('dist/sitemap.xml','utf8');
- assert.equal((sitemap.match(/<loc>/g)||[]).length,11);
+ assert.equal((sitemap.match(/<loc>/g)||[]).length,16);
  assert.doesNotMatch(sitemap,/404/);
  assert.ok(!existsSync('dist/_redirects'));
  build();
@@ -236,11 +236,11 @@ test('weekly brief keeps a fictional, source-linked example and explicit cutoff'
 });
 
 test('startup guide scopes source-derived platform behavior without private repository links',()=>{
- build(); const html=readFileSync('dist/docs/getting-started/index.html','utf8');
- assert.match(html,/installer source associated with v0.0.1/);
+ build(); const html=readFileSync('dist/docs/install-and-start/index.html','utf8');
+ assert.match(html,/v0.0.1 release and its associated installer defaults/);
  assert.match(html,/agready-server/);
  assert.match(html,/http:\/\/127\.0\.0\.1:18888\//);
- assert.match(html,/not a statement that the server binds only to loopback/);
+ assert.match(html,/not a statement that the server listens only on loopback/);
  assert.match(html,/does not automatically activate a managed service/);
  assert.match(html,/\$HOME\/\.local\/bin\/agready/);
  assert.doesNotMatch(html,/github\.com\/coffeehc\/agready\//);
@@ -263,4 +263,34 @@ test('first-use diagnostic anchors and read-only checks are linked without stale
  const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
  assert.equal(new Set(ids).size,ids.length);
  assert.match(html,/<a class="skip" href="#main">/);
+});
+
+test('Agent Ready vision stays distinct from product and is connected to existing guides',()=>{
+ const home=build();
+ assert.match(home,/self-hosted AI agent workspace/);
+ assert.match(home,/class="button primary" href="\/docs\/getting-started\/"/);
+ const vision=readFileSync('dist/agent-ready/index.html','utf8');
+ for(const phrase of ['my vision','default operator','open APIs','Inside AgReady','Inside the connected business system','user interface','not a certification']) assert.ok(vision.includes(phrase),phrase);
+ assert.match(vision,/does not describe a fully implemented product/);
+ for(const path of ['/','/product/','/docs/','/about/']) assert.ok(readFileSync('dist'+path+'index.html','utf8').includes('href="/agent-ready/"'),path);
+ const product=readFileSync('dist/product/index.html','utf8');
+ for(const phrase of ['Who is it for?','How do you work with it?','What is available, and what needs checking?']) assert.ok(product.includes(phrase));
+ assert.doesNotMatch(vision,/certified Agent Ready|first-ever|guaranteed autonomy/);
+});
+
+test('four substantive guides have real links, version scope and no internal evidence',()=>{
+ build();
+ const names=['install-and-start','model-configuration','sessions-and-context','files-and-workspace'];
+ const docs=readFileSync('dist/docs/index.html','utf8');
+ for(const name of names){
+  const html=readFileSync('dist/docs/'+name+'/index.html','utf8');
+  assert.ok(docs.includes('href="/docs/'+name+'/"'));
+  assert.ok((html.match(/<h2>/g)||[]).length>=4);
+  assert.doesNotMatch(html,/INTERNAL ONLY|INTERNAL-EVIDENCE|e5942c56|github.com\/coffeehc\/agready\/|accompanying interface images/);
+  if(name!=='install-and-start') assert.match(html,/October 2026 development interface/);
+ }
+ assert.ok(!existsSync('dist/INTERNAL-EVIDENCE.md'));
+ const start=readFileSync('dist/docs/getting-started/index.html','utf8');
+ for(const name of names) assert.ok(start.includes('href="/docs/'+name+'/"'));
+ for(const id of ['access','setup','model','task','review','stop','troubleshooting']) assert.ok(start.includes('id="'+id+'"'));
 });
