@@ -246,3 +246,21 @@ test('startup guide scopes source-derived platform behavior without private repo
  assert.doesNotMatch(html,/github\.com\/coffeehc\/agready\//);
  assert.doesNotMatch(html,/curl[^<]*\|\s*bash/);
 });
+
+test('first-use diagnostic anchors and read-only checks are linked without stale access claims',()=>{
+ build(); const html=readFileSync('dist/docs/getting-started/index.html','utf8');
+ for(const id of ['troubleshooting','startup-check','page-check','login-check','connection-check','output-check','tools-check']) assert.ok(html.includes('id="'+id+'"'));
+ assert.match(html,/systemctl status agready-server --no-pager/);
+ assert.match(html,/journalctl -u agready-server -n 100 --no-pager/);
+ assert.match(html,/without restarting it/);
+ assert.match(html,/Do not disable certificate checks/);
+ assert.match(html,/Do not attach a full configuration or unreviewed journal dump/);
+ for(const path of ['faq','docs/core-concepts']) {
+  const content=readFileSync('dist/'+path+'/index.html','utf8');
+  assert.match(content,/href="\/docs\/getting-started\/#troubleshooting"/);
+  assert.doesNotMatch(content,/Deployment and access instructions are not yet published|license details will need to accompany/);
+ }
+ const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
+ assert.equal(new Set(ids).size,ids.length);
+ assert.match(html,/<a class="skip" href="#main">/);
+});
