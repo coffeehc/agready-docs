@@ -399,9 +399,29 @@ test('self-hosted agent article publishes approved copy with sources and semanti
  assert.ok(html.includes('href="https://www.itu.int/rec/T-REC-F.748.46/en"'));
  assert.ok(html.includes('href="https://cloud.tencent.cn/product/workbuddy-enterprise"'));
  assert.ok(html.includes('<table class="capabilities-table">'));
- assert.equal((html.match(/scope="row"/g)||[]).length,8);
- assert.equal((html.match(/scope="col"/g)||[]).length,2);
+ assert.equal((html.match(/scope="row"/g)||[]).length,33);
+ assert.equal((html.match(/scope="col"/g)||[]).length,17);
  assert.ok(html.includes('rel="canonical" href="https://agready.ai'+path+'"'));
  assert.ok(readFileSync('dist/blog/index.html','utf8').includes('href="'+path+'"'));
  assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+path+'</loc>'));
+});
+
+
+test('four-product comparison retains dated evidence limits and scoped capability conditions',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const html=readFileSync('dist/blog/self-hosted-ai-agent-work-you-control/index.html','utf8');
+ assert.equal((html.match(/class="product-comparison-table"/g)||[]).length,3);
+ assert.equal((html.match(/class="comparison-table-scroll" role="region"/g)||[]).length,3);
+ assert.equal((html.match(/id="comparison-source-\d+"/g)||[]).length,31);
+ assert.match(html,/insufficient evidence, not absence/);
+ assert.match(html,/No common-condition testing was performed/);
+ assert.match(html,/October 28, 2026/);
+ assert.match(html,/hard user and team budgets are not implemented/);
+ assert.match(html,/enterprise private-deployment offering/);
+ assert.match(html,/not every ChatGPT feature/);
+ assert.match(html,/not Claude Code/);
+ assert.doesNotMatch(html,/coffeehc\/(?:agready|lead|letter)["/]|\/workspace\/|2539cc1/);
+ const css=readFileSync('public/styles.css','utf8');
+ assert.match(css,/\.comparison-table-scroll\{max-width:100%;overflow-x:auto/);
+ assert.match(css,/\.product-comparison-table\{width:100%;min-width:900px/);
 });
