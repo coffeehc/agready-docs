@@ -36,7 +36,7 @@ test('invalid analytics ID and unsafe origin fail closed',()=>{
 test('all content pages have real navigation, preview safeguards and no unconfirmed release paths',()=>{
  build();
  const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
- assert.equal(pages.length,21);
+ assert.equal(pages.length,22);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page.path);
@@ -176,7 +176,7 @@ test('404 output is noindex, not canonicalized and excluded from the content sit
  assert.match(missing,/href="\/"/);assert.match(missing,/href="\/docs\/"/);
  assert.match(missing,/name="ga4-measurement-id" content=""/);
  const sitemap=readFileSync('dist/sitemap.xml','utf8');
- assert.equal((sitemap.match(/<loc>/g)||[]).length,22);
+ assert.equal((sitemap.match(/<loc>/g)||[]).length,23);
  assert.doesNotMatch(sitemap,/404/);
  assert.ok(!existsSync('dist/_redirects'));
  build();
@@ -297,7 +297,7 @@ test('four substantive guides have real links, version scope and no internal evi
 
 test('all docs routes have shared accessible navigation and real page TOC anchors',()=>{
  build(); const pages=JSON.parse(readFileSync('src/pages.json','utf8')).filter(p=>p.path.startsWith('/docs/'));
- assert.equal(pages.length,12);
+ assert.equal(pages.length,13);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.match(html,/class="docs-sidebar"/);assert.match(html,/<details class="docs-mobile-menu"><summary>Documentation menu<\/summary>/);
@@ -384,7 +384,7 @@ test('related products distinguish information and messaging from native AgReady
  assert.match(html,/href="https:\/\/xlead\.51apis\.com\/"/);
  assert.match(html,/href="https:\/\/xletter\.51apis\.com\/"/);
  assert.doesNotMatch(html,/https:\/\/(?:lead|letter)\.agready\.ai|github\.com\/coffeehc\/(?:lead|letter)(?:["/])|guaranteed delivery|SMTP-compatible/);
- assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,21);
+ assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,22);
  assert.match(html,/rel="canonical" href="https:\/\/agready\.ai\/product\/"/);
 });
 
@@ -424,4 +424,20 @@ test('four-product comparison retains dated evidence limits and scoped capabilit
  const css=readFileSync('public/styles.css','utf8');
  assert.match(css,/\.comparison-table-scroll\{max-width:100%;overflow-x:auto/);
  assert.match(css,/\.product-comparison-table\{width:100%;min-width:900px/);
+});
+
+
+test('capabilities overview is a first-class docs entry with bounded product guidance',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const path='/docs/what-can-agready-do/';
+ const html=readFileSync('dist'+path+'index.html','utf8');
+ assert.ok(html.includes('<h1>What can you do with AgReady?</h1>'));
+ assert.match(html,/These are task patterns, not a claim/);
+ assert.match(html,/More agents do not automatically mean a faster or better result/);
+ assert.match(html,/configured schedule as proof that work happened/);
+ assert.match(html,/page-reading tool does not establish that interactive browsing is available/);
+ assert.match(html,/aria-label="On this page"/);
+ for(const page of ['dist/docs/index.html','dist/product/index.html']) assert.ok(readFileSync(page,'utf8').includes('href="'+path+'"'));
+ assert.ok(html.includes('rel="canonical" href="https://agready.ai'+path+'"'));
+ assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+path+'</loc>'));
 });

@@ -124,5 +124,11 @@
     "path": "/blog/self-hosted-ai-agent-work-you-control/",
     "title": "AgReady: A Self-Hosted AI Agent for Work You Control",
     "description": "Explore AgReady\u2019s planning, memory, tools and agent teams, with self-hosted deployment, model choice and human oversight for everyday work."
+  },
+  {
+    "source": "src/docs-what-can-agready-do.html",
+    "path": "/docs/what-can-agready-do/",
+    "title": "What can you do with AgReady? | AgReady Docs",
+    "description": "Learn how to use AgReady for research, documents and repeatable work with tools, memory, Skills and agent teams, while keeping control of actions and results."
   }
 ]

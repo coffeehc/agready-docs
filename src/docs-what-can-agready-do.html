@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="site-revision" content="docs-depth-v21"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title><meta name="description" content="{{DESCRIPTION}}"><meta name="robots" content="{{ROBOTS}}">
+<meta name="google-site-verification" content="{{VERIFICATION}}"><meta name="ga4-measurement-id" content="{{GA_ID}}">
+<link rel="canonical" href="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:type" content="website"><meta property="og:title" content="{{TITLE}}"><meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:image" content="{{ORIGIN}}/social.svg"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header"><div class="container nav"><a class="brand" href="/" aria-label="AgReady home"><span class="brand-mark" aria-hidden="true">a<span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></span>AgReady<span class="brand-suffix">.ai</span></a><nav aria-label="Main navigation"><a href="/product/">Product</a><a href="/docs/">Docs</a><a href="/blog/">Blog</a><a href="/about/">About</a></nav><a class="nav-cta" href="/docs/getting-started/" aria-label="Get started: setup and first-task guide">Get started</a></div></header><section id="analytics-banner" class="analytics-banner" role="region" aria-labelledby="analytics-banner-title" hidden><div class="container analytics-banner-inner"><div><h2 id="analytics-banner-title">Optional Google Analytics</h2><p>Allow Google Analytics to measure page visits and selected navigation clicks? You can use this site without it and change your choice in the footer. This choice does not control Cloudflare performance measurement. <a href="/privacy/">Privacy notice</a>.</p></div><div class="analytics-banner-actions"><button id="banner-accept" class="button secondary" type="button">Allow Google Analytics</button><button id="banner-decline" class="button secondary" type="button">Decline Google Analytics</button></div></div></section>
+<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">DOCUMENTATION</div><h1>What can you do with AgReady?</h1>
+<p class="reading-lead">AgReady is a self-hosted AI agent workspace for working through an assignment from its initial brief to a result you can review. You provide the goal and relevant material, choose a compatible model, and make the necessary tools available. The agent can plan steps, use those tools and carry the work forward in a session.</p>
+<p>Use this guide to understand where AgReady fits into your work and which guide to read next.</p>
+<section><h2>Start with a real piece of work</h2>
+<p>A useful starting point is something you already need to finish: a research brief, a comparison of documents, an updated report or a recurring review. Choose a deliverable whose usefulness you can judge.</p>
+<p>You do not need to design a demonstration. Bring the actual question, the material you are allowed to use, and a clear description of what would make the result useful.</p>
+<p>For example:</p>
+<ul><li>Compare several supplied documents and explain where they agree, conflict or leave questions unanswered.</li><li>Review public source pages and prepare a research brief with links supporting its conclusions.</li><li>Turn working notes into a report that separates facts, decisions, risks and next steps.</li><li>Review a draft against an agreed structure, then produce a separate revised version.</li><li>Repeat an established information-review workflow, keeping the result ready for a person to inspect.</li></ul>
+<p>These are task patterns, not a claim that every model or default installation can complete them. File operations, web access and other actions need suitable tools. The model’s capabilities also affect the result.</p>
+<p>For a first installation, follow <a href="/docs/getting-started/">Get started</a>. If your instance is already working, choose a real assignment and define its output.</p>
+</section>
+<section><h2>Research and compare information</h2>
+<p>AgReady can help organize source material into an answer to a specific question. You can supply text or files, or use an available tool to retrieve authorized sources.</p>
+<p>A good research brief states:</p>
+<ul><li>The question you need answered.</li><li>Which sources to use, and which sources are outside scope.</li><li>How current the information needs to be.</li><li>The format of the result.</li><li>What to do when evidence is missing or contradictory.</li></ul>
+<p>Ask the agent to connect important conclusions to their sources. A useful comparison should preserve differences between the sources rather than turn uncertainty into a confident answer.</p>
+<p>For public-web work, distinguish reading a known URL from searching for new sources or interacting with a website. Those operations require different capabilities; a page-reading tool does not establish that interactive browsing is available.</p>
+<p>Start with <a href="/docs/tools-and-runtime-assets/">Tools and integrations</a> for tool readiness, and <a href="/docs/files-and-workspace/">Files and workspace</a> when the research begins with supplied documents.</p>
+</section>
+<section><h2>Prepare and improve documents</h2>
+<p>Use AgReady to organize material, draft a document, revise its structure or check it against requirements. The brief can specify an audience, a length, required sections and the evidence that must be preserved.</p>
+<p>A response in the conversation may be enough for an outline or short draft. If you need a saved document, spreadsheet, presentation or PDF, state that explicitly and check that the necessary tools are available.</p>
+<p>Keep the source and output distinct. For example, ask for a separate revised file rather than leaving it unclear whether the original should be overwritten.</p>
+<p>Review the resulting work for more than fluent writing:</p>
+<ul><li>Does it preserve the meaning of the source?</li><li>Are names, figures and dates correct?</li><li>Are unsupported statements marked as uncertain?</li><li>Does the delivered file open and contain the intended content?</li><li>Is it useful for the person who will receive it?</li></ul>
+<p><a href="/docs/files-and-workspace/">Files and workspace</a> explains how to provide material, check processing and retrieve a saved result.</p>
+</section>
+<section><h2>Carry an assignment across multiple steps</h2>
+<p>Some work takes more than one exchange. AgReady supports plans, task steps and revisions, while a session keeps the conversation associated with an assignment.</p>
+<p>For a longer task, define meaningful stages. A research assignment might first identify the source material, then compare the evidence, and finally produce a brief. Ask for a useful checkpoint where a decision from you could change the next stage.</p>
+<p>Keep corrections explicit. If the scope changes, say what changed and which earlier instruction it replaces. When a stage is complete, check its result before relying on it in the next one.</p>
+<p>Long conversations can be summarized to manage context. Keep important current constraints and authoritative sources easy to identify instead of assuming every old detail will remain available unchanged.</p>
+<p>Read <a href="/docs/sessions-and-context/">Sessions and context</a> for continuing work, managing history and handling interruptions.</p>
+</section>
+<section><h2>Reuse context and working methods</h2>
+<p>Memory and Skills address different kinds of repetition.</p>
+<h3>Memory: useful information across sessions</h3>
+<p>Memory can retain information worth carrying forward, such as a stable preference or relevant background. You can inspect its contents and source evidence, and remove information that is no longer appropriate.</p>
+<p>Use the current task brief for instructions that apply now. A remembered preference should not override an updated requirement.</p>
+<p>See <a href="/docs/memory-and-context/">Memory and context</a> for managing saved information.</p>
+<h3>Skills: a method you want to repeat</h3>
+<p>A Skill packages instructions and supporting material for a recurring kind of work. It can describe how to structure a report, evaluate sources or check a deliverable.</p>
+<p>Build a Skill around a method that has proved useful. When a real task reveals a repeatable problem, improve the instructions and check whether the next result addresses it.</p>
+<p>Skills do not supply missing connections or authorize external actions. Their required tools still need to be available.</p>
+<p>Read <a href="/docs/skills-and-reusable-work/">Skills and reusable work</a> to inspect, import, request and load a Skill.</p>
+</section>
+<section><h2>Divide larger work among agents</h2>
+<p>Agent teams provide a way to organize subtasks and bring reports together. They can be useful when an assignment contains distinct pieces of work with clear inputs and outputs.</p>
+<p>Before dividing the work, define each part and how its result will contribute to the final deliverable. Check for dependencies: a review cannot evaluate a draft that has not yet been produced.</p>
+<p>More agents do not automatically mean a faster or better result. Coordinating their work and reviewing the combined output remain part of the assignment. Team availability and controls depend on the installed version and configuration.</p>
+<p>The <a href="/docs/core-concepts/">core concepts guide</a> explains the sessions, tools, Skills and context involved in agent work.</p>
+</section>
+<section><h2>Run work that needs to recur</h2>
+<p>AgReady supports persistent timers and configured external event triggers. These provide building blocks for repeated work, such as preparing a briefing from approved sources for later review.</p>
+<p>First establish that the underlying task produces a useful result. Then define the trigger, permitted actions, expected output and conditions for pausing the work.</p>
+<p>Recurring tasks depend on the server, model and tools remaining available. They can also encounter approval requests or other conditions that prevent completion. Check actual run results rather than treating a configured schedule as proof that work happened.</p>
+<p>For the instance’s availability and maintenance, see <a href="/docs/operations/">Upgrades and recovery</a>. Review <a href="/docs/human-oversight/">Human oversight</a> before recurring work can affect external systems.</p>
+</section>
+<section><h2>Choose the environment and keep control</h2>
+<p>AgReady runs as a self-hosted service. You choose where to operate it and connect compatible model providers, including locally served models where the protocol and required capabilities are supported.</p>
+<p>Self-hosting gives you responsibility for access, maintenance and availability. It does not automatically keep every task local: model requests and connected tools may use external services.</p>
+<p>Use <a href="/docs/install-and-start/">Install and start</a> to prepare an instance and <a href="/docs/model-configuration/">Model configuration</a> to verify a model connection.</p>
+<p>Before work begins, separate reading from changing, preparing from sending, and drafting from publishing. Use appropriate account permissions and review the available approval controls. If you stop a run, inspect what already happened before retrying or taking over.</p>
+<p>The broader <a href="/agent-ready/">Agent Ready vision</a> is that agents operate business systems through APIs while people retain visibility and the ability to intervene, both in AgReady and in those systems. Each integration still needs its own access, permissions and verification.</p>
+</section>
+<section><h2>Choose your next step</h2>
+<ul><li>New to the product? Follow <a href="/docs/getting-started/">Get started</a>.</li><li>Ready to delegate work? Open a <a href="/docs/sessions-and-context/">session</a> with a real goal, source material and acceptance checks.</li><li>Need additional capabilities? Check the required <a href="/docs/tools-and-runtime-assets/">tools</a> before starting.</li><li>Want to repeat a useful workflow? Consider <a href="/docs/memory-and-context/">memory</a> and <a href="/docs/skills-and-reusable-work/">Skills</a>.</li><li>Have access, licensing or data-handling questions? Read the <a href="/faq/">FAQ</a>.</li></ul>
+<p>Start with the work you need done. Keep the evidence and result, improve the process where necessary, and expand its scope when the outcome justifies it.</p>
+</section></main>
+<footer class="container footer"><a class="brand" href="/">AgReady<span class="brand-suffix">.ai</span></a><a class="footer-link" href="/faq/">FAQ</a><a class="footer-link" href="/privacy/">Privacy</a><a class="footer-link" href="mailto:hello@agready.ai">hello@agready.ai</a><button class="privacy-link" id="privacy-open" type="button">Google Analytics preference</button><span class="footer-year">© 2026 AgReady</span></footer>
+<dialog id="privacy-dialog" aria-labelledby="privacy-title"><form method="dialog"><button class="dialog-close" aria-label="Close Google Analytics preference"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg></button></form><div class="eyebrow">YOUR CHOICE</div><h2 id="privacy-title">Google Analytics preference</h2><p id="analytics-status">Google Analytics is not configured. No Google Analytics script is loaded.</p><p>Cloudflare provides website delivery and performance measurement separately. This preference controls only optional Google Analytics; it does not disable Cloudflare measurement.</p><p>If Google Analytics is configured and you allow it, this site measures page visits and selected navigation clicks. Its integration omits URL query parameters and does not intentionally send task content, file contents or email addresses. These limits describe this integration, not every service used to deliver the website.</p><p>Your choice is saved in this browser. Declining Google Analytics does not affect page access. You can change this preference here or clear this site's browser data.</p><p>Read the <a href="/privacy/">Website Privacy Notice</a> for website delivery, performance measurement and contact information.</p><div class="consent-actions"><button class="button primary" id="analytics-accept" type="button">Allow Google Analytics</button><button class="button secondary" id="analytics-decline" type="button">Decline Google Analytics</button></div><p id="consent-feedback" role="status" aria-live="polite"></p></dialog>
+</body></html>
