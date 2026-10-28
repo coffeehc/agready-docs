@@ -368,3 +368,22 @@ test('visible breadcrumbs match production JSON-LD on every non-home content pag
  build();
  for(const page of pages){const html=readFileSync('dist'+page.path+'index.html','utf8');assert.doesNotMatch(html,/breadcrumb-data|BreadcrumbList/);assert.match(html,/aria-label="Breadcrumb"/);}
 });
+
+
+test('related products distinguish information and messaging from native AgReady integrations',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const html=readFileSync('dist/product/index.html','utf8');
+ for(const id of ['related-products','lead','letter']) assert.ok(html.includes('id="'+id+'"'));
+ assert.match(html,/Lead: a workspace for curated information/);
+ assert.match(html,/Letter: asynchronous messaging for AI agents/);
+ assert.match(html,/not requirements for using AgReady/);
+ assert.match(html,/agent supplies the collection and scheduling workflow/);
+ assert.match(html,/Receiving a message does not itself authorize/);
+ assert.match(html,/do not imply a preconfigured or tested native AgReady integration/);
+ assert.match(html,/href="https:\/\/github.com\/coffeehc\/xletter-skill"/);
+ assert.match(html,/href="https:\/\/xlead\.51apis\.com\/"/);
+ assert.match(html,/href="https:\/\/xletter\.51apis\.com\/"/);
+ assert.doesNotMatch(html,/https:\/\/(?:lead|letter)\.agready\.ai|github\.com\/coffeehc\/(?:lead|letter)(?:["/])|guaranteed delivery|SMTP-compatible/);
+ assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,20);
+ assert.match(html,/rel="canonical" href="https:\/\/agready\.ai\/product\/"/);
+});

@@ -3,7 +3,7 @@
     "source": "src/product.html",
     "path": "/product/",
     "title": "What is AgReady? \u2014 AI agent workspace",
-    "description": "Learn who AgReady is for, how to give an agent a task and review its work, and how the product relates to the Agent Ready vision."
+    "description": "Explore AgReady, an AI agent workspace, and the separate Lead information workspace and Letter agent messaging service. Learn their roles and connection boundaries."
   },
   {
     "source": "src/docs.html",
