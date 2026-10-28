@@ -118,5 +118,11 @@
     "path": "/docs/operations/",
     "title": "Plan upgrades and recovery \u2014 AgReady",
     "description": "Prepare AgReady maintenance, check backups and understand the separate steps and limits of upgrades, restoration and validation."
+  },
+  {
+    "source": "src/blog-self-hosted-ai-agent.html",
+    "path": "/blog/self-hosted-ai-agent-work-you-control/",
+    "title": "AgReady: A Self-Hosted AI Agent for Work You Control",
+    "description": "Explore AgReady\u2019s planning, memory, tools and agent teams, with self-hosted deployment, model choice and human oversight for everyday work."
   }
 ]

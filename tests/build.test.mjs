@@ -36,7 +36,7 @@ test('invalid analytics ID and unsafe origin fail closed',()=>{
 test('all content pages have real navigation, preview safeguards and no unconfirmed release paths',()=>{
  build();
  const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
- assert.equal(pages.length,20);
+ assert.equal(pages.length,21);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page.path);
@@ -176,7 +176,7 @@ test('404 output is noindex, not canonicalized and excluded from the content sit
  assert.match(missing,/href="\/"/);assert.match(missing,/href="\/docs\/"/);
  assert.match(missing,/name="ga4-measurement-id" content=""/);
  const sitemap=readFileSync('dist/sitemap.xml','utf8');
- assert.equal((sitemap.match(/<loc>/g)||[]).length,21);
+ assert.equal((sitemap.match(/<loc>/g)||[]).length,22);
  assert.doesNotMatch(sitemap,/404/);
  assert.ok(!existsSync('dist/_redirects'));
  build();
@@ -384,6 +384,24 @@ test('related products distinguish information and messaging from native AgReady
  assert.match(html,/href="https:\/\/xlead\.51apis\.com\/"/);
  assert.match(html,/href="https:\/\/xletter\.51apis\.com\/"/);
  assert.doesNotMatch(html,/https:\/\/(?:lead|letter)\.agready\.ai|github\.com\/coffeehc\/(?:lead|letter)(?:["/])|guaranteed delivery|SMTP-compatible/);
- assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,20);
+ assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,21);
  assert.match(html,/rel="canonical" href="https:\/\/agready\.ai\/product\/"/);
+});
+
+
+test('self-hosted agent article publishes approved copy with sources and semantic table',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const path='/blog/self-hosted-ai-agent-work-you-control/';
+ const html=readFileSync('dist'+path+'index.html','utf8');
+ assert.ok(html.includes('<h1>AgReady: A Self-Hosted AI Agent for Work You Control</h1>'));
+ assert.doesNotMatch(html,/Editorial notes|Suggested slug|Suggested web title|Website article draft/);
+ assert.match(html,/not an ITU certification/);assert.match(html,/illustrative workflow, not a reported test result/);
+ assert.ok(html.includes('href="https://www.itu.int/rec/T-REC-F.748.46/en"'));
+ assert.ok(html.includes('href="https://cloud.tencent.cn/product/workbuddy-enterprise"'));
+ assert.ok(html.includes('<table class="capabilities-table">'));
+ assert.equal((html.match(/scope="row"/g)||[]).length,8);
+ assert.equal((html.match(/scope="col"/g)||[]).length,2);
+ assert.ok(html.includes('rel="canonical" href="https://agready.ai'+path+'"'));
+ assert.ok(readFileSync('dist/blog/index.html','utf8').includes('href="'+path+'"'));
+ assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+path+'</loc>'));
 });

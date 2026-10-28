@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="site-revision" content="self-hosted-agent-v24"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title><meta name="description" content="{{DESCRIPTION}}"><meta name="robots" content="{{ROBOTS}}">
+<meta name="google-site-verification" content="{{VERIFICATION}}"><meta name="ga4-measurement-id" content="{{GA_ID}}">
+<link rel="canonical" href="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:type" content="website"><meta property="og:title" content="{{TITLE}}"><meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:image" content="{{ORIGIN}}/social.svg"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header"><div class="container nav"><a class="brand" href="/" aria-label="AgReady home"><span class="brand-mark" aria-hidden="true">a<span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></span>AgReady<span class="brand-suffix">.ai</span></a><nav aria-label="Main navigation"><a href="/product/">Product</a><a href="/docs/">Docs</a><a href="/blog/">Blog</a><a href="/about/">About</a></nav><a class="nav-cta" href="/docs/getting-started/" aria-label="Get started: setup and first-task guide">Get started</a></div></header><section id="analytics-banner" class="analytics-banner" role="region" aria-labelledby="analytics-banner-title" hidden><div class="container analytics-banner-inner"><div><h2 id="analytics-banner-title">Optional Google Analytics</h2><p>Allow Google Analytics to measure page visits and selected navigation clicks? You can use this site without it and change your choice in the footer. This choice does not control Cloudflare performance measurement. <a href="/privacy/">Privacy notice</a>.</p></div><div class="analytics-banner-actions"><button id="banner-accept" class="button secondary" type="button">Allow Google Analytics</button><button id="banner-decline" class="button secondary" type="button">Decline Google Analytics</button></div></div></section>
+<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">PRODUCT GUIDE · OCTOBER 28, 2026</div><h1>AgReady: A Self-Hosted AI Agent for Work You Control</h1>
+<p>An AI agent should help you get work done: understand a goal, plan the steps, use tools, work with files, remember useful context and produce something you can inspect.</p>
+<p>AgReady brings these capabilities together in a self-hosted service. You can run the service on your own infrastructure, connect compatible models, provide authorized tools and manage work through user workspaces.</p>
+<p>That combination is its central proposition: <strong>the agent capabilities you expect, with a deployment you control.</strong></p>
+<p>For people choosing an AI agent for research, documents and recurring business work, the question extends beyond whether it can answer a prompt. Where does the work run? Which model does it use? What can it access? How can you intervene?</p>
+<p>AgReady makes these choices part of how you use the product.</p>
+<section><h2>The capabilities you expect from a working AI agent</h2>
+<p>AgReady covers the core workflow of an agent that acts on a goal rather than simply returning a conversational answer.</p>
+<table class="capabilities-table"><caption>AgReady capabilities at a glance</caption><thead><tr><th scope="col">What you need</th><th scope="col">What AgReady provides</th></tr></thead><tbody>
+<tr><th scope="row">Turn a goal into manageable work</th><td>Plans, task steps and plan revisions</td></tr>
+<tr><th scope="row">Produce usable deliverables</th><td>Tools for files, documents, spreadsheets, presentations and PDFs</td></tr>
+<tr><th scope="row">Work with connected services</th><td>HTTP tools and configured MCP connections</td></tr>
+<tr><th scope="row">Carry useful context forward</th><td>Persistent memory that can be retrieved and managed</td></tr>
+<tr><th scope="row">Reuse established ways of working</th><td>Skills containing instructions and supporting resources</td></tr>
+<tr><th scope="row">Delegate parts of a larger task</th><td>Agent teams, subtasks and reports</td></tr>
+<tr><th scope="row">Run recurring work</th><td>Persistent timers and configured external event triggers</td></tr>
+<tr><th scope="row">Keep a person involved</th><td>Approval controls, interruption and continuation</td></tr>
+</tbody></table>
+<p>These features belong together. A research task can involve gathering material, organizing findings, preparing a document and preserving useful context for the next task. A recurring workflow may also need a schedule, a connected data source and an approval boundary.</p>
+<p>AgReady provides the building blocks for those workflows in one service. The specific tools and model still determine what a particular deployment can accomplish. <a href="https://agready.ai/docs/core-concepts/">Explore the core concepts</a>.</p>
+</section>
+<section><h2>Memory Skills and teams make work reusable</h2>
+<p>A useful agent should not require every task to begin from an empty page.</p>
+<p>AgReady supports persistent memory for information worth carrying between sessions. Users can manage that information rather than treating every past conversation as an unquestionable instruction.</p>
+<p>Skills serve a different purpose. They describe reusable ways of doing work, supported by instructions and resources. A team’s preferred report structure, research procedure or document workflow can become explicit guidance rather than something repeatedly explained in a prompt.</p>
+<p>Agent teams provide another building block: dividing work into subtasks and bringing reports back together. This creates a way to organize larger tasks without claiming that adding agents automatically makes every job faster or more accurate. <a href="https://agready.ai/docs/memory-and-context/">Read about memory</a> and <a href="https://agready.ai/docs/skills-and-reusable-work/">reusable Skills</a>.</p>
+</section>
+<section><h2>What the self hosted combination changes</h2>
+<h3>Choose where the service runs</h3>
+<p>AgReady can run as a server-side service with user workspaces. The runtime does not have to live inside a single desktop session.</p>
+<p>This matters when you want a stable place for files, task history, reusable instructions and recurring work. You operate the service and decide how it fits into your infrastructure.</p>
+<h3>Choose compatible models</h3>
+<p>AgReady supports connecting compatible model providers, including locally served models where the protocol and required capabilities are supported.</p>
+<p>Model choice lets you match the model to the work and your deployment requirements. Text work, visual understanding and image generation may require different capabilities or configured model roles.</p>
+<p>Using a local model does not automatically keep every workflow local. An external model, HTTP request or connected service can still transmit data. The relevant question is which components a particular workflow uses.</p>
+<h3>Keep recurring work on the server</h3>
+<p>Persistent timers support work that needs to recur, while configured external triggers can start work from authorized events.</p>
+<p>For example, a recurring briefing could collect approved source material, prepare a summary and leave it for review. This is an illustrative workflow, not a reported test result.</p>
+<p>Server-side persistence provides a place for that workflow to run. It still depends on the server, model and tools remaining available; approvals or other runtime conditions can delay execution. <a href="https://agready.ai/docs/operations/">Review operational considerations</a>.</p>
+<h3>Connect the tools your work actually uses</h3>
+<p>HTTP and MCP connections let an agent work with authorized services rather than relying only on uploaded text.</p>
+<p>The important distinction is permission. An agent should receive the tools and access needed for a task, with appropriate limits on what it may do. A connected business system requires configuration and its own authorization; it does not become available merely because an agent knows its name. <a href="https://agready.ai/docs/tools-and-runtime-assets/">Explore tools and runtime assets</a>.</p>
+</section>
+<section><h2>Agent Ready means keeping people in control</h2>
+<p>The author’s vision of <strong>Agent Ready</strong> is a future in which agents operate business systems through APIs while people retain visibility and the ability to intervene.</p>
+<p>There are two layers of control:</p>
+<ul><li><strong>Inside AgReady:</strong> people set goals, inspect progress and use the available approval, stop and continuation controls.</li><li><strong>Inside the connected system:</strong> people retain the system’s own interface and permissions to inspect records and intervene directly.</li></ul>
+<p>AgReady already provides tools for human oversight. The broader two-layer operating model is a design direction, not a claim that every external system is already integrated or controllable. Each connection needs to preserve the controls appropriate to that system. <a href="https://agready.ai/agent-ready/">Read the Agent Ready vision</a> and <a href="https://agready.ai/docs/human-oversight/">human oversight guidance</a>.</p>
+</section>
+<section><h2>How to read the comparison</h2>
+<p>Memory, Skills and multi-agent work are established product capabilities, not exclusive AgReady inventions. Deployment options also overlap: WorkBuddy documents an <a href="https://cloud.tencent.cn/product/workbuddy-enterprise">enterprise private-deployment offering</a>.</p>
+<p>AgReady’s case is the combination of familiar agent capabilities, a self-hosted service, user workspaces, compatible model choice and authorized tool access. It is not a claim that every alternative lacks each component.</p>
+<p>Our comparison uses <strong>ITU-T F.748.46</strong> as a reference framework for perception and cognition, planning, memory and execution. The standard helps organize the discussion; this article is a documentation-based product explanation, not an ITU certification or a common-condition performance benchmark. <a href="https://www.itu.int/rec/T-REC-F.748.46/en">See the official recommendation</a>.</p>
+</section>
+<section><h2>Is AgReady the right fit</h2>
+<p>AgReady is worth evaluating when you want agent-assisted knowledge work and are willing to operate the service, configure models and tools, and define human approval boundaries.</p>
+<p>Self-hosting brings responsibility for availability, updates and access management. Documented functionality also does not establish task success rates, security assurance or lower operating costs. Those require evidence from the deployment and work you actually intend to run.</p>
+<p>Start with one small, verifiable task. Define the expected deliverable, connect only the necessary tools and inspect both the output and the agent’s actions. Add memory, reusable Skills or a schedule once that workflow meets your requirements.</p>
+<p><a href="https://agready.ai/docs/getting-started/">Get started with AgReady</a> and evaluate how much of your work you can delegate while keeping control of the environment in which it happens.</p>
+</section></main>
+<footer class="container footer"><a class="brand" href="/">AgReady<span class="brand-suffix">.ai</span></a><a class="footer-link" href="/faq/">FAQ</a><a class="footer-link" href="/privacy/">Privacy</a><a class="footer-link" href="mailto:hello@agready.ai">hello@agready.ai</a><button class="privacy-link" id="privacy-open" type="button">Google Analytics preference</button><span class="footer-year">© 2026 AgReady</span></footer>
+<dialog id="privacy-dialog" aria-labelledby="privacy-title"><form method="dialog"><button class="dialog-close" aria-label="Close Google Analytics preference"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg></button></form><div class="eyebrow">YOUR CHOICE</div><h2 id="privacy-title">Google Analytics preference</h2><p id="analytics-status">Google Analytics is not configured. No Google Analytics script is loaded.</p><p>Cloudflare provides website delivery and performance measurement separately. This preference controls only optional Google Analytics; it does not disable Cloudflare measurement.</p><p>If Google Analytics is configured and you allow it, this site measures page visits and selected navigation clicks. Its integration omits URL query parameters and does not intentionally send task content, file contents or email addresses. These limits describe this integration, not every service used to deliver the website.</p><p>Your choice is saved in this browser. Declining Google Analytics does not affect page access. You can change this preference here or clear this site's browser data.</p><p>Read the <a href="/privacy/">Website Privacy Notice</a> for website delivery, performance measurement and contact information.</p><div class="consent-actions"><button class="button primary" id="analytics-accept" type="button">Allow Google Analytics</button><button class="button secondary" id="analytics-decline" type="button">Decline Google Analytics</button></div><p id="consent-feedback" role="status" aria-live="polite"></p></dialog>
+</body></html>
