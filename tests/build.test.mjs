@@ -338,3 +338,33 @@ test('advanced guidance keeps version and recovery boundaries with shared naviga
  assert.match(ops,/Ready for cutover/);assert.match(ops,/Confirmation cleans up/);
  assert.doesNotMatch(ops,/agready(?:-server)? backup restore --continue/);
 });
+
+test('visible breadcrumbs match production JSON-LD on every non-home content page',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
+ const routes=new Set(['/',...pages.map(p=>p.path)]);
+ for(const page of pages){
+  const html=readFileSync('dist'+page.path+'index.html','utf8');
+  const nav=html.match(/<nav class="breadcrumbs" aria-label="Breadcrumb">([\s\S]*?)<\/nav>/)[1];
+  assert.equal((nav.match(/aria-current="page"/g)||[]).length,1);
+  const raw=html.match(/<script type="application\/ld\+json" id="breadcrumb-data">([\s\S]*?)<\/script>/)[1];
+  const schema=JSON.parse(raw);
+  assert.equal(schema['@type'],'BreadcrumbList');assert.equal(schema['@context'],'https://schema.org');
+  const items=schema.itemListElement;
+  const expectedParent=page.path.startsWith('/docs/')&&page.path!=='/docs/'?'/docs/':page.path.startsWith('/blog/')&&page.path!=='/blog/'?'/blog/':null;
+  assert.equal(items.length,expectedParent?3:2);
+  assert.equal(items[0].name,'Home');assert.equal(items[0].item,'https://agready.ai/');
+  if(expectedParent) assert.equal(items[1].item,'https://agready.ai'+expectedParent);
+  for(const [index,item] of items.entries()){
+   assert.equal(item['@type'],'ListItem');assert.equal(item.position,index+1);
+   assert.ok(routes.has(new URL(item.item).pathname));
+   const escaped=item.name.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
+   assert.ok(nav.includes('>'+escaped+'</'),page.path+': '+item.name);
+   if(index<items.length-1) assert.ok(nav.includes('href="'+new URL(item.item).pathname+'"'));
+  }
+  assert.equal(items.at(-1).item,'https://agready.ai'+page.path);
+ }
+ for(const path of ['dist/index.html','dist/404.html']) assert.doesNotMatch(readFileSync(path,'utf8'),/breadcrumb-data|aria-label="Breadcrumb"/);
+ build();
+ for(const page of pages){const html=readFileSync('dist'+page.path+'index.html','utf8');assert.doesNotMatch(html,/breadcrumb-data|BreadcrumbList/);assert.match(html,/aria-label="Breadcrumb"/);}
+});

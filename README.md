@@ -75,3 +75,7 @@ The build emits SHA-256 content-hashed CSS and JavaScript filenames and rewrites
 ## Illustrated Get started guide
 
 `src/getting-started.html` and the original images under `public/images/getting-started/` form the setup and first-task guide. Captions explain controls and the example result; screens reflect the development interface, not a promise of release equivalence. No clean-install or real-model acceptance claim is made. Image filenames include content hashes; original bytes are preserved.
+
+## Breadcrumb navigation
+
+`scripts/breadcrumbs.mjs` generates visible Home / Docs or Blog / current-page trails from existing routes. The same trail produces BreadcrumbList JSON-LD only for published non-home content pages. Preview builds keep navigation but omit this structured data; the homepage and 404 have neither. No rich-result appearance or ranking gain is guaranteed.

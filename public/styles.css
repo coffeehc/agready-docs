@@ -43,3 +43,11 @@ summary:focus-visible{outline:3px solid #6c8934;outline-offset:4px}
 .docs-page-toc a{display:block;padding:10px 4px;min-height:44px;font-size:14px;line-height:1.6;overflow-wrap:anywhere}
 .docs-article h2[id]{scroll-margin-top:20px}.docs-article pre{max-width:100%;overflow-x:auto}.docs-article code{overflow-wrap:anywhere}
 @media(max-width:900px){.docs-layout{display:block}.docs-sidebar{display:none}.docs-mobile-menu{display:block;margin-top:24px;border-block:1px solid var(--line);padding:6px 0}.docs-mobile-menu .docs-navigation{padding:10px 0 20px}.docs-layout .docs-article{padding-top:30px}.docs-nav-group+.docs-nav-group{margin-top:16px}}
+
+/* Visible breadcrumbs and structured data share one build-time source. */
+.reading-page .breadcrumbs{margin:0 0 20px;max-width:100%}
+.reading-page .breadcrumbs ol{display:flex;flex-wrap:wrap;align-items:center;gap:0 10px;list-style:none;margin:0;padding:0}
+.reading-page .breadcrumbs li,.reading-page .breadcrumbs li+li{display:flex;align-items:center;gap:10px;min-width:0;margin:0;font-size:13px;line-height:1.6}
+.breadcrumbs a{display:inline-flex;align-items:center;min-height:44px;text-underline-offset:4px}
+.breadcrumbs [aria-current="page"]{color:var(--muted);overflow-wrap:anywhere;min-width:0;padding:10px 0}
+.breadcrumb-separator{color:var(--muted);flex-shrink:0}
