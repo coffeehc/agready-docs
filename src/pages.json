@@ -130,5 +130,17 @@
     "path": "/docs/what-can-agready-do/",
     "title": "What can you do with AgReady? | AgReady Docs",
     "description": "Learn how to use AgReady for research, documents and repeatable work with tools, memory, Skills and agent teams, while keeping control of actions and results."
+  },
+  {
+    "source": "src/docs-agent-teams.html",
+    "path": "/docs/agent-teams/",
+    "title": "Work with an AI agent team in AgReady \u2014 AgReady Docs",
+    "description": "Create an agent team, give its manager a clear goal, inspect collaboration, and pause or revise work while keeping control."
+  },
+  {
+    "source": "src/docs-recurring-tasks.html",
+    "path": "/docs/recurring-tasks/",
+    "title": "Schedule recurring AI tasks in AgReady \u2014 AgReady Docs",
+    "description": "Use Triggers to send scheduled instructions to an AgReady session, check execution history, and control future runs."
   }
 ]

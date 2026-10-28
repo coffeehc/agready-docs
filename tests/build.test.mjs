@@ -36,7 +36,7 @@ test('invalid analytics ID and unsafe origin fail closed',()=>{
 test('all content pages have real navigation, preview safeguards and no unconfirmed release paths',()=>{
  build();
  const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
- assert.equal(pages.length,22);
+ assert.equal(pages.length,24);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page.path);
@@ -176,7 +176,7 @@ test('404 output is noindex, not canonicalized and excluded from the content sit
  assert.match(missing,/href="\/"/);assert.match(missing,/href="\/docs\/"/);
  assert.match(missing,/name="ga4-measurement-id" content=""/);
  const sitemap=readFileSync('dist/sitemap.xml','utf8');
- assert.equal((sitemap.match(/<loc>/g)||[]).length,23);
+ assert.equal((sitemap.match(/<loc>/g)||[]).length,25);
  assert.doesNotMatch(sitemap,/404/);
  assert.ok(!existsSync('dist/_redirects'));
  build();
@@ -297,7 +297,7 @@ test('four substantive guides have real links, version scope and no internal evi
 
 test('all docs routes have shared accessible navigation and real page TOC anchors',()=>{
  build(); const pages=JSON.parse(readFileSync('src/pages.json','utf8')).filter(p=>p.path.startsWith('/docs/'));
- assert.equal(pages.length,13);
+ assert.equal(pages.length,15);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.match(html,/class="docs-sidebar"/);assert.match(html,/<details class="docs-mobile-menu"><summary>Documentation menu<\/summary>/);
@@ -384,7 +384,7 @@ test('related products distinguish information and messaging from native AgReady
  assert.match(html,/href="https:\/\/xlead\.51apis\.com\/"/);
  assert.match(html,/href="https:\/\/xletter\.51apis\.com\/"/);
  assert.doesNotMatch(html,/https:\/\/(?:lead|letter)\.agready\.ai|github\.com\/coffeehc\/(?:lead|letter)(?:["/])|guaranteed delivery|SMTP-compatible/);
- assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,22);
+ assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,24);
  assert.match(html,/rel="canonical" href="https:\/\/agready\.ai\/product\/"/);
 });
 
@@ -440,4 +440,21 @@ test('capabilities overview is a first-class docs entry with bounded product gui
  for(const page of ['dist/docs/index.html','dist/product/index.html']) assert.ok(readFileSync(page,'utf8').includes('href="'+path+'"'));
  assert.ok(html.includes('rel="canonical" href="https://agready.ai'+path+'"'));
  assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+path+'</loc>'));
+});
+
+
+test('team and recurring guides preserve activation and evidence boundaries',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const team=readFileSync('dist/docs/agent-teams/index.html','utf8');
+ const recurring=readFileSync('dist/docs/recurring-tasks/index.html','utf8');
+ assert.match(team,/without creating a team/);assert.match(team,/not exercised in this check/);
+ assert.match(team,/Archive team/);assert.match(team,/Restore team/);assert.match(team,/role description does not grant additional access/);
+ assert.match(recurring,/Operations → Triggers/);assert.match(recurring,/without saving a trigger/);
+ assert.match(recurring,/UTC\+8/);assert.match(recurring,/not verified task completions/);
+ assert.match(recurring,/does not automatically disable the recurring trigger/);
+ for(const slug of ['agent-teams','recurring-tasks']){
+  for(const source of ['dist/docs/index.html','dist/docs/what-can-agready-do/index.html']) assert.ok(readFileSync(source,'utf8').includes('href="/docs/'+slug+'/"'));
+  assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai/docs/'+slug+'/</loc>'));
+ }
+ for(const html of [team,recurring])assert.doesNotMatch(html,/82ffcc|081948|\/workspace\/|team-manager\.md|builtin\.yaml/);
 });
