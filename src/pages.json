@@ -9,7 +9,7 @@
     "source": "src/docs.html",
     "path": "/docs/",
     "title": "AgReady documentation \u2014 Setup, concepts and first tasks",
-    "description": "Start using AgReady with setup guidance, context and tool concepts, task examples, human control and first-use diagnostic checks."
+    "description": "Find AgReady guides by task: research source material, revise documents or repeat a useful review. Learn setup, tools, sessions and human control."
   },
   {
     "source": "src/docs-core-concepts.html",

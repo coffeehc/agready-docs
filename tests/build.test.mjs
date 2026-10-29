@@ -458,3 +458,19 @@ test('team and recurring guides preserve activation and evidence boundaries',()=
  }
  for(const html of [team,recurring])assert.doesNotMatch(html,/82ffcc|081948|\/workspace\/|team-manager\.md|builtin\.yaml/);
 });
+
+
+test('docs task paths connect real work to existing guides without inventing results',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const html=readFileSync('dist/docs/index.html','utf8');
+ const section=html.match(/<section id="task-paths"[\s\S]*?<\/section>/)[0];
+ assert.equal((section.match(/<h3>/g)||[]).length,3);
+ assert.equal((section.match(/<ol>/g)||[]).length,3);
+ assert.match(section,/not measured customer results/);
+ assert.match(section,/activation, not a verified completed task/);
+ assert.match(section,/filename in a response is not proof/);
+ const routes=new Set(JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path));
+ for(const [,href] of section.matchAll(/href="([^"]+)"/g)) assert.ok(routes.has(href),'Known task-path destination: '+href);
+ assert.ok(html.indexOf('id="task-paths"')<html.indexOf('Set up an instance'));
+ assert.equal((readFileSync('dist/sitemap.xml','utf8').match(/<loc>/g)||[]).length,25);
+});
