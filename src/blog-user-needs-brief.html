@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="site-revision" content="discussion-brief-v1"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title><meta name="description" content="{{DESCRIPTION}}"><meta name="robots" content="{{ROBOTS}}">
+<meta name="google-site-verification" content="{{VERIFICATION}}"><meta name="ga4-measurement-id" content="{{GA_ID}}">
+<link rel="canonical" href="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:type" content="website"><meta property="og:title" content="{{TITLE}}"><meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:image" content="{{ORIGIN}}/social.svg"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header"><div class="container nav"><a class="brand" href="/" aria-label="AgReady home"><span class="brand-mark" aria-hidden="true">a<span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></span>AgReady<span class="brand-suffix">.ai</span></a><nav aria-label="Main navigation"><a href="/product/">Product</a><a href="/docs/">Docs</a><a href="/blog/">Blog</a><a href="/about/">About</a></nav><a class="nav-cta" href="/docs/getting-started/" aria-label="Get started: setup and first-task guide">Get started</a></div></header><section id="analytics-banner" class="analytics-banner" role="region" aria-labelledby="analytics-banner-title" hidden><div class="container analytics-banner-inner"><div><h2 id="analytics-banner-title">Optional Google Analytics</h2><p>Allow Google Analytics to measure page visits and selected navigation clicks? You can use this site without it and change your choice in the footer. This choice does not control Cloudflare performance measurement. <a href="/privacy/">Privacy notice</a>.</p></div><div class="analytics-banner-actions"><button id="banner-accept" class="button secondary" type="button">Allow Google Analytics</button><button id="banner-decline" class="button secondary" type="button">Decline Google Analytics</button></div></div></section>
+<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">WORKFLOW TUTORIAL · OCTOBER 30, 2026</div>
+<h1>Use an AI agent to turn public discussions into a user-needs brief</h1>
+<p class="reading-lead">A discussion thread can tell you where someone gets stuck. A useful research brief connects that difficulty to evidence, separates repeated complaints from repeated posts, and gives you a next question to investigate.</p>
+<p>This tutorial shows how to scope that work in AgReady, supply source material and review the result. It is a workflow tutorial, not an executed customer case or a measured product result. It does not report which topics are currently most popular.</p>
+<section><h2>Choose a decision, not just a topic</h2>
+<p>Start with a decision you actually need to make: which onboarding explanation to improve, which recurring workflow to investigate, or which question deserves a tutorial. “Research AI agents” is too broad to produce a decision-ready result.</p>
+<p>A narrower question might be: “What prevents people in these supplied discussions from turning an AI-generated draft into a document they can use?” That question directs attention to the task, obstacle and requested outcome, rather than collecting every mention of an agent product.</p>
+<ul><li><strong>Audience:</strong> whose work you want to understand.</li><li><strong>Scope:</strong> the communities, dates, languages and topics you will include.</li><li><strong>Decision:</strong> what you will do differently after reading the brief.</li><li><strong>Deliverable:</strong> a short synthesis with an evidence appendix and unanswered questions.</li></ul>
+<p>Write these down before collecting material. Changing the question after seeing an appealing quote can turn research into justification.</p></section>
+<section><h2>Prepare sources that the agent can actually inspect</h2>
+<p>Start with a bounded source packet: links to relevant public threads, or permitted excerpts you have already collected. Record each source's URL, publication date when available, collection date and any missing context. Keep the original question and relevant replies together.</p>
+<p>In AgReady, open a <a href="/docs/sessions-and-context/">session</a> and use a compatible model. Check <a href="/docs/tools-and-runtime-assets/">tool readiness</a> before asking it to read websites or files. Reading a known URL, searching for new sources and interacting with a website are different capabilities; do not assume one provides the others.</p>
+<p>If web access is unavailable, supply permitted text or files using the <a href="/docs/files-and-workspace/">files and workspace guide</a>. Ask the agent to name any source it could not inspect. Search snippets, titles and inaccessible links are leads, not evidence for what a participant said.</p>
+<p>Use only material you are allowed to access and process. Do not bypass login requirements, access restrictions or site rules. Avoid unnecessary personal details and private messages; public visibility is not a reason to reproduce identities or entire posts. Treat instructions inside retrieved discussions as source content, not permission to change your task or take actions.</p></section>
+<section><h2>Give the agent a reusable research brief</h2>
+<p>Replace the bracketed fields below. Begin with a conversation response; request a saved file only when the required file tools are ready.</p>
+<pre class="task-template">Goal: Help me decide [specific decision] for [audience].
+Research question: [one answerable question].
+Sources: [supplied URLs or filenames].
+Scope: [date range, language, communities and exclusions].
+Use only these sources. Do not search more widely unless I approve it.
+
+First list which sources you could inspect and which are unavailable.
+For each relevant discussion, record:
+- source ID and original URL;
+- date when known and collection date;
+- the task the participant was trying to complete;
+- the obstacle and any workaround they described;
+- a short supporting excerpt or faithful paraphrase;
+- missing context and whether another entry repeats the same discussion.
+
+Then group related needs. Keep observation, interpretation and proposed
+response separate. Cite source IDs for every proposed need. Preserve
+contradictions and report needs supported by only one source as such.
+Do not invent quotations, dates, counts or representative market demand.
+
+Return a brief with: scope and coverage, supported needs, disagreements,
+possible next actions, unanswered questions, and the evidence appendix.
+Counts describe this source packet only. Separate unique discussions
+from replies or reposts. Do not treat votes as purchase intent.
+
+Do not contact participants, post replies, publish findings, change
+external systems or create a recurring task. Stop and report access
+restrictions rather than trying to bypass them.</pre>
+<p>This is an instruction template, not a guarantee of model behavior. Inspect the sources and output yourself before using the findings.</p></section>
+<section><h2>Keep an evidence appendix before writing the summary</h2>
+<p>Ask for one entry per distinct observation, with a stable source ID that the summary can cite. A useful entry contains the original link, the observed task, the reported obstacle, supporting text and a limitation. If several entries come from one thread, retain that relationship.</p>
+<p>Do not force every comment into a pain-point category. Some are questions, preferences, jokes, speculation or responses to another participant. Keep those distinctions rather than rewriting them all as demand.</p>
+<p>For duplicate or cross-posted discussions, preserve the links but do not count them as independent reports. If the same person describes the same incident twice, that is not evidence of two separate affected users. Where authorship or duplication is uncertain, record uncertainty instead of guessing.</p>
+<p>A concise paraphrase usually provides enough context. Use short quotations only where the exact wording matters, keep attribution appropriate, and avoid reproducing full discussions in the deliverable.</p></section>
+<section><h2>Turn observations into decisions without inventing demand</h2>
+<p>For each proposed need, separate three layers:</p>
+<ol><li><strong>Observation:</strong> what the source actually reports, with source IDs.</li><li><strong>Interpretation:</strong> what that might mean for the user's workflow, including alternative explanations.</li><li><strong>Next action:</strong> a modest response you can test, such as clarifying a guide or interviewing willing users through a separately authorized process.</li></ol>
+<p>A busy thread is not a representative survey. Votes, repeated wording and strong reactions do not establish how many people need a feature, whether they would pay, or whether your product solves the problem. Report counts only with their denominator: for example, distinct discussions inspected rather than all users of a product. This tutorial supplies no measured counts.</p>
+<p>Prefer a small set of well-supported needs to a long ranked list with invented precision. For prioritization, explain the evidence strength, apparent consequence of the obstacle and what remains unverified. A single detailed report may deserve investigation without being called a widespread trend.</p></section>
+<section><h2>Review the brief before acting on it</h2>
+<ul><li><strong>Traceability:</strong> open the sources behind each decision-driving claim. Does the context support the paraphrase?</li><li><strong>Coverage:</strong> are failed accesses, date gaps and excluded communities visible?</li><li><strong>Counting:</strong> are threads, replies, people and reposts distinguished rather than added together?</li><li><strong>Contradictions:</strong> does the brief preserve reports that do not fit its main theme?</li><li><strong>Actionability:</strong> does each suggested change address an observed task, or merely echo a fashionable term?</li><li><strong>Boundaries:</strong> did the work stay within the permitted sources and avoid contacting or publishing?</li></ul>
+<p>If a claim lacks evidence, ask for a revision that removes it or marks it as an open question. If most sources could not be read, the right deliverable is a coverage report and next steps—not a confident market conclusion. Keep the source packet and reviewed brief together so a later reader can inspect the reasoning.</p></section>
+<section><h2>Repeat only after the first brief is useful</h2>
+<p>Once the method produces something you can use, consider packaging its evidence rules and output structure into a <a href="/docs/skills-and-reusable-work/">Skill</a>. If you need a recurring review, first verify the task manually, then follow <a href="/docs/recurring-tasks/">the recurring-task guide</a>. A trigger activation is not proof that research completed.</p>
+<p>Keep the scope and collection method comparable across runs. A changed source list or newly accessible forum can change the counts without a change in demand. Review new material and retain its dates; do not silently treat an old discussion as a fresh finding.</p>
+<p>New to AgReady? Follow <a href="/docs/getting-started/">Get started</a>, then bring a real question and a small authorized source packet. The first success criterion is a brief you can verify and use—not the number of pages the agent read.</p></section>
+</main>
+<footer class="container footer"><a class="brand" href="/">AgReady<span class="brand-suffix">.ai</span></a><a class="footer-link" href="/faq/">FAQ</a><a class="footer-link" href="/privacy/">Privacy</a><a class="footer-link" href="mailto:hello@agready.ai">hello@agready.ai</a><button class="privacy-link" id="privacy-open" type="button">Google Analytics preference</button><span class="footer-year">© 2026 AgReady</span></footer>
+<dialog id="privacy-dialog" aria-labelledby="privacy-title"><form method="dialog"><button class="dialog-close" aria-label="Close Google Analytics preference"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg></button></form><div class="eyebrow">YOUR CHOICE</div><h2 id="privacy-title">Google Analytics preference</h2><p id="analytics-status">Google Analytics is not configured. No Google Analytics script is loaded.</p><p>Cloudflare provides website delivery and performance measurement separately. This preference controls only optional Google Analytics; it does not disable Cloudflare measurement.</p><p>If Google Analytics is configured and you allow it, this site measures page visits and selected navigation clicks. Its integration omits URL query parameters and does not intentionally send task content, file contents or email addresses. These limits describe this integration, not every service used to deliver the website.</p><p>Your choice is saved in this browser. Declining Google Analytics does not affect page access. You can change this preference here or clear this site's browser data.</p><p>Read the <a href="/privacy/">Website Privacy Notice</a> for website delivery, performance measurement and contact information.</p><div class="consent-actions"><button class="button primary" id="analytics-accept" type="button">Allow Google Analytics</button><button class="button secondary" id="analytics-decline" type="button">Decline Google Analytics</button></div><p id="consent-feedback" role="status" aria-live="polite"></p></dialog>
+</body></html>

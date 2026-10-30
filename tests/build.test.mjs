@@ -36,7 +36,7 @@ test('invalid analytics ID and unsafe origin fail closed',()=>{
 test('all content pages have real navigation, preview safeguards and no unconfirmed release paths',()=>{
  build();
  const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
- assert.equal(pages.length,24);
+ assert.equal(pages.length,25);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page.path);
@@ -176,7 +176,7 @@ test('404 output is noindex, not canonicalized and excluded from the content sit
  assert.match(missing,/href="\/"/);assert.match(missing,/href="\/docs\/"/);
  assert.match(missing,/name="ga4-measurement-id" content=""/);
  const sitemap=readFileSync('dist/sitemap.xml','utf8');
- assert.equal((sitemap.match(/<loc>/g)||[]).length,25);
+ assert.equal((sitemap.match(/<loc>/g)||[]).length,26);
  assert.doesNotMatch(sitemap,/404/);
  assert.ok(!existsSync('dist/_redirects'));
  build();
@@ -384,7 +384,7 @@ test('related products distinguish information and messaging from native AgReady
  assert.match(html,/href="https:\/\/xlead\.51apis\.com\/"/);
  assert.match(html,/href="https:\/\/xletter\.51apis\.com\/"/);
  assert.doesNotMatch(html,/https:\/\/(?:lead|letter)\.agready\.ai|github\.com\/coffeehc\/(?:lead|letter)(?:["/])|guaranteed delivery|SMTP-compatible/);
- assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,24);
+ assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,25);
  assert.match(html,/rel="canonical" href="https:\/\/agready\.ai\/product\/"/);
 });
 
@@ -472,5 +472,21 @@ test('docs task paths connect real work to existing guides without inventing res
  const routes=new Set(JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path));
  for(const [,href] of section.matchAll(/href="([^"]+)"/g)) assert.ok(routes.has(href),'Known task-path destination: '+href);
  assert.ok(html.indexOf('id="task-paths"')<html.indexOf('Set up an instance'));
- assert.equal((readFileSync('dist/sitemap.xml','utf8').match(/<loc>/g)||[]).length,25);
+ assert.equal((readFileSync('dist/sitemap.xml','utf8').match(/<loc>/g)||[]).length,26);
+});
+
+
+test('user-needs tutorial has evidence boundaries and discoverable production route',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const path='/blog/ai-agent-user-needs-research/';
+ const html=readFileSync('dist'+path+'index.html','utf8');
+ assert.match(html,/not an executed customer case/);
+ assert.match(html,/Counts describe this source packet only/);
+ assert.match(html,/Do not invent quotations, dates, counts/);
+ assert.match(html,/Do not contact participants/);
+ assert.match(html,/not permission to change your task/);
+ assert.match(html,/class="task-template"/);
+ assert.ok(html.includes('rel="canonical" href="https://agready.ai'+path+'"'));
+ for(const file of ['dist/blog/index.html','dist/docs/index.html'])assert.ok(readFileSync(file,'utf8').includes('href="'+path+'"'));
+ assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+path+'</loc>'));
 });

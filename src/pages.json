@@ -142,5 +142,11 @@
     "path": "/docs/recurring-tasks/",
     "title": "Schedule recurring AI tasks in AgReady \u2014 AgReady Docs",
     "description": "Use Triggers to send scheduled instructions to an AgReady session, check execution history, and control future runs."
+  },
+  {
+    "source": "src/blog-user-needs-brief.html",
+    "path": "/blog/ai-agent-user-needs-research/",
+    "title": "AI agent user research: turn discussions into a needs brief \u2014 AgReady",
+    "description": "Use AgReady to research public discussions with a reusable prompt, source evidence and a review checklist. Turn reported problems into a user-needs brief."
   }
 ]
