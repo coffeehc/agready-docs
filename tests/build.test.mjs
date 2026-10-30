@@ -381,9 +381,9 @@ test('related products distinguish information and messaging from native AgReady
  assert.match(html,/Receiving a message does not itself authorize/);
  assert.match(html,/do not imply a preconfigured or tested native AgReady integration/);
  assert.match(html,/href="https:\/\/github.com\/coffeehc\/xletter-skill"/);
- assert.match(html,/href="https:\/\/xlead\.51apis\.com\/"/);
+ assert.match(html,/href="https:\/\/lead\.agready\.ai\/"/);
  assert.match(html,/href="https:\/\/xletter\.51apis\.com\/"/);
- assert.doesNotMatch(html,/https:\/\/(?:lead|letter)\.agready\.ai|github\.com\/coffeehc\/(?:lead|letter)(?:["/])|guaranteed delivery|SMTP-compatible/);
+ assert.doesNotMatch(html,/https:\/\/letter\.agready\.ai|github\.com\/coffeehc\/(?:lead|letter)(?:["/])|guaranteed delivery|SMTP-compatible/);
  assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,25);
  assert.match(html,/rel="canonical" href="https:\/\/agready\.ai\/product\/"/);
 });
@@ -489,4 +489,18 @@ test('user-needs tutorial has evidence boundaries and discoverable production ro
  assert.ok(html.includes('rel="canonical" href="https://agready.ai'+path+'"'));
  for(const file of ['dist/blog/index.html','dist/docs/index.html'])assert.ok(readFileSync(file,'utf8').includes('href="'+path+'"'));
  assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+path+'</loc>'));
+});
+
+
+test('Lead workflow links the confirmed service without claiming tested integration',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const html=readFileSync('dist/blog/ai-agent-user-needs-research/index.html','utf8');
+ assert.match(html,/id="lead-workflow"/);
+ assert.match(html,/not a tested native integration/);
+ assert.match(html,/does not authorize writes to Lead/);
+ assert.match(html,/Read the saved result back/);
+ assert.match(html,/href="https:\/\/lead.agready.ai\/skill.md"/);
+ const product=readFileSync('dist/product/index.html','utf8');
+ assert.match(product,/href="\/blog\/ai-agent-user-needs-research\/#lead-workflow"/);
+ assert.doesNotMatch(product,/xlead\.51apis\.com/);
 });
