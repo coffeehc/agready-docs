@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   const id = document.querySelector('meta[name="ga4-measurement-id"]')?.content || '';
-  const configured = /^G-[A-Z0-9]+$/.test(id);
+  const configured = /^G-[A-Z0-9]+$/.test(id) && location.hostname === 'agready.ai';
   const key = 'agready.analytics-choice.v1';
   let choice = 'unset';
   try { choice = localStorage.getItem(key) || 'unset'; } catch { /* Privacy modes can block storage. */ }
@@ -15,7 +15,10 @@
   function enable() {
     if (!configured || choice !== 'accepted') return;
     window['ga-disable-' + id] = false;
-    if (loaded) return;
+    if (loaded) {
+      window.gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+      return;
+    }
     loaded = true;
     window.dataLayer = window.dataLayer || [];
     window.gtag = function () { window.dataLayer.push(arguments); };
@@ -39,8 +42,11 @@
     try { localStorage.setItem(key, next); } catch { /* Choice applies for this page if storage is unavailable. */ }
     if (next === 'accepted') enable();
     else if (configured) {
+      // Disable the Google tag itself, including automatic events, before updating consent.
       window['ga-disable-' + id] = true;
-      document.getElementById('agready-google-tag')?.remove();
+      if (loaded && window.gtag) window.gtag('consent', 'update', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+      // Keep the tag element: removal cannot unload executed code and can break
+      // reacceptance if its initial request is still pending. The disable flag is the gate.
       // Expire first-party GA cookies, including cookies set on a parent hostname.
       const hosts = location.hostname.split('.');
       const domains = ['', ...hosts.map((_, index) => hosts.slice(index).join('.'))];

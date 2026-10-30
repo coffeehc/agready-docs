@@ -1,5 +1,7 @@
 export const site = {
   name: 'AgReady',
+  // Public GA4 identifier; used only by indexable production builds.
+  gaMeasurementId: 'G-Q78FP1774Z',
   // Public Search Console ownership marker; retain while verification is in use.
   googleSiteVerification: 'TtCSefdKI5OtPV_p2mX9OihOAAK1kOdfoERM1Z3HgV4',
   title: 'AgReady — Self-hosted AI agent workspace',

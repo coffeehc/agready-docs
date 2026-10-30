@@ -22,9 +22,9 @@
 - [ ] Choose reporting timezone and currency deliberately.
 - [ ] Record the public Measurement ID in deployment config; never embed API secrets.
 - [ ] Review retention, sharing, regional requirements, privacy policy and consent UX before collection.
-- [ ] Disable Enhanced Measurement automatic events to match this minimal adapter. Advertising features are not part of this task.
+- [ ] Verify Enhanced Measurement: scrolling, outbound clicks and file-download clicks on; search, forms, video and history-based page views off. Advertising features remain off.
 - [ ] Set `GA4_MEASUREMENT_ID` and verify tag network activity stays absent before consent and after decline.
-- [ ] Check page visits and fixed CTA names in DebugView / Realtime after consent. Confirm a URL with a test query does not transmit that query.
+- [ ] Check page visits and fixed CTA names in DebugView / Realtime after consent. Confirm manual event page URLs omit a test query; separately inspect automatic event link details. Verify a single page_view per navigation and no further collection after withdrawal.
 - [ ] Check accept → decline → accept, storage blocked, repeated clicks and page reload.
 - [ ] Exclude or separate development/test traffic. Decide whether CTA events deserve key-event status; a navigation click is not a signup or task completion.
 - [ ] If a product app is added later, define verified activation/completion events there rather than inferring them from homepage clicks.

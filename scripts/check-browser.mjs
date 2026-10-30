@@ -32,15 +32,15 @@ for(const [name,width,height] of [['desktop',1440,1000],['mobile',390,844],['sma
 const page=await browser.newPage({viewport:{width:1000,height:800}});
 const requested=[];
 await page.route('**/*',async route=>{
- const url=route.request().url();
- if(!url.startsWith('http://localhost:4173')) {requested.push(url);return route.fulfill({contentType:'application/javascript',body:'/* mocked Google tag; no network */'});}
+ const url=new URL(route.request().url());
+ if(url.hostname!=='agready.ai') {requested.push(url.href);return route.fulfill({contentType:'application/javascript',body:'/* mocked Google tag; no network */'});}
+ const response=await page.request.get('http://localhost:4173'+url.pathname+url.search);
  if(route.request().resourceType()==='document'){
-  const response=await route.fetch();
   return route.fulfill({response,body:(await response.text()).replace('name="ga4-measurement-id" content=""','name="ga4-measurement-id" content="G-QATEST123"')});
  }
- return route.continue();
+ return route.fulfill({response});
 });
-await page.goto('http://localhost:4173/?secret=do-not-send#secret');
+await page.goto('https://agready.ai/?secret=do-not-send#secret');
 assert.equal(requested.length,0);
 await page.getByRole('button',{name:'Google Analytics preference',exact:true}).click();
 await page.getByRole('button',{name:'Allow Google Analytics',exact:true}).click();

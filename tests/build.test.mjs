@@ -504,3 +504,29 @@ test('Lead workflow links the confirmed service without claiming tested integrat
  assert.match(product,/href="\/blog\/ai-agent-user-needs-research\/#lead-workflow"/);
  assert.doesNotMatch(product,/xlead\.51apis\.com/);
 });
+
+test('configured production has unified analytics ID, accurate enhanced disclosure and no duplicate outbound labels',()=>{
+ build({SITE_PUBLISH:'true',GA4_MEASUREMENT_ID:'G-TEST123'});
+ for(const path of ['/',...JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path)]){
+  const html=readFileSync('dist'+path+'index.html','utf8');
+  assert.match(html,/name="ga4-measurement-id" content="G-TEST123"/);
+  assert.match(html,/Optional Google Analytics is off until you allow it/);
+  assert.doesNotMatch(html,/Google Analytics is not currently configured/);
+ }
+ for(const path of ['/product/','/blog/ai-agent-user-needs-research/']) assert.doesNotMatch(readFileSync('dist'+path+'index.html','utf8'),/data-cta="open_lead"/);
+ for(const path of ['/docs/getting-started/','/docs/install-and-start/','/faq/']) assert.doesNotMatch(readFileSync('dist'+path+'index.html','utf8'),/data-cta="view_release"/);
+ const notice=readFileSync('dist/privacy/index.html','utf8');
+ assert.match(notice,/not proof of a completed download, installation or use/);
+ assert.match(notice,/not a blanket filter/);
+ build();
+});
+
+test('public production ID is the default only in published builds and can be disabled explicitly',()=>{
+ const env={...process.env,SITE_PUBLISH:'true'};delete env.GA4_MEASUREMENT_ID;
+ execFileSync(process.execPath,['scripts/build.mjs'],{stdio:'pipe',env});
+ assert.match(readFileSync('dist/index.html','utf8'),/name="ga4-measurement-id" content="G-Q78FP1774Z"/);
+ execFileSync(process.execPath,['scripts/build.mjs'],{stdio:'pipe',env:{...env,SITE_PUBLISH:'false'}});
+ assert.match(readFileSync('dist/index.html','utf8'),/name="ga4-measurement-id" content=""/);
+ assert.match(build({SITE_PUBLISH:'true',GA4_MEASUREMENT_ID:''}),/name="ga4-measurement-id" content=""/);
+ build();
+});

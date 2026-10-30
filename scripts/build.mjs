@@ -9,7 +9,7 @@ const origin = new URL(process.env.SITE_ORIGIN || 'https://agready.ai');
 if (origin.protocol !== 'https:' || origin.pathname !== '/' || origin.search || origin.hash || origin.username || origin.password) throw new Error('SITE_ORIGIN must be an HTTPS origin without a path, credentials or query.');
 const publish = process.env.SITE_PUBLISH === 'true';
 if (publish && origin.origin !== 'https://agready.ai') throw new Error('Published SITE_ORIGIN must be https://agready.ai.');
-const ga = process.env.GA4_MEASUREMENT_ID || '';
+const ga = process.env.GA4_MEASUREMENT_ID ?? (publish ? site.gaMeasurementId || '' : '');
 if (ga && !/^G-[A-Z0-9]+$/.test(ga)) throw new Error('GA4_MEASUREMENT_ID must be a GA4 G- identifier.');
 const verification = process.env.GOOGLE_SITE_VERIFICATION || site.googleSiteVerification || '';
 await rm('dist', { recursive:true, force:true });
@@ -33,7 +33,8 @@ for (const page of [...pages, {source:'src/404.html',path:'/404.html',output:'di
  html = addDocumentationNavigation(html,page,pages);
  html = addBreadcrumbs(html,page,pages,{publish,origin:origin.origin});
  for (const [original, versioned] of Object.entries(assets)) html = html.replaceAll('\"'+original+'\"', '\"'+versioned+'\"');
- const values = { TITLE:page.title, DESCRIPTION:page.description, PAGE_PATH:page.path, ORIGIN:origin.origin, ROBOTS:publish&&!page.notFound?'index,follow':'noindex,nofollow', GA_ID:ga, VERIFICATION:verification };
+ const values = { TITLE:page.title, DESCRIPTION:page.description, PAGE_PATH:page.path, ORIGIN:origin.origin, ROBOTS:publish&&!page.notFound?'index,follow':'noindex,nofollow', GA_ID:ga, GA_STATUS:ga ? 'Optional Google Analytics is off until you allow it.' : 'Google Analytics is not configured. No Google Analytics script is loaded.', VERIFICATION:verification };
+ html = html.replace('Google Analytics is not configured. No Google Analytics script is loaded.', values.GA_STATUS);
  html = html.replace(/\{\{([A-Z_]+)\}\}/g,(_,k)=>escape(values[k] ?? ''));
  // Publish the public ownership token only on the production homepage.
  html = html.replace(/<meta name="google-site-verification"[^>]*>\s*/g, '');

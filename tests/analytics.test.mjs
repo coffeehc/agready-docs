@@ -3,13 +3,14 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import {readFileSync} from 'node:fs';
 const source=readFileSync('public/app.js','utf8');
-function harness(id='',saved=null,blockedStorage=false){
+function tagConsent(h,expected){assert.equal(h.events().filter(a=>a[0]==='consent').at(-1)[2].analytics_storage,expected)}
+function harness(id='',saved=null,blockedStorage=false,hostname='agready.ai'){
  const listeners={},requests=[],storage=new Map(saved?[['agready.analytics-choice.v1',saved]]:[]),nodes=new Map();
  function node(key){if(!nodes.has(key))nodes.set(key,{textContent:'',disabled:false,open:false,hidden:true,contains(el){return el?.ownerBanner===key},focus(options){this.focused=true;this.focusOptions=options},addEventListener(type,fn){listeners[key+':'+type]=fn},showModal(){this.open=true},remove(){this.removed=true}});return nodes.get(key)}
  const cta={dataset:{cta:'explore_workspace'},addEventListener(type,fn){listeners['cta:'+type]=fn}};
  const window={};
  const document={cookie:'',title:'AgReady',querySelector(){return {content:id}},getElementById:node,querySelectorAll(){return [cta]},createElement(){return {remove(){this.removed=true}}},head:{appendChild(s){requests.push(s.src);nodes.set(s.id,s)}}};
- const context={window,document,localStorage:{getItem(k){if(blockedStorage)throw new Error('blocked');return storage.get(k)||null},setItem(k,v){if(blockedStorage)throw new Error('blocked');storage.set(k,v)}},location:{origin:'https://agready.ai',pathname:'/',hostname:'agready.ai',search:'?secret=never',hash:'#never'},Date,encodeURIComponent};
+ const context={window,document,localStorage:{getItem(k){if(blockedStorage)throw new Error('blocked');return storage.get(k)||null},setItem(k,v){if(blockedStorage)throw new Error('blocked');storage.set(k,v)}},location:{origin:'https://agready.ai',pathname:'/',hostname,search:'?secret=never',hash:'#never'},Date,encodeURIComponent};
  vm.runInNewContext(source,context);
  return {window,document,nodes,requests,storage,click:(k)=>listeners[k+':click'](),events:()=>window.dataLayer?.map(a=>Array.from(a))||[]};
 }
@@ -30,10 +31,9 @@ test('accept emits sanitized page event; repeated acceptance never reloads tag',
 });
 test('withdrawal stops adapter events, reaccept works and persisted decline stays off',()=>{
  const h=harness('G-TEST123');h.click('analytics-accept');
- // The test models removal; real browser removal does not unload an already executed script.
- h.nodes.get('agready-google-tag').remove=()=>{};
- const n=h.events().length;h.click('analytics-decline');h.click('cta');assert.equal(h.events().length,n);assert.equal(h.window['ga-disable-G-TEST123'],true);
- h.click('analytics-accept');assert.equal(h.window['ga-disable-G-TEST123'],false);h.click('cta');assert.equal(h.events().length,n+1);
+ // Retaining the tag supports reacceptance even while its first request is pending.
+ const n=h.events().filter(a=>a[0]==='event').length;h.click('analytics-decline');h.click('cta');assert.equal(h.events().filter(a=>a[0]==='event').length,n);assert.equal(h.window['ga-disable-G-TEST123'],true);tagConsent(h,'denied');assert.notEqual(h.nodes.get('agready-google-tag').removed,true);
+ h.click('analytics-accept');assert.equal(h.window['ga-disable-G-TEST123'],false);h.click('cta');assert.equal(h.events().filter(a=>a[0]==='event').length,n+1);tagConsent(h,'granted');
  assert.equal(harness('G-TEST123','declined').requests.length,0);
 });
 test('blocked local storage is safe and defaults to off; dialog works',()=>{
@@ -77,3 +77,10 @@ test('banner keyboard focus continues at content; storage failure does not imply
  next.click('banner-accept');assert.equal(next.requests.length,1);
  next.click('analytics-decline');const n=next.events().length;next.click('cta');assert.equal(next.events().length,n);
 });
+
+ test('production ID never loads on preview or local host',()=>{
+ for(const host of ['agready-docs.pages.dev','preview.agready-docs.pages.dev','localhost','agent.agready.ai']){
+  const h=harness('G-TEST123','accepted',false,host);h.click('analytics-accept');h.click('cta');
+  assert.equal(h.requests.length,0);assert.equal(h.events().length,0);assert.equal(h.nodes.get('analytics-banner').hidden,true);
+ }
+ });
