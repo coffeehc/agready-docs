@@ -36,7 +36,7 @@ test('invalid analytics ID and unsafe origin fail closed',()=>{
 test('all content pages have real navigation, preview safeguards and no unconfirmed release paths',()=>{
  build();
  const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
- assert.equal(pages.length,25);
+ assert.equal(pages.length,26);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page.path);
@@ -176,7 +176,7 @@ test('404 output is noindex, not canonicalized and excluded from the content sit
  assert.match(missing,/href="\/"/);assert.match(missing,/href="\/docs\/"/);
  assert.match(missing,/name="ga4-measurement-id" content=""/);
  const sitemap=readFileSync('dist/sitemap.xml','utf8');
- assert.equal((sitemap.match(/<loc>/g)||[]).length,26);
+ assert.equal((sitemap.match(/<loc>/g)||[]).length,27);
  assert.doesNotMatch(sitemap,/404/);
  assert.ok(!existsSync('dist/_redirects'));
  build();
@@ -384,7 +384,7 @@ test('related products distinguish information and messaging from native AgReady
  assert.match(html,/href="https:\/\/lead\.agready\.ai\/"/);
  assert.match(html,/href="https:\/\/xletter\.51apis\.com\/"/);
  assert.doesNotMatch(html,/https:\/\/letter\.agready\.ai|github\.com\/coffeehc\/(?:lead|letter)(?:["/])|guaranteed delivery|SMTP-compatible/);
- assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,25);
+ assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,26);
  assert.match(html,/rel="canonical" href="https:\/\/agready\.ai\/product\/"/);
 });
 
@@ -472,7 +472,7 @@ test('docs task paths connect real work to existing guides without inventing res
  const routes=new Set(JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path));
  for(const [,href] of section.matchAll(/href="([^"]+)"/g)) assert.ok(routes.has(href),'Known task-path destination: '+href);
  assert.ok(html.indexOf('id="task-paths"')<html.indexOf('Set up an instance'));
- assert.equal((readFileSync('dist/sitemap.xml','utf8').match(/<loc>/g)||[]).length,26);
+ assert.equal((readFileSync('dist/sitemap.xml','utf8').match(/<loc>/g)||[]).length,27);
 });
 
 
@@ -528,5 +528,19 @@ test('public production ID is the default only in published builds and can be di
  execFileSync(process.execPath,['scripts/build.mjs'],{stdio:'pipe',env:{...env,SITE_PUBLISH:'false'}});
  assert.match(readFileSync('dist/index.html','utf8'),/name="ga4-measurement-id" content=""/);
  assert.match(build({SITE_PUBLISH:'true',GA4_MEASUREMENT_ID:''}),/name="ga4-measurement-id" content=""/);
+ build();
+});
+
+
+test('PDF comparison tutorial separates source coverage from spreadsheet delivery',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const path='/blog/compare-pdf-documents-ai-agent/';
+ const html=readFileSync('dist'+path+'index.html','utf8');
+ for(const text of ['not a completed product test','Text-based PDF','Scanned PDF','not stated','unreadable','not executable formulas','Do not overwrite originals','not evidence of a completed Excel export','Session files']) assert.ok(html.includes(text),text);
+ assert.match(html,/class="task-template"/);
+ assert.match(html,/reddit.com\/r\/copilotstudio\/comments\/1rsw7bs/);
+ assert.ok(html.includes('rel="canonical" href="https://agready.ai'+path+'"'));
+ for(const file of ['dist/blog/index.html','dist/docs/index.html']) assert.ok(readFileSync(file,'utf8').includes('href="'+path+'"'));
+ assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+path+'</loc>'));
  build();
 });
