@@ -1,5 +1,12 @@
 # Verification status
 
+## October 31, 2026: download selection
+
+- Scope: make existing installation instructions easier to enter from Get started; expose four version-pinned Server downloads with platform/CPU guidance, a latest-release link, licensing and archive checksum references. No new page, script, analytics behavior or product setting.
+- Source: official GitHub latest-release API checked at 02:31 UTC; v0.0.1 published October 26, with four Linux/macOS amd64/arm64 archives, LICENSE, EULA.md and SHA256SUMS. No native Windows archive is listed for this release. Links are version-pinned, not a claim that v0.0.1 will remain latest.
+- Validation: all 46 Node tests, indexable production build and diff whitespace checks passed. No GitHub Actions workflow exists or was added. A download link is not proof of a completed download, installation or use; no installer or product test was run.
+- Earlier PDF tutorial deployment: main 7ad120c85e8ffec85639806a45a9cf74b6b7f7f6 completed Cloudflare Pages successfully at 02:21:36 UTC (deployment 491cc157-e258-47ac-9422-47f0c5572a66). The earlier 403 HTTP route remains stopped. This update will use the existing integration; production browser acceptance is tracked separately.
+
 ## October 31, 2026: PDF comparison tutorial
 
 - Scope: the source-linked PDF comparison tutorial, its Blog and Docs entry links, route metadata and regression test. This is an instructional workflow, not a completed AgReady PDF/OCR/Excel execution test.

@@ -13,6 +13,18 @@
 <main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">DOCUMENTATION</div><h1>Install and start AgReady</h1>
 <p class="reading-lead">Install AgReady on the machine that will host your instance, start its server, and open that instance in your browser. The AgReady website is documentation—not a hosted account or your running instance.</p>
 <p>This guide covers the v0.0.1 release and its associated installer defaults. The download entrypoint and platform modules can change independently. Review the installer you actually download. These instructions are based on release materials, not a claim that a clean installation was tested here.</p>
+<section aria-labelledby="downloads"><h2 id="downloads">Choose your download</h2>
+<p>These are the four verified <strong>AgReady Server v0.0.1</strong> archives, published October 26, 2026. They include the Web UI. Check the <a href="https://github.com/coffeehc/agready-docs/releases/latest">latest release</a> for newer versions before choosing; the links below stay pinned to v0.0.1.</p>
+<ul>
+<li><strong>macOS · Apple silicon:</strong> <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/agready-v0.0.1-darwin-arm64.tar.gz">Download macOS ARM64 (.tar.gz)</a> — <code>darwin-arm64</code>.</li>
+<li><strong>macOS · Intel:</strong> <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/agready-v0.0.1-darwin-amd64.tar.gz">Download macOS Intel / AMD64 (.tar.gz)</a> — <code>darwin-amd64</code>.</li>
+<li><strong>Linux · Intel or AMD 64-bit (x86-64):</strong> <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/agready-v0.0.1-linux-amd64.tar.gz">Download Linux AMD64 (.tar.gz)</a> — <code>linux-amd64</code>.</li>
+<li><strong>Linux · ARM 64-bit:</strong> <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/agready-v0.0.1-linux-arm64.tar.gz">Download Linux ARM64 (.tar.gz)</a> — <code>linux-arm64</code>.</li>
+</ul>
+<p><code>darwin</code> means macOS in these filenames; <code>amd64</code> also covers compatible Intel x86-64 machines. This release does not include a native Windows archive.</p>
+<p>On a Mac, use <strong>Apple menu → About This Mac</strong>: an Apple chip means Apple silicon; an Intel processor means Intel. On Linux, the read-only command <code>uname -m</code> reports the current architecture: <code>x86_64</code> maps to AMD64 and <code>aarch64</code> to ARM64. For a remote installation, check the <strong>target server</strong>, not the computer running your browser. If the result differs, verify compatibility rather than guessing.</p>
+<p>Before using a package, read the <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/LICENSE">LICENSE</a> and <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/EULA.md">EULA</a>. Compare the downloaded archive with its exact filename in <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/SHA256SUMS">SHA256SUMS</a>; do not use the binary checksum list for an archive. Follow the <a href="https://github.com/coffeehc/agready-docs/releases/tag/v0.0.1">release instructions</a> for installation. Downloading or extracting a package does not install a service or configure a model.</p>
+<p>Prefer the installer? Follow the <a href="#installer">download-and-review steps below</a> instead. Runtime Assets and tool plugins remain separate from the Server.</p></section>
 <h2>Before installing</h2>
 <ul>
 <li>Choose Linux or macOS, then the matching amd64 or arm64 package. Do not choose by operating system alone.</li>
@@ -21,7 +33,7 @@
 <li>Keep the provider credentials you intend to use available privately. Do not put them in a support message or shell command copied into public logs.</li>
 </ul>
 <p>The release includes Server archives with the Web UI. Runtime Assets and tool plugins are separate; installing the Server does not prove tools are ready.</p>
-<h2>Download and review the installer</h2>
+<h2 id="installer">Download and review the installer</h2>
 <p>Download without executing:</p>
 <pre class="task-template">curl -fsSL https://download.agready.ai/agready/install.sh -o install-agready.sh</pre>
 <p>Inspect the saved script and the platform modules it retrieves. Confirm its destinations and requested privileges before running it:</p>

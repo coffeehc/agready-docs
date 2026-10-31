@@ -544,3 +544,20 @@ test('PDF comparison tutorial separates source coverage from spreadsheet deliver
  assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+path+'</loc>'));
  build();
 });
+
+
+test('installation download chooser maps the verified release assets to target platforms',()=>{
+ build(); const html=readFileSync('dist/docs/install-and-start/index.html','utf8');
+ assert.match(html,/id="downloads"/);
+ assert.match(html,/releases\/latest/);
+ for(const platform of ['darwin-arm64','darwin-amd64','linux-amd64','linux-arm64']) {
+  assert.ok(html.includes('https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/agready-v0.0.1-'+platform+'.tar.gz'));
+ }
+ for(const file of ['LICENSE','EULA.md','SHA256SUMS']) assert.ok(html.includes('/releases/download/v0.0.1/'+file));
+ assert.match(html,/links below stay pinned to v0.0.1/);
+ assert.match(html,/Apple silicon/); assert.match(html,/target server/);
+ assert.match(html,/This release does not include a native Windows archive/);
+ assert.match(html,/Downloading or extracting a package does not install a service or configure a model/);
+ assert.match(html,/id="installer"/);
+ assert.match(readFileSync('dist/docs/getting-started/index.html','utf8'),/href="\/docs\/install-and-start\/#downloads">Choose a download and install AgReady/);
+});
