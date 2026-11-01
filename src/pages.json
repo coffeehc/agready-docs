@@ -20,8 +20,8 @@
   {
     "source": "src/faq.html",
     "path": "/faq/",
-    "title": "Frequently asked questions \u2014 AgReady",
-    "description": "Clear answers about this preview, the product concepts and the choices that remain yours."
+    "title": "AgReady FAQ \u2014 Installation, models, privacy and xAgent migration",
+    "description": "Answers before you download AgReady: Linux and macOS support, model connections, separate tools, self-hosted privacy, licensing and xAgent migration limits."
   },
   {
     "source": "src/blog.html",

@@ -561,3 +561,21 @@ test('installation download chooser maps the verified release assets to target p
  assert.match(html,/id="installer"/);
  assert.match(readFileSync('dist/docs/getting-started/index.html','utf8'),/href="\/docs\/install-and-start\/#downloads">Choose a download and install AgReady/);
 });
+
+test('FAQ answers download decisions with release and privacy boundaries',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai',GA4_MEASUREMENT_ID:'G-TEST123'});
+ const html=readFileSync('dist/faq/index.html','utf8');
+ const main=html.match(/<main\b[\s\S]*?<\/main>/)[0];
+ assert.match(html,/<title>AgReady FAQ/);
+ for(const id of ['install','models','privacy','first-task']) assert.ok(main.includes('id="'+id+'"'));
+ for(const path of ['/docs/install-and-start/#downloads','/docs/model-configuration/','/docs/tools-and-runtime-assets/','/docs/operations/','/privacy/']) assert.ok(main.includes('href="'+path+'"'));
+ assert.match(main,/does not include a native Windows Server archive/);
+ assert.match(main,/Normal installation and upgrade do not migrate xAgent data/);
+ assert.match(main,/SQLite migration is not supported/);
+ assert.match(main,/local model does not make a separately connected external tool local/);
+ assert.match(main,/Optional Google Analytics is off until you allow it/);
+ assert.match(main,/Website analytics preferences do not configure the data flow/);
+ assert.doesNotMatch(main,/Google Analytics is not configured|about this preview/);
+ assert.match(html,/rel="canonical" href="https:\/\/agready.ai\/faq\/"/);
+ build();
+});
