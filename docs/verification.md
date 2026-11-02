@@ -1,5 +1,13 @@
 # Verification status
 
+## November 2, 2026: model connection verification
+
+- Scope: deepen the existing model-configuration guide with a fictional, non-sensitive text task, expected checks and layered troubleshooting; update only its search metadata and regression coverage. No new product compatibility or benchmark claims.
+- Basis: existing version-scoped model, file, tools and oversight documentation. This is instructional guidance, not a product execution test or evidence of search demand/traffic.
+- Validation: 48 Node tests, indexable production build and whitespace checks passed. Independent review removed duplicate manual navigation (the build supplies the table of contents) and strengthened the fresh-session privacy wording. Final checks were rerun after those changes.
+- Browser QA could not start: Chromium hit a sandbox socket restriction; one cloud-only escalated attempt failed during environment setup with a read-only filesystem error. No browser rendering, mobile-layout pass or real provider task is claimed.
+- Canonical, sitemap, true 404, Pages preview noindex, Search Console and consent implementation were left unchanged. No GitHub Actions workflow or deployment setting was added or changed. Existing Cloudflare deployment and live HTTP acceptance are checked separately after publication.
+
 ## October 31, 2026: download selection
 
 - Scope: make existing installation instructions easier to enter from Get started; expose four version-pinned Server downloads with platform/CPU guidance, a latest-release link, licensing and archive checksum references. No new page, script, analytics behavior or product setting.

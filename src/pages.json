@@ -74,8 +74,8 @@
   {
     "source": "src/docs-model-configuration.html",
     "path": "/docs/model-configuration/",
-    "title": "Configure and test a model connection \u2014 AgReady",
-    "description": "Set the provider protocol, model identifier and credentials in AgReady, test the connection and verify a small task."
+    "title": "AgReady model configuration \u2014 Setup, testing and troubleshooting",
+    "description": "Configure an AgReady model connection, verify a small text task, and troubleshoot failed tests, model selection, context limits and tool readiness."
   },
   {
     "source": "src/docs-sessions-and-context.html",

@@ -579,3 +579,15 @@ test('FAQ answers download decisions with release and privacy boundaries',()=>{
  assert.match(html,/rel="canonical" href="https:\/\/agready.ai\/faq\/"/);
  build();
 });
+
+
+test('model configuration provides a bounded verification task and layered troubleshooting',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const html=readFileSync('dist/docs/model-configuration/index.html','utf8');
+ const main=html.slice(html.indexOf('<main'),html.indexOf('</main>'));
+ for(const id of ['connection-details','verify-model','troubleshooting']) assert.ok(main.includes('id="'+id+'"'));
+ for(const text of ['fictional notes','Morgan / review / not stated','Do not browse, call tools, create files or send anything','not a reported AgReady test result','not a benchmark','Saving is not the same as a passing connection test','Increasing the configured context number does not increase','whether it already happened']) assert.ok(main.includes(text),text);
+ for(const path of ['/docs/files-and-workspace/','/docs/tools-and-runtime-assets/','/docs/human-oversight/']) assert.ok(main.includes('href="'+path+'"'));
+ assert.match(html,/<title>AgReady model configuration/);
+ assert.match(main,/October 2026 development interface/);
+});
