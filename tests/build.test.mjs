@@ -591,3 +591,20 @@ test('model configuration provides a bounded verification task and layered troub
  assert.match(html,/<title>AgReady model configuration/);
  assert.match(main,/October 2026 development interface/);
 });
+
+
+test('file guide distinguishes attachment reading, saved output and verified download',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const path='/docs/files-and-workspace/';
+ const html=readFileSync('dist'+path+'index.html','utf8');
+ const main=html.slice(html.indexOf('<main'),html.indexOf('</main>'));
+ for(const id of ['upload','first-file-task','workspace','processing','download','troubleshooting']) assert.ok(main.includes('id="'+id+'"'));
+ for(const text of ['fictional exercise','not a reported AgReady test result','file-check.txt','CEDAR-END-42','cedar-actions.txt','source material, not as instructions','not proof that every part','Do not overwrite an existing file','does not promise built-in OCR','Renaming an extension does not convert a format','Do not include confidential file contents or credentials']) assert.ok(main.includes(text),text);
+ for(const path of ['/docs/install-and-start/#downloads','/docs/model-configuration/#verify-model','/docs/tools-and-runtime-assets/','/blog/compare-pdf-documents-ai-agent/']) assert.ok(main.includes('href="'+path+'"'));
+ assert.equal((main.match(/<nav aria-label="On this page">/g)||[]).length,1);
+ assert.match(html,/<title>Upload files and download AI task results/);
+ assert.ok(html.includes('rel="canonical" href="https://agready.ai'+path+'"'));
+ assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+path+'</loc>'));
+ assert.match(main,/October 2026 development interface/);
+ build();
+});

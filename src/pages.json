@@ -86,8 +86,8 @@
   {
     "source": "src/docs-files-and-workspace.html",
     "path": "/docs/files-and-workspace/",
-    "title": "Use files and retrieve your work \u2014 AgReady",
-    "description": "Attach files to an AgReady task, check processing, use workspace files and inspect downloaded results."
+    "title": "Upload files and download AI task results \u2014 AgReady",
+    "description": "Upload files to AgReady, check what your AI agent read, download saved task results, and troubleshoot processing, missing outputs and PDF coverage."
   },
   {
     "source": "src/docs-memory-and-context.html",
