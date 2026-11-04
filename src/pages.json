@@ -141,7 +141,7 @@
     "source": "src/docs-recurring-tasks.html",
     "path": "/docs/recurring-tasks/",
     "title": "Schedule recurring AI tasks in AgReady \u2014 AgReady Docs",
-    "description": "Use Triggers to send scheduled instructions to an AgReady session, check execution history, and control future runs."
+    "description": "Schedule recurring AI tasks in AgReady, verify a first timer run, troubleshoot missing results, and control future activations."
   },
   {
     "source": "src/blog-user-needs-brief.html",

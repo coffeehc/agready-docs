@@ -608,3 +608,15 @@ test('file guide distinguishes attachment reading, saved output and verified dow
  assert.match(main,/October 2026 development interface/);
  build();
 });
+
+test('recurring task guide separates timer activation from verified task completion',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const html=readFileSync('dist/docs/recurring-tasks/index.html','utf8');
+ const main=html.slice(html.indexOf('<main'),html.indexOf('</main>'));
+ for(const id of ['prepare','first-scheduled-task','create-timer','verify-run','troubleshooting']) assert.ok(main.includes('id="'+id+'"'));
+ for(const text of ['not a reported AgReady test result','Do not guess or use the current date','If you cannot access the notes, say so and stop','A successful trigger is not a completed task','Do not create duplicate schedules','UTC+8','does not undo a run already accepted']) assert.ok(main.includes(text),text);
+ for(const path of ['/docs/install-and-start/#downloads','/docs/model-configuration/#verify-model','/docs/files-and-workspace/']) assert.ok(main.includes('href="'+path+'"'));
+ assert.equal((main.match(/<nav aria-label="On this page">/g)||[]).length,1);
+ assert.ok(html.includes('rel="canonical" href="https://agready.ai/docs/recurring-tasks/"'));
+ build();
+});
