@@ -1,5 +1,13 @@
 # Verification status
 
+## November 5, 2026: raster social preview metadata
+
+- Scope: replace the SVG-only Open Graph image URL on all 27 published pages with a 1200 × 630 PNG exported from the unchanged SVG artwork. Add production-only image type, dimensions and alternative text; retain the original SVG for older URLs. No product copy, route, analytics behavior or deployment setting changed.
+- Sources: the archived official X Cards markup reference supports PNG, excludes SVG and documents Open Graph fallback. Its former live URL now redirects to the developer homepage. Open Graph's current specification defines the added image properties. See the README for exact source links and the limits of this compatibility fix.
+- Validation: 51 Node tests, indexable production build and whitespace checks passed. The PNG is 51,973 bytes, decodes at 1200 × 630 and is pixel-identical to a fresh render of the source SVG in the same renderer. Visual inspection found the original text, colors and composition intact. All production image metadata and preview/404 exclusions are regression-tested.
+- Browser launch was blocked by the cloud sandbox's socket restriction. No browser-layout or external social-card rendering pass is claimed. No user computer was used, and no GitHub Actions workflow was added or run.
+- Pre-change remote main was `c758358644608545258d7b09cc609955a43605df`, with a successful Cloudflare Pages check. Existing automatic deployment for this change will be verified separately; direct production-page acceptance is blocked after a Cloudflare 403 reported during this run. No alternate client or security-setting change is used to bypass that denial.
+
 ## November 2, 2026: model connection verification
 
 - Scope: deepen the existing model-configuration guide with a fictional, non-sensitive text task, expected checks and layered troubleshooting; update only its search metadata and regression coverage. No new product compatibility or benchmark claims.

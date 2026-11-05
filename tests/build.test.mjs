@@ -620,3 +620,29 @@ test('recurring task guide separates timer activation from verified task complet
  assert.ok(html.includes('rel="canonical" href="https://agready.ai/docs/recurring-tasks/"'));
  build();
 });
+
+test('production social previews use a real PNG with matching dimensions and accessible metadata',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const png=readFileSync('dist/social.png');
+ assert.deepEqual(png,readFileSync('public/social.png'));
+ assert.deepEqual(png.subarray(0,8),Buffer.from([137,80,78,71,13,10,26,10]));
+ assert.equal(png.toString('ascii',12,16),'IHDR');
+ assert.equal(png.readUInt32BE(16),1200);
+ assert.equal(png.readUInt32BE(20),630);
+ assert.ok(png.length<5_000_000,'Card image must remain below 5 MB');
+ assert.ok(existsSync('dist/social.svg'),'Retain the SVG for previously shared image URLs');
+ const paths=['/',...JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path)];
+ for(const path of paths){
+  const html=readFileSync('dist'+path+'index.html','utf8');
+  assert.equal((html.match(/property="og:image"/g)||[]).length,1,path);
+  assert.match(html,/<meta property="og:image" content="https:\/\/agready.ai\/social.png"><meta property="og:image:type" content="image\/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="AgReady.ai: Beyond the chat. Into the work. A workspace for agentic work.">/);
+  assert.match(html,/<meta name="twitter:card" content="summary_large_image">/);
+  assert.doesNotMatch(html,/<meta[^>]+(?:og:image|twitter:image)[^>]+social\.svg/);
+ }
+ assert.doesNotMatch(readFileSync('dist/404.html','utf8'),/property="og:image(?::[a-z_]+)?"/);
+ build();
+ for(const path of paths){
+  assert.doesNotMatch(readFileSync('dist'+path+'index.html','utf8'),/property="og:image(?::[a-z_]+)?"/);
+ }
+ assert.doesNotMatch(readFileSync('dist/404.html','utf8'),/property="og:image(?::[a-z_]+)?"/);
+});

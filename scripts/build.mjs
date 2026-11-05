@@ -42,7 +42,14 @@ for (const page of [...pages, {source:'src/404.html',path:'/404.html',output:'di
   html = html.replace('</head>', `<meta name="google-site-verification" content="${escape(verification)}" />\n</head>`);
  }
 
- if (!publish || page.notFound) html = html.replace(/<link rel="canonical"[^>]*>/g, '').replace(/<meta property="og:(?:url|image)"[^>]*>/g, '');
+ // Keep image details next to their root property, as required by Open Graph.
+ // The PNG is a checked-in raster export of the existing SVG artwork.
+ if (publish && !page.notFound) {
+  const imageDetails = '<meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="AgReady.ai: Beyond the chat. Into the work. A workspace for agentic work.">';
+  html = html.replace(/<meta property="og:image"[^>]*>/g, image => image + imageDetails);
+ } else {
+  html = html.replace(/<link rel="canonical"[^>]*>/g, '').replace(/<meta property="og:(?:url|image(?::[a-z_]+)?)"[^>]*>/g, '');
+ }
  const output = page.output || 'dist'+page.path+'index.html';
  await mkdir(dirname(output),{recursive:true});
  await writeFile(output,html);

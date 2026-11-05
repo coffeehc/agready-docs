@@ -83,3 +83,17 @@ The build emits SHA-256 content-hashed CSS and JavaScript filenames and rewrites
 ## Breadcrumb navigation
 
 `scripts/breadcrumbs.mjs` generates visible Home / Docs or Blog / current-page trails from existing routes. The same trail produces BreadcrumbList JSON-LD only for published non-home content pages. Preview builds keep navigation but omit this structured data; the homepage and 404 have neither. No rich-result appearance or ranking gain is guaranteed.
+
+
+## Social preview image
+
+Published pages use `public/social.png`, a 1200 × 630 PNG export of the existing `public/social.svg` design, with Open Graph image type, dimensions and alternative text. X/Twitter can fall back to the Open Graph image and alt text; the existing `summary_large_image` card tag is retained. The SVG remains available for old image URLs. Preview builds and the 404 omit the image metadata.
+
+This fixes the SVG-only image format, not all platform-specific card requirements. The shared artwork is not a unique illustration for each article, and crawler access, cached previews and platform rendering still need separate validation. No ranking, traffic or card-display result is implied.
+
+The checked-in PNG needs no new build dependency. To re-export after editing the SVG, use an SVG renderer at its original 1200 × 630 size and visually check the text, colors and layout. The initial export used Sharp supplied by the cloud QA environment (`require('sharp')('public/social.svg').png().toFile('public/social.png')`); Sharp is not a site dependency. `npm test` checks the PNG header, dimensions, size limit, copied bytes and all production/preview metadata.
+
+References checked November 5, 2026:
+- [X Cards markup reference, archived January 2025](https://web.archive.org/web/20250102034750id_/https://developer.x.com/en/docs/x-for-websites/cards/overview/markup): PNG support, SVG exclusion and Open Graph fallback. The former live URL now redirects to the developer homepage, so this is historical official documentation, not a newly verified platform specification.
+- [Open Graph structured image properties](https://ogp.me/#structured): type, dimensions and image alternative text.
+- [LinkedIn website sharing requirements](https://www.linkedin.com/help/linkedin/answer/a1322434): sharing-image dimensions, aspect ratio and size limit; satisfying these does not establish crawler access.
