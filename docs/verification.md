@@ -1,5 +1,13 @@
 # Verification status
 
+## November 6, 2026: first reusable skill example
+
+- Scope: expand the existing Skills guide with a fictional text-only creation brief, a three-note test packet, an evidence-linked reference answer, acceptance checks and troubleshooting. Update its title and description without changing the route or adding product capability claims.
+- Basis: the guide's existing October 2026 development-interface instructions for Target description, generation review and Loaded skills. The example is editorial guidance, not an executed AgReady test or evidence of search demand, ranking or traffic gains.
+- Validation: 52 Node tests, preview and indexable production builds, and whitespace checks passed. Regression coverage checks the source packet, revised deadline, missing date, completion uncertainty, action limits and generated TOC links. Independent review confirmed the reference answer and tightened wording to avoid implying an undocumented inline editor.
+- Browser-layout QA remains blocked: Chromium terminated during launch with `socket() failed: Operation not permitted`. No rendered desktop/mobile pass or real product workflow test is claimed. Public-page reads were unavailable through the web reader; live-page acceptance remains separate from the Cloudflare deployment result.
+- Pre-change main was `c65e2d8f57da4852236fa54bb0636ec7532a4572`, with a successful Cloudflare Pages check. Canonicals, sitemap, 404, Pages preview noindex, Search Console verification and consent code are unchanged. No GitHub Actions workflow, deployment setting or user-computer resource was used or changed. Publication follows the existing Cloudflare integration and is checked separately after commit.
+
 ## November 5, 2026: raster social preview metadata
 
 - Scope: replace the SVG-only Open Graph image URL on all 27 published pages with a 1200 × 630 PNG exported from the unchanged SVG artwork. Add production-only image type, dimensions and alternative text; retain the original SVG for older URLs. No product copy, route, analytics behavior or deployment setting changed.

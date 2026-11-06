@@ -98,8 +98,8 @@
   {
     "source": "src/docs-skills-and-reusable-work.html",
     "path": "/docs/skills-and-reusable-work/",
-    "title": "Use skills for repeatable work \u2014 AgReady",
-    "description": "Find, inspect and load reusable instructions in AgReady. Import a skill or request one, then check it with a bounded task."
+    "title": "Create and test AI agent skills \u2014 AgReady",
+    "description": "Create a reusable AI agent skill in AgReady with a text-only example. Inspect instructions, load the skill, verify source-linked results and troubleshoot failures."
   },
   {
     "source": "src/docs-tools-and-runtime-assets.html",
