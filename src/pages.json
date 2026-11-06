@@ -154,5 +154,11 @@
     "path": "/blog/compare-pdf-documents-ai-agent/",
     "title": "Compare PDF documents with an AI agent \u2014 AgReady",
     "description": "Turn several PDFs into a source-linked comparison table. Use a reusable AgReady prompt, check OCR and missing fields, and verify spreadsheet output."
+  },
+  {
+    "source": "src/blog-grok-bot-alternative.html",
+    "path": "/blog/grok-bot-self-hosted-alternative/",
+    "title": "AgReady: A Self-Hosted Grok Bot Alternative",
+    "description": "Explore AgReady as a self-hosted Grok Bot alternative, with infrastructure you operate, compatible model choice and tools for research and repeatable work."
   }
 ]

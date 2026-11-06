@@ -36,7 +36,7 @@ test('invalid analytics ID and unsafe origin fail closed',()=>{
 test('all content pages have real navigation, preview safeguards and no unconfirmed release paths',()=>{
  build();
  const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
- assert.equal(pages.length,26);
+ assert.equal(pages.length,27);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page.path);
@@ -176,7 +176,7 @@ test('404 output is noindex, not canonicalized and excluded from the content sit
  assert.match(missing,/href="\/"/);assert.match(missing,/href="\/docs\/"/);
  assert.match(missing,/name="ga4-measurement-id" content=""/);
  const sitemap=readFileSync('dist/sitemap.xml','utf8');
- assert.equal((sitemap.match(/<loc>/g)||[]).length,27);
+ assert.equal((sitemap.match(/<loc>/g)||[]).length,28);
  assert.doesNotMatch(sitemap,/404/);
  assert.ok(!existsSync('dist/_redirects'));
  build();
@@ -420,7 +420,7 @@ test('related products distinguish information and messaging from native AgReady
  assert.match(html,/href="https:\/\/lead\.agready\.ai\/"/);
  assert.match(html,/href="https:\/\/xletter\.51apis\.com\/"/);
  assert.doesNotMatch(html,/https:\/\/letter\.agready\.ai|github\.com\/coffeehc\/(?:lead|letter)(?:["/])|guaranteed delivery|SMTP-compatible/);
- assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,26);
+ assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,27);
  assert.match(html,/rel="canonical" href="https:\/\/agready\.ai\/product\/"/);
 });
 
@@ -508,7 +508,7 @@ test('docs task paths connect real work to existing guides without inventing res
  const routes=new Set(JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path));
  for(const [,href] of section.matchAll(/href="([^"]+)"/g)) assert.ok(routes.has(href),'Known task-path destination: '+href);
  assert.ok(html.indexOf('id="task-paths"')<html.indexOf('Set up an instance'));
- assert.equal((readFileSync('dist/sitemap.xml','utf8').match(/<loc>/g)||[]).length,27);
+ assert.equal((readFileSync('dist/sitemap.xml','utf8').match(/<loc>/g)||[]).length,28);
 });
 
 
@@ -681,4 +681,35 @@ test('production social previews use a real PNG with matching dimensions and acc
   assert.doesNotMatch(readFileSync('dist'+path+'index.html','utf8'),/property="og:image(?::[a-z_]+)?"/);
  }
  assert.doesNotMatch(readFileSync('dist/404.html','utf8'),/property="og:image(?::[a-z_]+)?"/);
+});
+
+
+test('Grok Bot alternative article is discoverable, sourced and release-scoped',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const route='/blog/grok-bot-self-hosted-alternative/';
+ const html=readFileSync('dist'+route+'index.html','utf8');
+ assert.match(html,/<h1>AgReady: A Self-Hosted Grok Bot Alternative<\/h1>/);
+ assert.match(html,/property="og:type" content="article"/);
+ assert.ok(html.includes('rel="canonical" href="https://agready.ai'+route+'"'));
+ assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+route+'</loc>'));
+ const blog=readFileSync('dist/blog/index.html','utf8');
+ const articleIndex=blog.indexOf('href="'+route+'"');
+ assert.ok(articleIndex>=0);
+ assert.ok(articleIndex<blog.indexOf('href="/blog/compare-pdf-documents-ai-agent/"'));
+ assert.ok(readFileSync('dist/blog/self-hosted-ai-agent-work-you-control/index.html','utf8').includes('href="'+route+'"'));
+ for(const path of ['overview','security','faq','skills-routines-and-automations']) assert.ok(html.includes('href="https://docs.x.ai/grok-bot/'+path+'"'));
+ assert.match(html,/development-version guides, not verified features of every published release/);
+ assert.match(html,/id="release-scope"/);
+ assert.match(html,/October 2026 development interface/);
+ assert.match(html,/commercial product/);
+ assert.match(html,/first-party and third-party models/);
+ assert.match(html,/self-hosted AgReady instance can send requests to an external model provider/);
+ assert.match(html,/No head-to-head performance test was performed/);
+ assert.match(html,/href="\/docs\/getting-started\/"/);
+ const breadcrumb=JSON.parse(html.match(/<script type="application\/ld\+json" id="breadcrumb-data">(.*?)<\/script>/s)[1]);
+ assert.deepEqual(breadcrumb.itemListElement.map(item=>item.item),['https://agready.ai/','https://agready.ai/blog/','https://agready.ai'+route]);
+ build();
+ const preview=readFileSync('dist'+route+'index.html','utf8');
+ assert.match(preview,/name="robots" content="noindex,nofollow"/);
+ assert.doesNotMatch(preview,/rel="canonical"|property="og:(?:url|image)"|id="breadcrumb-data"/);
 });

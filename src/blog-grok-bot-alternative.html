@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="site-revision" content="grok-bot-alternative-v1"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title><meta name="description" content="{{DESCRIPTION}}"><meta name="robots" content="{{ROBOTS}}">
+<meta name="google-site-verification" content="{{VERIFICATION}}"><meta name="ga4-measurement-id" content="{{GA_ID}}">
+<link rel="canonical" href="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:type" content="article"><meta property="og:title" content="{{TITLE}}"><meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:image" content="{{ORIGIN}}/social.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header"><div class="container nav"><a class="brand" href="/" aria-label="AgReady home"><span class="brand-mark" aria-hidden="true">a<span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></span>AgReady<span class="brand-suffix">.ai</span></a><nav aria-label="Main navigation"><a href="/product/">Product</a><a href="/docs/">Docs</a><a href="/blog/">Blog</a><a href="/about/">About</a></nav><a class="nav-cta" href="/docs/getting-started/" aria-label="Get started: setup and first-task guide">Get started</a></div></header><section id="analytics-banner" class="analytics-banner" role="region" aria-labelledby="analytics-banner-title" hidden><div class="container analytics-banner-inner"><div><h2 id="analytics-banner-title">Optional Google Analytics</h2><p>Allow Google Analytics to measure page visits, scrolling, outbound links and file-link clicks? You can use this site without it and change your choice in the footer. This choice does not control Cloudflare performance measurement. <a href="/privacy/">Privacy notice</a>.</p></div><div class="analytics-banner-actions"><button id="banner-accept" class="button secondary" type="button">Allow Google Analytics</button><button id="banner-decline" class="button secondary" type="button">Decline Google Analytics</button></div></div></section>
+<main tabindex="-1" id="main" class="container reading-page">
+<div class="eyebrow">PRODUCT COMPARISON · <time datetime="2026-11-06">NOVEMBER 6, 2026</time></div>
+<h1>AgReady: A Self-Hosted Grok Bot Alternative</h1>
+<p class="reading-lead">Want an AI agent that carries work forward, with a service you can deploy and models you can configure? AgReady offers a self-hosted alternative to Grok Bot for research, documents and repeatable knowledge work.</p>
+<p>Grok Bot makes a compelling promise: give an AI teammate a goal, connect the right tools, and come back to work you can review. That way of working is also central to AgReady. A task can combine planning, tools, files, useful context and a concrete deliverable.</p>
+<p><strong>AgReady puts that agent workspace on infrastructure you operate.</strong> You choose where the service runs, which compatible model connections it uses and how it reaches your systems. For people who want the agent workflow and control over its deployment, that is a practical reason to consider AgReady.</p>
+<p class="article-context">Documentation reviewed November 6, 2026. This comparison includes capabilities described in AgReady's development-version guides, not verified features of every published release. <a href="#release-scope">See release scope</a>.</p>
+
+<section><h2>A familiar way to delegate work</h2>
+<p><a href="https://docs.x.ai/grok-bot/overview">Grok Bot's overview</a> describes durable AI teammates that use tools, keep context and coordinate with other Bots. <a href="/docs/what-can-agready-do/">AgReady's capability guide</a> describes a workspace for organizing an assignment, using available tools and producing a result you can inspect.</p>
+<p>Both approaches reach beyond a single answer. The useful unit is an assignment: prepare a brief, compare a set of documents or repeat a review when new information arrives. Several building blocks make that work reusable:</p>
+<ul>
+<li><strong>Memory</strong> carries useful context between assignments. AgReady's <a href="/docs/memory-and-context/">memory guide</a> shows how to inspect information and its original evidence.</li>
+<li><strong>Skills</strong> preserve a method worth repeating. A <a href="/docs/skills-and-reusable-work/">reusable Skill</a> can describe your preferred research or reporting procedure.</li>
+<li><strong>Agent collaboration</strong> divides larger assignments. AgReady documents <a href="/docs/agent-teams/">a manager working with specialists</a> and bringing their reports together.</li>
+<li><strong>Recurring tasks</strong> let an established workflow run again. AgReady documents <a href="/docs/recurring-tasks/">persistent timers</a>; Grok Bot documents <a href="https://docs.x.ai/grok-bot/skills-routines-and-automations">Skills, routines and automations</a>.</li>
+<li><strong>Human oversight</strong> keeps the goal, permitted actions and review of the result in your hands.</li>
+</ul>
+<p>These are shared agent capabilities. AgReady's appeal is how they fit into a service you can run yourself.</p></section>
+
+<section><h2>Three choices self-hosting puts in your hands</h2>
+<h3>1. Where the agent service runs</h3>
+<p>Grok Bot's documented experience includes a persistent hosted computer with a browser, files and a terminal. Work can continue while your laptop is closed. Bots belonging to one user share that computer, as described in its <a href="https://docs.x.ai/grok-bot/faq">computer FAQ</a>.</p>
+<p>AgReady runs as a self-hosted server with a web interface and user workspaces. You operate the host and decide how the service fits into your environment. Files, task history and recurring work have a server-side home, subject to the storage and runtime you configure.</p>
+<p>This makes AgReady relevant when running the agent service on your own infrastructure is a requirement. It also puts availability, backups and upgrades in your hands.</p>
+<h3>2. Which compatible models you connect</h3>
+<p>Grok Bot manages model routing for the user. Its <a href="https://docs.x.ai/grok-bot/faq">official FAQ</a> describes dynamic use of first-party and third-party models, without a user-facing model selector.</p>
+<p>AgReady's <a href="/docs/model-configuration/">model configuration</a> lets you configure compatible providers, endpoints and model capabilities. Locally served models are an option when their protocol and required capabilities are supported.</p>
+<p>That gives you a concrete choice to evaluate: which model works well for your documents, language, tool use and deployment requirements? Test the work you intend to delegate, rather than assuming all models are interchangeable.</p>
+<h3>3. How the agent reaches your systems</h3>
+<p>AgReady supports HTTP tools and configured MCP connections. These provide a way to expose authorized services and operations to an agent. You can build the workspace around the systems your work actually depends on.</p>
+<p>The configured tools determine what an instance can do. Check <a href="/docs/tools-and-runtime-assets/">tool readiness</a> for the operations you need. Reading a web page, for example, does not establish that an installation can interact with arbitrary websites. Compare the complete workflow, including its integrations, rather than expecting identical interfaces.</p></section>
+
+<section><h2>Three jobs to try first</h2>
+<p>A useful comparison starts with work you already understand. These are suggested evaluation tasks, not reported customer results.</p>
+<h3>Prepare a source-backed research brief</h3>
+<p>Give the agent a question, approved source material and a required output: findings, supporting links, disagreements and unanswered questions. Begin with supplied text or files; add source retrieval when the necessary tools are ready. For a larger task, an agent team can divide source review and consolidate the findings.</p>
+<p>Our <a href="/blog/ai-agent-user-needs-research/">user-needs research tutorial</a> provides a reusable brief and evidence checklist. Success is easy to inspect: can you trace the conclusions to the source material?</p>
+<h3>Turn several documents into a decision aid</h3>
+<p>Ask for a comparison of proposals or reports, with separate columns for agreement, differences and missing information. Keep important figures linked to their source pages. Specify whether you need a response in chat, an editable document or a spreadsheet, and check that the required file tools are available.</p>
+<p>The <a href="/blog/compare-pdf-documents-ai-agent/">PDF comparison tutorial</a> walks through coverage, extraction and a saved result. Start with a small packet so you can check the output against the originals.</p>
+<h3>Make a useful review recur</h3>
+<p>Once a project briefing works well, preserve the method as a Skill and add a timer. A recurring review could summarize approved notes, highlight changes and leave unresolved decisions for you.</p>
+<p>Define the sources, cutoff and expected result, then inspect the first scheduled run. AgReady's server, model and tools must remain available, and a successful trigger does not by itself prove the brief was completed. The <a href="/docs/recurring-tasks/">recurring-task guide</a> explains the checks.</p></section>
+
+<section><h2>What private deployment means in practice</h2>
+<p>Private deployment gives you control over the service's location, access and operating environment. Data flow still depends on your choices: a self-hosted AgReady instance can send requests to an external model provider, and a local model can use an external tool. Review those connections against your requirements.</p>
+<p>Grok Bot also documents privacy controls, approvals and enterprise network policies. The reason to choose AgReady is the deployment and configuration model, rather than an assumption that hosted products have no safeguards.</p>
+<p>Human control matters in either setup. AgReady's <a href="/docs/human-oversight/">oversight guide</a> covers approvals, interruption and checking completed actions. Available controls depend on the operation and release. Set a clear task boundary and give connected accounts the access they need.</p>
+<p>The broader <a href="/agent-ready/">Agent Ready vision</a> extends that principle to business software: agents work through APIs while people retain visibility and a direct interface for intervention. It is a product direction, not a claim that every external system already has a complete integration.</p></section>
+
+<section id="release-scope"><h2>Start with the release and one real task</h2>
+<p>The published <a href="https://github.com/coffeehc/agready-docs/releases/tag/v0.0.1">AgReady v0.0.1 release</a> provides Server and its web interface for Linux and macOS on AMD64 and ARM64. Plugins and Runtime Assets are distributed separately. AgReady is a commercial product; review the release's license and EULA when choosing a deployment.</p>
+<p>Guides for capabilities such as teams, schedules and approval controls describe the October 2026 development interface. Check the version you intend to install and validate the workflow in that version. This article does not claim full feature parity, lower cost or better performance than Grok Bot.</p>
+<ol>
+<li><strong>Prepare the environment.</strong> Follow the <a href="/docs/install-and-start/">installation guide</a>, configure a compatible model and check the tools your task needs.</li>
+<li><strong>Run one small assignment.</strong> Use non-sensitive inputs, specify the deliverable and permitted actions, and inspect the output against its sources.</li>
+<li><strong>Make the successful method reusable.</strong> Add a Skill, memory or a schedule where it helps. Include hosting, model usage and maintenance in your evaluation.</li>
+</ol>
+<p><strong>AgReady is a self-hosted Grok Bot alternative for people who want familiar agent workflows with control over their deployment.</strong> If choosing your infrastructure, model connections and tool access matters to you, start with the <a href="/docs/getting-started/">first-task walkthrough</a> and put that control to work.</p>
+</section>
+
+<section><h2>Sources and scope</h2>
+<p>This article draws on Grok Bot's official <a href="https://docs.x.ai/grok-bot/overview">overview</a>, <a href="https://docs.x.ai/grok-bot/security">security documentation</a>, <a href="https://docs.x.ai/grok-bot/faq">FAQ</a> and <a href="https://docs.x.ai/grok-bot/skills-routines-and-automations">Skills and routines guide</a>, alongside the AgReady guides linked above and <a href="https://github.com/coffeehc/agready-docs/blob/main/changelog/v0.0.1.md">v0.0.1 release notes</a>. Availability depends on versions, configuration and connected services. No head-to-head performance test was performed.</p>
+</section>
+</main>
+<footer class="container footer"><a class="brand" href="/">AgReady<span class="brand-suffix">.ai</span></a><a class="footer-link" href="/faq/">FAQ</a><a class="footer-link" href="/privacy/">Privacy</a><a class="footer-link" href="mailto:hello@agready.ai">hello@agready.ai</a><button class="privacy-link" id="privacy-open" type="button">Google Analytics preference</button><span class="footer-year">© 2026 AgReady</span></footer>
+<dialog id="privacy-dialog" aria-labelledby="privacy-title"><form method="dialog"><button class="dialog-close" aria-label="Close Google Analytics preference"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg></button></form><div class="eyebrow">YOUR CHOICE</div><h2 id="privacy-title">Google Analytics preference</h2><p id="analytics-status">Google Analytics is not configured. No Google Analytics script is loaded.</p><p>Cloudflare provides website delivery and performance measurement separately. This preference controls only optional Google Analytics; it does not disable Cloudflare measurement.</p><p>If you allow Google Analytics, it measures page visits, scrolling, outbound links, file-link clicks and selected internal navigation. Enhanced events can include destination URLs and link details. Our manual events omit page query parameters and referrers; this is not a blanket filter for Google’s automatic events. Do not put sensitive information in website URLs. This website does not intentionally send task content, file contents or email addresses.</p><p>Your choice is saved in this browser. Declining Google Analytics does not affect page access. You can change this preference here or clear this site's browser data.</p><p>Read the <a href="/privacy/">Website Privacy Notice</a> for website delivery, performance measurement and contact information.</p><div class="consent-actions"><button class="button primary" id="analytics-accept" type="button">Allow Google Analytics</button><button class="button secondary" id="analytics-decline" type="button">Decline Google Analytics</button></div><p id="consent-feedback" role="status" aria-live="polite"></p></dialog>
+</body></html>
