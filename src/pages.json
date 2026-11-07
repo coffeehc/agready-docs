@@ -104,8 +104,8 @@
   {
     "source": "src/docs-tools-and-runtime-assets.html",
     "path": "/docs/tools-and-runtime-assets/",
-    "title": "Connect tools and integrations \u2014 AgReady",
-    "description": "Find available tools in AgReady, load the tools a task needs and diagnose connection, permission and execution-environment problems."
+    "title": "Connect and verify AI agent tools \u2014 AgReady",
+    "description": "Connect AI agent tools in AgReady, verify a read-only file task with a sample and prompt, and troubleshoot readiness, permissions and uncertain results."
   },
   {
     "source": "src/docs-human-oversight.html",

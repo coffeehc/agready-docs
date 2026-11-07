@@ -57,7 +57,9 @@ for (const page of [...pages, {source:'src/404.html',path:'/404.html',output:'di
 // Cloudflare Pages supports absolute-host patterns and named host placeholders.
 // Always protect the project and branch/commit preview hosts, even in a published build.
 const previewHeaders = 'https://agready-docs.pages.dev/*\n  X-Robots-Tag: noindex\n\nhttps://:version.agready-docs.pages.dev/*\n  X-Robots-Tag: noindex\n';
-await writeFile('dist/_headers', previewHeaders + (!publish ? '\n/*\n  X-Robots-Tag: noindex, nofollow, noarchive\n' : ''));
+// Keep the downloadable fictional check fixture out of search results.
+const exampleHeaders = '\n/examples/tool-readiness-sample.txt\n  X-Robots-Tag: noindex\n';
+await writeFile('dist/_headers', previewHeaders + exampleHeaders + (!publish ? '\n/*\n  X-Robots-Tag: noindex, nofollow, noarchive\n' : ''));
 
 await writeFile('dist/robots.txt', publish ? `User-agent: *\nAllow: /\nSitemap: ${origin.origin}/sitemap.xml\n` : 'User-agent: *\nDisallow: /\n');
 await writeFile('dist/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${publish?pages.map(p=>`<url><loc>${escape(origin.origin+p.path)}</loc></url>`).join(''):''}</urlset>\n`);

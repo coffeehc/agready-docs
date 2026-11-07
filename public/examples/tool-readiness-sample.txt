@@ -1,0 +1,7 @@
+Fictional tool-readiness sample for AgReady documentation.
+These project notes are invented and contain no real project data.
+
+[T1] Cedar: Morgan owns the checklist review.
+[T2] Cedar: the checklist is ready. No due date has been agreed.
+[T3] Maple: Priya owns the draft review, due 2026-11-12.
+[T4] Maple: the draft is waiting for review.

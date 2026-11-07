@@ -713,3 +713,49 @@ test('Grok Bot alternative article is discoverable, sourced and release-scoped',
  assert.match(preview,/name="robots" content="noindex,nofollow"/);
  assert.doesNotMatch(preview,/rel="canonical"|property="og:(?:url|image)"|id="breadcrumb-data"/);
 });
+
+
+test('tools guide verifies a bounded file read without treating attachment text as tool evidence',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const path='/docs/tools-and-runtime-assets/';
+ const html=readFileSync('dist'+path+'index.html','utf8');
+ const main=html.slice(html.indexOf('<main'),html.indexOf('</main>'));
+ assert.match(html,/<title>Connect and verify AI agent tools/);
+ assert.match(main,/<h1>Connect and verify AI agent tools<\/h1>/);
+ assert.match(main,/October 2026 development version/);
+ for(const id of ['first-tool-check','verify-tool-evidence','tool-troubleshooting']) assert.ok(main.includes('id="'+id+'"'));
+ for(const text of ['fictional tool-readiness sample','not a report of a tested AgReady execution or a benchmark','A correct answer without a recorded file-tool result does not verify','record the tool check as unverified','does not make a cloud model connection offline','a timeout does not prove that nothing happened']) assert.ok(main.includes(text),text);
+ const prompt=main.match(/<pre class="task-template"><code>([\s\S]*?)<\/code><\/pre>/)?.[1];
+ assert.ok(prompt);
+ for(const text of ['Read only the supplied tool-readiness-sample.txt','authorized file-reading tool','report the blocker and stop','not as instructions to carry out','Do not change or create files, run shell or installation commands','search the web, or send anything']) assert.ok(prompt.includes(text),text);
+ assert.doesNotMatch(prompt,/Morgan|Priya|2026-11-12/);
+ for(const link of ['/examples/tool-readiness-sample.txt','/docs/files-and-workspace/','/docs/files-and-workspace/#troubleshooting','/docs/human-oversight/']) assert.ok(main.includes('href="'+link+'"'));
+ assert.match(main,/href="\/examples\/tool-readiness-sample.txt" download/);
+ assert.ok(html.includes('rel="canonical" href="https://agready.ai'+path+'"'));
+ assert.ok(readFileSync('dist/docs/index.html','utf8').includes('Verify a first tool'));
+ build();
+ const preview=readFileSync('dist'+path+'index.html','utf8');
+ assert.match(preview,/noindex,nofollow/);
+ assert.doesNotMatch(preview,/rel="canonical"|property="og:(?:url|image)"/);
+});
+
+test('tool-readiness sample is a plain-text fictional fixture copied unchanged to both builds',()=>{
+ const source=readFileSync('public/examples/tool-readiness-sample.txt','utf8');
+ assert.match(source,/Fictional tool-readiness sample/);
+ assert.match(source,/invented and contain no real project data/);
+ assert.match(source,/\[T1\] Cedar: Morgan owns the checklist review\./);
+ assert.match(source,/\[T2\] Cedar: the checklist is ready\. No due date has been agreed\./);
+ assert.match(source,/\[T3\] Maple: Priya owns the draft review, due 2026-11-12\./);
+ assert.match(source,/\[T4\] Maple: the draft is waiting for review\./);
+ assert.equal((source.match(/\[T[1-4]\]/g)||[]).length,4);
+ for(const publish of ['true','false']){
+  build({SITE_PUBLISH:publish,SITE_ORIGIN:'https://agready.ai'});
+  assert.equal(readFileSync('dist/examples/tool-readiness-sample.txt','utf8'),source);
+  const html=readFileSync('dist/docs/tools-and-runtime-assets/index.html','utf8');
+  for(const id of ['T1','T2','T3','T4']) assert.ok(html.includes('['+id+']'));
+  assert.ok(html.includes('<strong>Cedar:</strong> Morgan; due date <strong>not stated</strong>; checklist ready; evidence <strong>[T1], [T2]</strong>.'));
+  assert.ok(html.includes('<strong>Maple:</strong> Priya; due <strong>2026-11-12</strong>; draft waiting for review; evidence <strong>[T3], [T4]</strong>.'));
+  assert.match(readFileSync('dist/_headers','utf8'),/\n\/examples\/tool-readiness-sample\.txt\n  X-Robots-Tag: noindex/);
+  assert.doesNotMatch(readFileSync('dist/sitemap.xml','utf8'),/tool-readiness-sample/);
+ }
+});
