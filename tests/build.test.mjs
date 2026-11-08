@@ -795,3 +795,21 @@ test('memory guide separates storage, selection and current-task behavior',()=>{
  assert.match(preview,/noindex,nofollow/);
  assert.doesNotMatch(preview,/rel="canonical"|property="og:(?:url|image)"/);
 });
+
+
+test('article corrections distinguish CSV formula interpretation and local Codex memory',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const pdf=readFileSync('dist/blog/compare-pdf-documents-ai-agent/index.html','utf8');
+ assert.ok(pdf.includes('interprets as a formula'));
+ assert.ok(pdf.includes('does not guarantee that formula meaning or behavior will be preserved across applications'));
+ assert.ok(pdf.includes('https://owasp.org/www-community/attacks/CSV_Injection'));
+ assert.ok(pdf.includes('Keep extracted strings as text rather than formulas'));
+ assert.ok(!pdf.includes('but not multiple sheets, workbook formatting or Excel formulas'));
+ const comparison=readFileSync('dist/blog/self-hosted-ai-agent-work-you-control/index.html','utf8');
+ const row=comparison.match(/<tr><th scope="row">Cross-session memory[\s\S]*?<\/tr>/)?.[0];
+ assert.ok(row?.includes('local Codex clients use separately stored local memory'));
+ assert.ok(row?.includes('href="#comparison-source-9"'));
+ assert.ok(comparison.includes('it does not describe memory in ChatGPT web or ChatGPT Work'));
+ assert.ok(comparison.includes('https://learn.chatgpt.com/docs/customization/memories'));
+ build();
+});

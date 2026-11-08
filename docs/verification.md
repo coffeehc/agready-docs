@@ -1,5 +1,12 @@
 # Verification status
 
+## November 8, 2026: CSV and Codex memory scope corrections
+
+- Corrected the PDF tutorial's absolute exclusion of Excel formulas from CSV. CSV can contain formula-interpreted text; workbook formatting and multiple worksheets are not preserved, and cross-application formula semantics are not guaranteed. Kept the text-only extraction warning and added the OWASP CSV injection reference: https://owasp.org/www-community/attacks/CSV_Injection .
+- Narrowed the comparison's cross-session Codex memory entry to local Codex clients, explicitly excluding ChatGPT web and ChatGPT Work from that description. Source: https://learn.chatgpt.com/docs/customization/memories . Other comparison rows retain their existing evidence date; this is not a fresh audit of all competitors.
+- Validation: all 57 Node tests, preview and production builds, and whitespace checks passed. New regression coverage checks both qualifications and their citations. No real spreadsheet application, AgReady workflow, or browser-layout acceptance test was run for this editorial correction.
+- Pre-change main was `d074f7f0c6b7a98571f38f122588307792771ef8`, with a successful Cloudflare Pages check and no open pull requests. No other active repository-editing task was found. No runtime, route, deployment setting, GitHub Actions workflow, analytics behavior or user-computer resource was changed. Existing automatic deployment is checked separately after publication; live-site acceptance is not implied by build success.
+
 
 ## November 8, 2026: memory verification and stale-context troubleshooting
 
