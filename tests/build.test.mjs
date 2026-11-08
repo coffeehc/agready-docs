@@ -759,3 +759,39 @@ test('tool-readiness sample is a plain-text fictional fixture copied unchanged t
   assert.doesNotMatch(readFileSync('dist/sitemap.xml','utf8'),/tool-readiness-sample/);
  }
 });
+
+test('memory guide separates storage, selection and current-task behavior',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const path='/docs/memory-and-context/';
+ const html=readFileSync('dist'+path+'index.html','utf8');
+ const main=html.slice(html.indexOf('<main'),html.indexOf('</main>'));
+ assert.match(html,/<title>Manage AI agent memory in AgReady<\/title>/);
+ assert.match(main,/<h1>Manage AI agent memory in AgReady<\/h1>/);
+ for(const id of ['inspect-memory','add-memory','verify-memory','correct-memory','memory-troubleshooting']){
+  assert.ok(main.includes('id="'+id+'"'));
+  assert.ok(main.includes('href="#'+id+'"'));
+ }
+ for(const text of ['October 2026 development interface','not a claim that every control is available in v0.0.1','not a reported AgReady test result','A correct answer alone does not prove memory retrieval','the agent saying “I remembered” is not independent evidence','report that part as unverified','does not prove that the stored entry was deleted','does not prove memory retrieval','Do not clear all history or delete unrelated memories']) assert.ok(main.includes(text),text);
+ const examples=[...main.matchAll(/<pre class="task-template"><code>([\s\S]*?)<\/code><\/pre>/g)].map(match=>match[1]);
+ assert.equal(examples.length,3);
+ const [memory,prompt,exception]=examples;
+ assert.match(memory,/For fictional Cedar practice briefs only/);
+ assert.match(memory,/Decision needed\nBackground/);
+ assert.match(memory,/not permission to send or publish/);
+ assert.doesNotMatch(prompt,/Decision needed|Background/,'Do not supply the saved headings in the recall prompt');
+ for(const text of ['If you cannot find that preference, say so','Do not invent an owner, date, decision or completed review','Do not change memories, files, schedules or external accounts','Do not send or publish anything','[M1] Cedar: a reviewer for the draft has not been chosen.','[M2] Cedar: a draft outline is available.']) assert.ok(prompt.includes(text),text);
+ assert.match(exception,/For this reply only/);
+ assert.match(exception,/two bullets with no headings/);
+ assert.match(exception,/Do not change the saved Cedar practice preference/);
+ assert.match(main,/<strong>Decision needed:<\/strong> choose a reviewer for the draft \[M1\]/);
+ assert.match(main,/<strong>Background:<\/strong> a draft outline is available \[M2\]/);
+ for(const link of ['/docs/model-configuration/#verify-model','/docs/sessions-and-context/']) assert.ok(main.includes('href="'+link+'"'));
+ assert.equal((main.match(/<nav aria-label="On this page">/g)||[]).length,1);
+ assert.ok(readFileSync('dist/docs/index.html','utf8').includes('Verify saved memory'));
+ assert.ok(html.includes('rel="canonical" href="https://agready.ai'+path+'"'));
+ assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+path+'</loc>'));
+ build();
+ const preview=readFileSync('dist'+path+'index.html','utf8');
+ assert.match(preview,/noindex,nofollow/);
+ assert.doesNotMatch(preview,/rel="canonical"|property="og:(?:url|image)"/);
+});

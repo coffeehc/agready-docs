@@ -92,8 +92,8 @@
   {
     "source": "src/docs-memory-and-context.html",
     "path": "/docs/memory-and-context/",
-    "title": "Manage memory and current context \u2014 AgReady",
-    "description": "Inspect long-term memory in AgReady, add useful preferences and correct stale information without confusing memory with conversation context."
+    "title": "Manage AI agent memory in AgReady",
+    "description": "Save and inspect AI agent memory in AgReady, test a harmless preference, correct stale context, and troubleshoot missing or unused memories."
   },
   {
     "source": "src/docs-skills-and-reusable-work.html",

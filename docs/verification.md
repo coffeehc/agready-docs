@@ -1,5 +1,14 @@
 # Verification status
 
+
+## November 8, 2026: memory verification and stale-context troubleshooting
+
+- Scope: expand the existing memory guide with an optional fictional-project preference, separate checks for a stored record and its use, a current-task formatting exception, and missing/stale-memory troubleshooting. Update the existing page metadata and Docs entry; no new route or product capability is introduced.
+- Basis: the guide's existing October 2026 development-interface controls and documented memory/context limits. The example is editorial guidance, not an executed AgReady workflow, release-acceptance result, or evidence of search demand or traffic gains. The installed-release caveat remains explicit.
+- Validation: 56 Node tests, preview and indexable production builds, and whitespace checks passed. Dedicated regression coverage checks the fictional scope, prompt/answer separation, source labels, current-task override, generated navigation anchors, metadata and preview exclusions.
+- Browser-layout QA could not start: Chromium terminated at launch with `socket() failed: Operation not permitted`. No rendered desktop/mobile pass or real memory storage/retrieval test is claimed. The public web reader could not access the production homepage or prior guide, so live-page acceptance remains separate from the deployment result.
+- Pre-change main was `288becdd09668b9e275f41fddc39647a7f9ba0f7`, with a successful Cloudflare Pages check and no open pull requests found. Canonicals, sitemap, 404, Pages preview noindex, Search Console verification and consent code are unchanged. No GitHub Actions workflow, deployment setting or user-computer resource was used or changed. Publication follows the existing Cloudflare integration and is checked separately after commit.
+
 ## November 6, 2026: first reusable skill example
 
 - Scope: expand the existing Skills guide with a fictional text-only creation brief, a three-note test packet, an evidence-linked reference answer, acceptance checks and troubleshooting. Update its title and description without changing the route or adding product capability claims.

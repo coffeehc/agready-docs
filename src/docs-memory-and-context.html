@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="site-revision" content="docs-depth-v21"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"><meta name="site-revision" content="memory-verification-v1"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{TITLE}}</title><meta name="description" content="{{DESCRIPTION}}"><meta name="robots" content="{{ROBOTS}}">
 <meta name="google-site-verification" content="{{VERIFICATION}}"><meta name="ga4-measurement-id" content="{{GA_ID}}">
 <link rel="canonical" href="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:type" content="website"><meta property="og:title" content="{{TITLE}}"><meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:image" content="{{ORIGIN}}/social.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f3ee">
@@ -10,8 +10,8 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="header"><div class="container nav"><a class="brand" href="/" aria-label="AgReady home"><span class="brand-mark" aria-hidden="true">a<span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></span>AgReady<span class="brand-suffix">.ai</span></a><nav aria-label="Main navigation"><a href="/product/">Product</a><a href="/docs/">Docs</a><a href="/blog/">Blog</a><a href="/about/">About</a></nav><a class="nav-cta" href="/docs/getting-started/" aria-label="Get started: setup and first-task guide">Get started</a></div></header><section id="analytics-banner" class="analytics-banner" role="region" aria-labelledby="analytics-banner-title" hidden><div class="container analytics-banner-inner"><div><h2 id="analytics-banner-title">Optional Google Analytics</h2><p>Allow Google Analytics to measure page visits, scrolling, outbound links and file-link clicks? You can use this site without it and change your choice in the footer. This choice does not control Cloudflare performance measurement. <a href="/privacy/">Privacy notice</a>.</p></div><div class="analytics-banner-actions"><button id="banner-accept" class="button secondary" type="button">Allow Google Analytics</button><button id="banner-decline" class="button secondary" type="button">Decline Google Analytics</button></div></div></section>
-<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">DOCUMENTATION</div><h1>Manage memory and current context</h1>
-<p class="reading-lead">Use long-term memory for information you want available beyond a single conversation. Use the current task brief for instructions and evidence that matter right now. Neither is a substitute for checking the source of an important fact.</p>
+<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">DOCUMENTATION</div><h1>Manage AI agent memory in AgReady</h1>
+<p class="reading-lead">Save useful preferences, inspect what was recorded, and check whether a later answer follows them. This guide separates a stored memory from its use in a response, with a harmless practice exercise and checks for missing or stale information.</p>
 <p>These controls describe the October 2026 development interface. Your installed release may differ; this is not a claim that every control is available in v0.0.1.</p>
 <h2>Know what you are saving</h2>
 <ul>
@@ -21,7 +21,7 @@
 <li><strong>A skill</strong> describes a repeatable method. Save a procedure as a skill rather than filling memory with a whole manual.</li>
 </ul>
 <p>Memory can come from a manual entry, an explicit request to remember something, or background extraction from conversation history. Do not assume that only statements beginning “remember” can contribute to memory. Extraction is selective, and a saved entry is not guaranteed to be selected for every future turn.</p>
-<h2>Inspect what is remembered</h2>
+<h2 id="inspect-memory">Inspect what is remembered</h2>
 <ol>
 <li>Open <strong>My memories</strong>.</li>
 <li>Search for the relevant subject. Use the type, scope and source filters to narrow the list.</li>
@@ -30,14 +30,54 @@
 <li>If you intend to rely on it for a current decision, confirm that it is still applicable.</li>
 </ol>
 <p>A confidence label describes the record, not an independent fact-check. A remembered deadline or decision may have changed since its source conversation.</p>
-<h2>Add a deliberate memory</h2>
+<h2 id="add-memory">Add a deliberate memory</h2>
 <p>Use <strong>Add memory</strong> to record a stable, non-sensitive fact or preference. Select a type, give it an appropriate scope, and write a short content statement. Use the title and context fields to make its meaning clear.</p>
 <p>For example, if it reflects your actual preference: “For my weekly project briefs, put unresolved decisions before background notes.” This is a preference, not authorization to publish or send a brief.</p>
 <p>Submit the form, then confirm the entry appears and inspect its details. If you ask the agent to remember something instead, the change can be queued for background processing. A conversational acknowledgment alone does not prove it has been stored; check <strong>My memories</strong>.</p>
 <p>Do not save passwords, API keys, authentication tokens or other secrets. Even where the product checks for credentials, do not rely on detection to make unsafe input safe.</p>
-<h2>Correct stale information</h2>
+<h2 id="verify-memory">Try a harmless memory check</h2>
+<p>This optional exercise uses a fictional Cedar project. It is instructional guidance, not a reported AgReady test result or a promise of reliable recall. First <a href="/docs/model-configuration/#verify-model">verify a small text-only model task</a>. Continue only if you want to create a test memory in your own instance.</p>
+<h3>1. Save a clearly scoped test preference</h3>
+<p>Use <strong>Add memory</strong> with the title <strong>Cedar practice brief format</strong> and a preference type and scope appropriate for the available controls. Keep the fictional project boundary in the content itself:</p>
+<pre class="task-template"><code>For fictional Cedar practice briefs only, use two headings in this order:
+Decision needed
+Background
+This is a test preference, not permission to send or publish a brief.</code></pre>
+<p>Submit once, then find the exact entry in <strong>My memories</strong>. Open its details and verify the full text, scope and available source evidence. Record whether the entry actually exists before testing a reply. If it is missing or still processing, use the <a href="#memory-troubleshooting">checks below</a> instead of adding copies.</p>
+<h3>2. Check a later reply separately</h3>
+<p>Where available, open a <a href="/docs/sessions-and-context/">new agent session</a> that is eligible for the memory's scope. Do not paste the saved headings into that session; otherwise the prompt itself supplies the format. A separate session reduces direct repetition from the original conversation, but does not prove that all other sources of context are absent.</p>
+<pre class="task-template"><code>Turn these fictional notes into a short Cedar practice brief.
+Use my saved Cedar practice brief format if it is available.
+If you cannot find that preference, say so instead of claiming to remember it.
+Use only the notes below for project facts. Keep their source labels.
+Do not invent an owner, date, decision or completed review.
+Do not change memories, files, schedules or external accounts.
+Do not send or publish anything.
+
+[M1] Cedar: a reviewer for the draft has not been chosen.
+[M2] Cedar: a draft outline is available.</code></pre>
+<p>If the saved preference is applied, the reference structure is:</p>
+<ul><li><strong>Decision needed:</strong> choose a reviewer for the draft [M1].</li><li><strong>Background:</strong> a draft outline is available [M2].</li></ul>
+<p>Check the headings and their order, both source labels, and the absence of invented facts or external actions. If the preference is unavailable, an honest explanation leaves its use unverified; it does not prove that the stored entry was deleted.</p>
+<p><strong>Keep three observations separate:</strong> the memory record exists; available context evidence shows it was selected; the answer applies it correctly. A correct answer alone does not prove memory retrieval, and the agent saying “I remembered” is not independent evidence. If the interface does not expose selection evidence, report that part as unverified rather than inferring it from the wording.</p>
+<h3>3. Check a current-task exception</h3>
+<p>In the same test session, give this narrower instruction:</p>
+<pre class="task-template"><code>For this reply only, use the same [M1] and [M2] notes to return exactly
+two bullets with no headings: one unresolved decision and one background fact.
+Keep the source labels. Do not change the saved Cedar practice preference.
+Do not change files, schedules or accounts, or send or publish anything.</code></pre>
+<p>The reply should follow this explicit two-bullet instruction. A saved formatting preference should not override a current task constraint. Inspect the saved entry separately if you need to confirm it was not changed; the response format alone cannot show that. Keep the test entry only if you want it, or review the exact entry's delete action and confirmation to remove it deliberately.</p>
+<h2 id="correct-memory">Correct stale information</h2>
 <p>If an entry is wrong, stop relying on it. The memory page provides add, inspect and delete controls—not a general inline editor. You can remove the incorrect entry through its delete action and add a corrected entry when appropriate. Read the confirmation carefully: deletion is not an undoable editing shortcut.</p>
 <p>Check the list after the operation. This removes the selected memory record; it does not demonstrate that source conversations, exported copies, backups or provider-side records have been erased. Clearing a session's history is also not the same operation as deleting long-term memory.</p>
+<h2 id="memory-troubleshooting">Troubleshoot missing or unused memories</h2>
+<dl class="troubleshooting">
+<dt>The agent acknowledged a request, but no entry appears</dt><dd><p>Check the selected account, search terms and type, scope and source filters in <strong>My memories</strong>. Inspect any visible processing state. A request may still be queued, and selective extraction may not create the entry you expected. Do not repeatedly submit the same preference while its outcome is unclear.</p></dd>
+<dt>The entry exists, but the answer ignores it</dt><dd><p>Check its content and scope against the current session and task. Inspect context or source evidence where available. Storage and selection are separate; an entry is not guaranteed to appear in every model request. For work that matters now, restate the needed instruction in the current task, then review the answer. That resolves the task but does not prove memory retrieval.</p></dd>
+<dt>The answer repeats an old deadline or preference</dt><dd><p>Identify the outdated statement and provide the current authoritative source in the task. Inspect the relevant memory before removing anything; the old statement may also appear in conversation history or supplied files. Correct the exact record when needed and review the next answer against the current source.</p></dd>
+<dt>A deleted memory or similar statement seems to return</dt><dd><p>Compare the record's content, scope and source evidence with what you removed. Check for a separate entry or old source material before assuming deletion failed. Background extraction and conversation history are separate from the selected memory record. Do not clear all history or delete unrelated memories as a diagnostic shortcut.</p></dd>
+</dl>
+<p>If you need help, share the product version, affected control, processing or error state, and a non-sensitive reproduction. Redact memory content and source evidence that contain private information; never include credentials.</p>
 <h2>Keep the current task explicit</h2>
 <p>For important work, state the current constraint directly: “Use the attached approved plan dated Tuesday; do not use an older launch date.” If a response appears to rely on stale information, identify the conflict and ask it to recheck the source. Memory can reduce repeated explanation, but it cannot replace fresh evidence or grant new permission.</p><p>Read <a href="/docs/sessions-and-context/">sessions and context</a> for conversation history, or <a href="/docs/skills-and-reusable-work/">skills</a> for repeatable procedures.</p><p><a href="/docs/">All documentation</a></p></main>
 <footer class="container footer"><a class="brand" href="/">AgReady<span class="brand-suffix">.ai</span></a><a class="footer-link" href="/faq/">FAQ</a><a class="footer-link" href="/privacy/">Privacy</a><a class="footer-link" href="mailto:hello@agready.ai">hello@agready.ai</a><button class="privacy-link" id="privacy-open" type="button">Google Analytics preference</button><span class="footer-year">© 2026 AgReady</span></footer>
