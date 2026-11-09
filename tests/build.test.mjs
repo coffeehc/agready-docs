@@ -813,3 +813,40 @@ test('article corrections distinguish CSV formula interpretation and local Codex
  assert.ok(comparison.includes('https://learn.chatgpt.com/docs/customization/memories'));
  build();
 });
+
+test('session guide provides a review-first resume brief and an evaluable correction',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const path='/docs/sessions-and-context/';
+ const html=readFileSync('dist'+path+'index.html','utf8');
+ const main=html.slice(html.indexOf('<main'),html.indexOf('</main>'));
+ assert.match(main,/<h1>Resume AI agent tasks with clear context<\/h1>/);
+ assert.match(html,/<title>Resume AI agent tasks and manage context/);
+ for(const id of ['choose-session','resume-brief','test-correction','history-and-context','resume-troubleshooting']){
+  assert.ok(main.includes('id="'+id+'"'));
+  assert.ok(main.includes('href="#'+id+'"'));
+ }
+ assert.equal((main.match(/<nav aria-label="On this page">/g)||[]).length,1);
+ const prompts=[...main.matchAll(/<pre class="task-template"><code>([\s\S]*?)<\/code><\/pre>/g)].map(match=>match[1]);
+ assert.equal(prompts.length,3);
+ const [resume,first,correction]=prompts;
+ for(const field of ['Goal and output:','Sources:','Verified completed work:','Pending work:','Uncertain outcomes:','Current decisions:','Allowed now:','Do not repeat:','Next proposed step:','Acceptance check:']) assert.ok(resume.includes(field),field);
+ assert.match(resume,/Do not begin the remaining work or repeat an external action yet/);
+ assert.match(first,/fictional Harbor project/);
+ assert.match(first,/\[N1\] The draft review target is May 14/);
+ assert.match(first,/\[N2\] A reviewer has not been assigned/);
+ assert.match(first,/Do not browse, change files or memories, schedule work,\nsend messages or publish anything/);
+ assert.match(correction,/\[N3\] The review target is now May 16, replacing the May 14 target in N1/);
+ assert.match(correction,/Keep the two-bullet format and the earlier action limits/);
+ assert.match(correction,/A target date is not evidence that the review happened/);
+ assert.match(main,/<strong>Review target:<\/strong> May 16, replacing May 14 \[N3\]/);
+ assert.match(main,/<strong>Reviewer status:<\/strong> not assigned \[N2\]/);
+ for(const text of ['October 2026 development interface','not a reported AgReady test result','or a test that forces context compression','A filename or link in the brief is not proof that its contents were read','An incorrect answer alone does not establish that compression caused the problem','Do not clear history as routine troubleshooting','Keep the step marked uncertain until its outcome is known']) assert.ok(main.includes(text),text);
+ for(const link of ['/docs/memory-and-context/','/docs/files-and-workspace/','/docs/human-oversight/','/docs/getting-started/#troubleshooting']) assert.ok(main.includes('href="'+link+'"'));
+ assert.ok(readFileSync('dist/docs/index.html','utf8').includes('Resume a task'));
+ assert.ok(html.includes('rel="canonical" href="https://agready.ai'+path+'"'));
+ assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+path+'</loc>'));
+ build();
+ const preview=readFileSync('dist'+path+'index.html','utf8');
+ assert.match(preview,/noindex,nofollow/);
+ assert.doesNotMatch(preview,/rel="canonical"|property="og:(?:url|image)"/);
+});

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="site-revision" content="docs-navigation-v20"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"><meta name="site-revision" content="sessions-resume-v1"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{TITLE}}</title><meta name="description" content="{{DESCRIPTION}}"><meta name="robots" content="{{ROBOTS}}">
 <meta name="google-site-verification" content="{{VERIFICATION}}"><meta name="ga4-measurement-id" content="{{GA_ID}}">
 <link rel="canonical" href="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:type" content="website"><meta property="og:title" content="{{TITLE}}"><meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:image" content="{{ORIGIN}}/social.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f3ee">
@@ -10,9 +10,16 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="header"><div class="container nav"><a class="brand" href="/" aria-label="AgReady home"><span class="brand-mark" aria-hidden="true">a<span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></span>AgReady<span class="brand-suffix">.ai</span></a><nav aria-label="Main navigation"><a href="/product/">Product</a><a href="/docs/">Docs</a><a href="/blog/">Blog</a><a href="/about/">About</a></nav><a class="nav-cta" href="/docs/getting-started/" aria-label="Get started: setup and first-task guide">Get started</a></div></header><section id="analytics-banner" class="analytics-banner" role="region" aria-labelledby="analytics-banner-title" hidden><div class="container analytics-banner-inner"><div><h2 id="analytics-banner-title">Optional Google Analytics</h2><p>Allow Google Analytics to measure page visits, scrolling, outbound links and file-link clicks? You can use this site without it and change your choice in the footer. This choice does not control Cloudflare performance measurement. <a href="/privacy/">Privacy notice</a>.</p></div><div class="analytics-banner-actions"><button id="banner-accept" class="button secondary" type="button">Allow Google Analytics</button><button id="banner-decline" class="button secondary" type="button">Decline Google Analytics</button></div></div></section>
-<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">DOCUMENTATION</div><h1>Work with sessions and context</h1>
-<p class="reading-lead">Use a session to keep one assignment's conversation together. State the goal and allowed actions explicitly, then review each result before continuing. A session history is not a promise that every earlier message is sent verbatim to the model forever.</p>
+<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">DOCUMENTATION</div><h1>Resume AI agent tasks with clear context</h1>
+<p class="reading-lead">Keep related revisions in one AgReady session. When returning to a long or interrupted task, restate the current goal, verified progress, source material and allowed next step before continuing. A visible conversation history does not mean every earlier message is included verbatim in each model request.</p>
 <p>These controls describe the October 2026 development interface; labels and availability may differ in your installed release.</p>
+<h2 id="choose-session">Continue this session or start another?</h2>
+<ul>
+<li><strong>Continue the existing session</strong> for a correction or next step in the same assignment. Say which requirement changes and which ones remain.</li>
+<li><strong>Use a separate session</strong> for an unrelated assignment or a deliberate fresh start, where available. Provide the required sources again and state its permissions explicitly.</li>
+<li><strong>Check the run state first</strong> if work was interrupted. A new conversation does not establish whether an earlier send, write or other external action finished.</li>
+</ul>
+<p>A new session is an organizational choice, not proof of an empty workspace, cleared memory or revoked account access. Check those resources separately when they matter.</p>
 <h2>Start a bounded assignment</h2>
 <ol>
 <li>Open <strong>Main Agent</strong> for the introductory text-only exercise, or open the existing session for the assignment you are continuing.</li>
@@ -31,9 +38,51 @@
 <li>actions allowed now and actions requiring approval;</li>
 <li>unresolved questions and a concrete acceptance check.</li>
 </ul>
-<h2>Understand history and context</h2>
+<h2 id="resume-brief">Use a short resume brief</h2>
+<p>After a pause, context compression or a move to another session, fill in this brief from the sources and results you can actually inspect. You can ask the agent to draft it, but review it before treating it as the current state. Do not include passwords, API keys or unnecessary private data.</p>
+<pre class="task-template"><code>Resume this assignment by checking the state first.
+Goal and output: [the current deliverable, audience and format]
+Sources: [the relevant notes, file versions or source links]
+Verified completed work: [what I checked, with a result or source reference]
+Pending work: [what still needs doing]
+Uncertain outcomes: [what may have happened but is not confirmed]
+Current decisions: [the latest requirements and what they replace]
+Allowed now: [specific resources and actions]
+Do not repeat: [completed actions or steps whose outcome is uncertain]
+Next proposed step: [one bounded step]
+Acceptance check: [how I will judge the result]
+
+Return a short recap and flag missing or conflicting information.
+Do not begin the remaining work or repeat an external action yet.</code></pre>
+<p>Check the recap, then authorize the specific next step. If the agent cannot access a cited source, supply the relevant excerpt or attachment rather than asking it to reconstruct missing details. A filename or link in the brief is not proof that its contents were read.</p>
+<h2 id="test-correction">Try a text-only correction</h2>
+<p>This fictional practice exercise uses only the conversation. It is a prompt and reference answer, not a reported AgReady test result or a test that forces context compression.</p>
+<p>First send:</p>
+<pre class="task-template"><code>Use only these fictional Harbor project notes.
+[N1] The draft review target is May 14.
+[N2] A reviewer has not been assigned.
+
+Return two bullets: review target and reviewer status.
+Cite the note labels. Do not infer completion or invent missing facts.
+Reply only here. Do not browse, change files or memories, schedule work,
+send messages or publish anything.</code></pre>
+<p>After the response finishes, send this correction in the same session:</p>
+<pre class="task-template"><code>Update the same Harbor brief using this new note:
+[N3] The review target is now May 16, replacing the May 14 target in N1.
+
+Keep the two-bullet format and the earlier action limits.
+Use the current target, retain any unchanged reviewer status and cite sources.
+A target date is not evidence that the review happened.</code></pre>
+<p><strong>Reference answer for the corrected brief:</strong></p>
+<ul class="example-result">
+<li><strong>Review target:</strong> May 16, replacing May 14 [N3].</li>
+<li><strong>Reviewer status:</strong> not assigned [N2].</li>
+</ul>
+<p><strong>Check:</strong> the revised target replaces the earlier one; the reviewer remains unassigned; no completed review, new owner or year is invented. The task stays in the conversation. If the answer is wrong, quote the affected note and request only that correction. A correct answer demonstrates this small revision, not reliable recall of every detail in a long session.</p>
+<h2 id="history-and-context">Understand history, context and memory</h2>
 <p>The conversation you can browse and the material assembled for the next model request are related but not identical. Long conversations can be compressed into summaries while recent material is retained. Compression is not a guarantee that every detail survives unchanged.</p>
 <p>Where context usage is shown, distinguish estimated input from provider-observed usage and reserved output. Treat it as a diagnostic aid, not proof of unlimited capacity. If the interface says context compression is in progress, wait until it finishes rather than repeating the operation.</p>
+<p><a href="/docs/memory-and-context/">Cross-session memory</a> is separate from the context assembled for this assignment. A preference saved for later work is not a substitute for supplying the current document or checking the latest task state. Neither a generated recap nor a memory entry independently proves that an external action completed.</p>
 <p>For consequential facts, repeat the short authoritative statement or refer back to its source. If an answer contradicts an earlier instruction, point out that discrepancy rather than relying on the agent to infer the correction.</p>
 <h2>Stop, archive, restore or clear</h2>
 <dl class="troubleshooting">
@@ -43,8 +92,14 @@
 <dt><code>/clear-history</code></dt><dd><p>Deliberately reset the current session's conversation context</p><p>This resets the visible history boundary and related context state. It is not a secure-erasure command or a way to undo completed actions.</p></dd>
 </dl>
 <p>Do not clear history as routine troubleshooting. Preserve any information you still need first, and use the command only when you intend a reset. Main Agent is not a disposable session; deletion controls are limited to eligible sub-sessions. Review the displayed confirmation before deleting anything.</p>
-<h2>If nothing appears</h2>
-<p>Confirm the selected session and model, then check whether the message was actually submitted. An active run, pending approval, processing attachment or connection error needs a different response. Do not repeatedly resend while the previous outcome is unknown. Use the <a href="/docs/getting-started/#troubleshooting">diagnostic checks</a>, then retry a small text-only request once the state is clear.</p><p><a href="/docs/">All documentation</a> · <a href="/docs/getting-started/">Get started</a></p></main>
+<h2 id="resume-troubleshooting">Troubleshoot before retrying</h2>
+<dl class="troubleshooting">
+<dt>The answer uses an old requirement</dt><dd><p>Quote the latest authoritative instruction and identify the earlier requirement it replaces. Ask for the affected section to be corrected, keeping other requirements unchanged. An incorrect answer alone does not establish that compression caused the problem.</p></dd>
+<dt>The agent cannot use an earlier file</dt><dd><p>Confirm the attachment or workspace file is available in this session and identify the intended version. Reattach or supply the needed excerpt if appropriate. Follow the <a href="/docs/files-and-workspace/">file-processing checks</a>; do not assume visible chat history contains the complete document.</p></dd>
+<dt>Context compression is still in progress</dt><dd><p>Wait for the displayed state to change rather than submitting repeated copies. If an error appears, preserve its wording and the current task state before troubleshooting. Do not use <code>/clear-history</code> as the first response.</p></dd>
+<dt>A stopped run may already have changed something</dt><dd><p>Inspect the destination and the available tool result before retrying. Keep the step marked uncertain until its outcome is known. Use the <a href="/docs/human-oversight/">human oversight guide</a> when taking over or granting a new action.</p></dd>
+<dt>No response appears</dt><dd><p>Confirm the selected session and model, then check whether the message was submitted. An active run, pending approval, processing attachment or connection error needs a different response. Do not repeatedly resend while the previous outcome is unknown. Use the <a href="/docs/getting-started/#troubleshooting">diagnostic checks</a>, then retry a small text-only request once the state is clear.</p></dd>
+</dl><p><a href="/docs/">All documentation</a> · <a href="/docs/getting-started/">Get started</a></p></main>
 <footer class="container footer"><a class="brand" href="/">AgReady<span class="brand-suffix">.ai</span></a><a class="footer-link" href="/faq/">FAQ</a><a class="footer-link" href="/privacy/">Privacy</a><a class="footer-link" href="mailto:hello@agready.ai">hello@agready.ai</a><button class="privacy-link" id="privacy-open" type="button">Google Analytics preference</button><span class="footer-year">© 2026 AgReady</span></footer>
 <dialog id="privacy-dialog" aria-labelledby="privacy-title"><form method="dialog"><button class="dialog-close" aria-label="Close Google Analytics preference"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg></button></form><div class="eyebrow">YOUR CHOICE</div><h2 id="privacy-title">Google Analytics preference</h2><p id="analytics-status">Google Analytics is not configured. No Google Analytics script is loaded.</p><p>Cloudflare provides website delivery and performance measurement separately. This preference controls only optional Google Analytics; it does not disable Cloudflare measurement.</p><p>If you allow Google Analytics, it measures page visits, scrolling, outbound links, file-link clicks and selected internal navigation. Enhanced events can include destination URLs and link details. Our manual events omit page query parameters and referrers; this is not a blanket filter for Google’s automatic events. Do not put sensitive information in website URLs. This website does not intentionally send task content, file contents or email addresses.</p><p>Your choice is saved in this browser. Declining Google Analytics does not affect page access. You can change this preference here or clear this site's browser data.</p><p>Read the <a href="/privacy/">Website Privacy Notice</a> for website delivery, performance measurement and contact information.</p><div class="consent-actions"><button class="button primary" id="analytics-accept" type="button">Allow Google Analytics</button><button class="button secondary" id="analytics-decline" type="button">Decline Google Analytics</button></div><p id="consent-feedback" role="status" aria-live="polite"></p></dialog>
 </body></html>

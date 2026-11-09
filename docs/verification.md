@@ -1,5 +1,13 @@
 # Verification status
 
+## November 9, 2026: resume a task with explicit context
+
+- Scope: expand the existing sessions/context guide with session-selection guidance, a reusable review-first resume brief, a fictional two-step correction exercise and recovery checks. Update the page metadata and Docs entry without adding a route or changing product behavior.
+- Basis: the current development implementation and design documentation for session context compression, context usage and archive/restore were inspected. Session continuity and cross-session memory are separate; existing interface labels remain scoped to the October 2026 development interface. The worked example is instructional, not an executed AgReady test, a forced-compression test or evidence of search demand or growth.
+- Validation: all 58 Node tests, noindex preview and indexable production builds, and whitespace checks passed. New regression coverage checks the resume brief's verified/uncertain state, bounded action scope, source-labelled correction/reference answer, generated navigation, metadata and preview exclusions. Independent editorial/static review found no publication blockers.
+- Browser-layout QA could not start: Chromium terminated at launch with `socket() failed: Operation not permitted`. No rendered desktop/mobile pass or real product workflow test is claimed. The pre-change production guide was readable through public HTTP; acceptance of the new content and deployment is checked separately after publication.
+- Pre-change main was `afea4a4330f0be264f2b61aae43c081f7ad30e9c`, with a successful Cloudflare Pages check and no open pull requests. No competing active repository-editing task was found. Canonical URLs, sitemap routes, real 404, Pages preview noindex, Search Console verification and GA consent code are unchanged. No GitHub Actions workflow, deployment setting or user-computer resource was used or changed.
+
 ## November 8, 2026: CSV and Codex memory scope corrections
 
 - Corrected the PDF tutorial's absolute exclusion of Excel formulas from CSV. CSV can contain formula-interpreted text; workbook formatting and multiple worksheets are not preserved, and cross-application formula semantics are not guaranteed. Kept the text-only extraction warning and added the OWASP CSV injection reference: https://owasp.org/www-community/attacks/CSV_Injection .

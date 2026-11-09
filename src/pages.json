@@ -80,8 +80,8 @@
   {
     "source": "src/docs-sessions-and-context.html",
     "path": "/docs/sessions-and-context/",
-    "title": "Work with sessions and context \u2014 AgReady",
-    "description": "Keep an assignment organized in AgReady, manage context and understand the boundaries of stopping, archiving and clearing a session."
+    "title": "Resume AI agent tasks and manage context \u2014 AgReady",
+    "description": "Resume an AgReady task with a reusable brief, correct outdated instructions, understand context compression, and check uncertain actions before retrying."
   },
   {
     "source": "src/docs-files-and-workspace.html",
