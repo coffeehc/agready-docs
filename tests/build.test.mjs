@@ -850,3 +850,31 @@ test('session guide provides a review-first resume brief and an evaluable correc
  assert.match(preview,/noindex,nofollow/);
  assert.doesNotMatch(preview,/rel="canonical"|property="og:(?:url|image)"/);
 });
+
+
+test('human oversight guide separates approval, execution evidence and safe handover',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const path='/docs/human-oversight/';
+ const html=readFileSync('dist'+path+'index.html','utf8');
+ const main=html.slice(html.indexOf('<main'),html.indexOf('</main>'));
+ assert.match(html,/<title>AI agent approvals, stopping and safe retries/);
+ assert.match(main,/<h1>Review AI agent approvals and handle interrupted work<\/h1>/);
+ for(const id of ['section-read-an-approval-request','approval-example','section-stop-and-take-over-without-duplicating-work','before-retry','handover-brief']){
+  assert.ok(main.includes('id="'+id+'"'));
+  assert.ok(main.includes('href="#'+id+'"'));
+ }
+ for(const text of ['October 2026 development interface','fictional review exercise','not a screenshot, a reported AgReady test','not a promise that every operation','A request to send the update:','The task authorized a draft in the conversation','check the exact account, recipient address, final content and any attachment','Neither proves that the recipient read a message','Rejected or permission withdrawn:','Confirmed not executed:','Confirmed completed:','Uncertain:','Do not broaden permissions','does not itself cancel an in-flight operation','Stopping one run does not establish that a schedule or other team sessions have stopped']) assert.ok(main.includes(text),text);
+ const prompt=main.match(/<pre class="task-template"><code>([\s\S]*?)<\/code><\/pre>/)?.[1];
+ assert.ok(prompt);
+ for(const field of ['Verified completed:','Still pending:','Uncertain:','I have completed manually:','Allowed now:','Before resuming:']) assert.ok(prompt.includes(field),field);
+ for(const text of ['Do not repeat that step or start another external action','summarize the current state in this conversation only','wait for my instructions','Do not include passwords, recovery files or private account contents']) assert.ok(prompt.includes(text),text);
+ for(const link of ['/docs/recurring-tasks/','/docs/agent-teams/','/docs/sessions-and-context/#resume-brief']) assert.ok(main.includes('href="'+link+'"'));
+ assert.equal((main.match(/<nav aria-label="On this page">/g)||[]).length,1);
+ assert.ok(readFileSync('dist/docs/index.html','utf8').includes('Review an approval'));
+ assert.ok(html.includes('rel="canonical" href="https://agready.ai'+path+'"'));
+ assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+path+'</loc>'));
+ build();
+ const preview=readFileSync('dist'+path+'index.html','utf8');
+ assert.match(preview,/noindex,nofollow/);
+ assert.doesNotMatch(preview,/rel="canonical"|property="og:(?:url|image)"|id="breadcrumb-data"/);
+});

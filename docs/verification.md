@@ -1,5 +1,13 @@
 # Verification status
 
+## November 10, 2026: review approvals and handle interrupted actions
+
+- Scope: expand the Human oversight guide with a fictional draft-versus-send review, separate states for pending, rejected, completed and uncertain operations, and a reusable handover brief. Update the existing page metadata and Docs entry; no route, product control or integration was added.
+- Basis: existing version-scoped guidance for approvals, stopping a run, sessions, schedules and teams. The examples illustrate decisions rather than report an executed AgReady workflow. Existing October 2026 development-interface and Agent Ready vision caveats remain. No benchmark, traffic or ranking result is implied.
+- Validation: all 59 Node tests, noindex preview and indexable production builds, and whitespace checks passed. New coverage checks the action boundaries, result-evidence distinctions, handover fields, navigation anchors and production/preview metadata. Independent editorial/static review found no blockers; its suggested pending-work field was added. Existing generated heading anchors were preserved.
+- Browser-layout QA could not start: Chromium terminated at launch with `socket() failed: Operation not permitted`. No rendered desktop/mobile pass or real external-action test is claimed. The pre-change production guide was readable by public HTTP. New content and automatic deployment are verified separately after publication.
+- Pre-change main was `9e5b99400c6ba489cc12540f707c86a27a52565f`, with a successful Cloudflare Pages check and no open pull requests. No competing repository-editing task was found. Canonicals, sitemap routes, true 404, Pages preview noindex, Search Console verification and GA consent code are unchanged. No GitHub Actions workflow, deployment setting or user-computer resource was used or changed.
+
 ## November 9, 2026: resume a task with explicit context
 
 - Scope: expand the existing sessions/context guide with session-selection guidance, a reusable review-first resume brief, a fictional two-step correction exercise and recovery checks. Update the page metadata and Docs entry without adding a route or changing product behavior.

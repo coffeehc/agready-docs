@@ -10,7 +10,7 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="header"><div class="container nav"><a class="brand" href="/" aria-label="AgReady home"><span class="brand-mark" aria-hidden="true">a<span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></span>AgReady<span class="brand-suffix">.ai</span></a><nav aria-label="Main navigation"><a href="/product/">Product</a><a href="/docs/">Docs</a><a href="/blog/">Blog</a><a href="/about/">About</a></nav><a class="nav-cta" href="/docs/getting-started/" aria-label="Get started: setup and first-task guide">Get started</a></div></header><section id="analytics-banner" class="analytics-banner" role="region" aria-labelledby="analytics-banner-title" hidden><div class="container analytics-banner-inner"><div><h2 id="analytics-banner-title">Optional Google Analytics</h2><p>Allow Google Analytics to measure page visits, scrolling, outbound links and file-link clicks? You can use this site without it and change your choice in the footer. This choice does not control Cloudflare performance measurement. <a href="/privacy/">Privacy notice</a>.</p></div><div class="analytics-banner-actions"><button id="banner-accept" class="button secondary" type="button">Allow Google Analytics</button><button id="banner-decline" class="button secondary" type="button">Decline Google Analytics</button></div></div></section>
-<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">DOCUMENTATION</div><h1>Review actions and keep control</h1>
+<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">DOCUMENTATION</div><h1>Review AI agent approvals and handle interrupted work</h1>
 <p class="reading-lead">Set the boundary before work starts, review any approval request, and check what actually happened before repeating or taking over an action. Human oversight is a working practice supported by controls—not a promise that every operation will always produce a confirmation dialog.</p>
 <p>These controls describe the October 2026 development interface. Approval behavior depends on the operation, policy, account and release. AgReady's broader Agent Ready vision should not be read as a guarantee that every business system has a fully implemented human-takeover mode today.</p>
 <h2>State the boundary in the task</h2>
@@ -19,7 +19,7 @@
 Do not send it, update the account or publish anything.
 Ask me before any external action.</pre>
 <p>Name the allowed resources and the output you want. Configure appropriate access and policy controls as well: a written instruction is important, but it is not a technical substitute for limiting account permissions.</p>
-<h2>Read an approval request</h2>
+<h2 id="section-read-an-approval-request">Read an approval request</h2>
 <p>When <strong>Tool execution requires approval</strong> appears:</p>
 <ol>
 <li>Confirm the tool and requesting session. A forwarded request may concern another session's actual action.</li>
@@ -29,6 +29,15 @@ Ask me before any external action.</pre>
 <li>Approve only an appropriate scope, or <strong>Reject</strong> and explain what must change.</li>
 </ol>
 <p>A vague or unexpected request is a reason to clarify, not to approve so that the task can continue.</p>
+<h2 id="approval-example">Example: a draft is not permission to send</h2>
+<p>This fictional review exercise uses no real account or recipient. It illustrates decisions to make if a tool request appears; it is not a screenshot, a reported AgReady test or a promise of an email integration in every installation.</p>
+<div class="sample-note"><p><strong>Your task:</strong> “Using only the notes in this conversation, draft a status update for Maya. Show the draft here. Do not send it or change anything elsewhere.”</p>
+<ul>
+<li><strong>A request to send the update:</strong> reject it. The task authorized a draft in the conversation, even if the recipient and text look correct. Ask the agent to return to the draft-only task.</li>
+<li><strong>A request to look up Maya in a connected account:</strong> clarify why access is needed. The supplied notes were the allowed source, and the task does not need an actual delivery address.</li>
+<li><strong>A later request after you explicitly authorize a send:</strong> check the exact account, recipient address, final content and any attachment. If those details match your intent and the request offers it, choose <strong>Allow once</strong>. Reject a changed recipient or extra attachment and ask for a corrected request.</li>
+</ul></div>
+<p>After an approved attempt, inspect the result separately. An approval record tells you what you allowed; a service receipt or destination record helps establish what happened. Neither proves that the recipient read a message.</p>
 <h2>Choose the narrowest useful scope</h2>
 <p>Depending on the request, the interface can offer <strong>Allow once</strong>, <strong>Allow for this task</strong>, or <strong>Allow for this session</strong>. Only the scopes allowed by that request are shown.</p>
 <p>Prefer one-time approval when you only intend the displayed action. Before allowing reuse, inspect the resources to which that reusable approval applies. A session-wide choice should not be made merely to avoid future interruptions.</p>
@@ -36,7 +45,7 @@ Ask me before any external action.</pre>
 <h2>Do not rely on a dialog for every action</h2>
 <p>The product evaluates approval policies and some operations can proceed without an interactive prompt. Do not assume that an absent prompt means the operation was harmless, or that a low-risk label replaces your review. Use account permissions, appropriate policy and a narrowly scoped task together.</p>
 <p>The <strong>Approvals</strong> page can help you inspect requests and records associated with your user. It is not a replacement for checking the affected external system when delivery or a write is uncertain.</p>
-<h2>Stop and take over without duplicating work</h2>
+<h2 id="section-stop-and-take-over-without-duplicating-work">Stop and take over without duplicating work</h2>
 <p>Use <strong>Stop current run</strong> when you need to interrupt an active run. Stopping is not a rollback, and it does not establish that all queued work or external effects disappeared.</p>
 <p>Before acting manually:</p>
 <ol>
@@ -47,6 +56,29 @@ Ask me before any external action.</pre>
 <li>If you later resume, state what you completed and what is still authorized.</li>
 </ol>
 <p>This is a safe handover procedure, not a claim of a universal “take over every connected app” button. Where the outcome cannot be determined, pause the dependent action and ask the administrator or service owner to help establish the state.</p>
+<h2 id="before-retry">Check the outcome before retrying</h2>
+<p>A timeout, lost connection or stopped conversation can leave an action's outcome unknown. Use the evidence for the specific operation, rather than treating every interruption as a failed write.</p>
+<ul>
+<li><strong>Still awaiting approval:</strong> inspect the original request and its current status. Avoid creating a second request to get around the first one.</li>
+<li><strong>Rejected or permission withdrawn:</strong> leave the action stopped. Clarify or revise the task within the user's limits before seeking approval for a changed action.</li>
+<li><strong>Confirmed not executed:</strong> resolve the cause and check the original scope before retrying. A retry with a different account, recipient, attachment or overwrite target needs a new review.</li>
+<li><strong>Confirmed completed:</strong> inspect the resulting message, file or record. Continue with the remaining work instead of repeating the completed step.</li>
+<li><strong>Uncertain:</strong> check the relevant account or destination, including a receipt or operation identifier when available. If that still does not settle the outcome, stop the dependent action and ask the service owner for help.</li>
+</ul>
+<p>Keep checks within the resources you authorized. Missing a result in the conversation, or not finding it in one view of an external system, is not enough to conclude that nothing happened. Do not broaden permissions simply to make a retry succeed.</p>
+<h2 id="handover-brief">Use a clear handover brief</h2>
+<p>After stopping work and checking its state, replace the bracketed fields below with what you actually know. The brief helps coordinate the next step; it does not itself cancel an in-flight operation or undo a completed action.</p>
+<pre class="task-template"><code>Pause work on [specific task]. I am handling [specific remaining step].
+Do not repeat that step or start another external action.
+Verified completed: [action, destination and supporting result].
+Still pending: [work not yet completed, or none].
+Uncertain: [action whose outcome still needs checking, or none].
+I have completed manually: [what changed, or nothing yet].
+Allowed now: summarize the current state in this conversation only.
+Before resuming: explain what remains and wait for my instructions.
+Do not include passwords, recovery files or private account contents
+in the status summary.</code></pre>
+<p>For a scheduled task, also inspect its <a href="/docs/recurring-tasks/">future activations</a>. For team work, coordinate with the <a href="/docs/agent-teams/">team manager</a>. Stopping one run does not establish that a schedule or other team sessions have stopped. When resuming, use the <a href="/docs/sessions-and-context/#resume-brief">task-resumption brief</a> to distinguish completed, pending and uncertain work.</p>
 <h2>Review the deliverable too</h2>
 <p>Permissions and successful tool responses do not prove that a result is correct. Compare facts, recipients, amounts, filenames and scope with the original request. Keep approval of an action separate from acceptance of its output.</p><p>See the <a href="/agent-ready/">Agent Ready vision</a> for the broader direction, or <a href="/docs/sessions-and-context/">sessions and context</a> for session lifecycle controls.</p><p><a href="/docs/">All documentation</a></p></main>
 <footer class="container footer"><a class="brand" href="/">AgReady<span class="brand-suffix">.ai</span></a><a class="footer-link" href="/faq/">FAQ</a><a class="footer-link" href="/privacy/">Privacy</a><a class="footer-link" href="mailto:hello@agready.ai">hello@agready.ai</a><button class="privacy-link" id="privacy-open" type="button">Google Analytics preference</button><span class="footer-year">© 2026 AgReady</span></footer>

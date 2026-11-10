@@ -110,8 +110,8 @@
   {
     "source": "src/docs-human-oversight.html",
     "path": "/docs/human-oversight/",
-    "title": "Review actions and keep control \u2014 AgReady",
-    "description": "Set task boundaries, inspect approvals and check completed actions before stopping, retrying or taking over work in AgReady."
+    "title": "AI agent approvals, stopping and safe retries \u2014 AgReady",
+    "description": "Review AI agent approvals in AgReady, distinguish drafting from sending, check uncertain outcomes before retrying, and hand over interrupted work without duplication."
   },
   {
     "source": "src/docs-operations.html",
