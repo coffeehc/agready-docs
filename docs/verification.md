@@ -1,5 +1,14 @@
 # Verification status
 
+## November 11, 2026: verify a first agent-team result
+
+- Scope: expand the existing agent-team guide with a fictional Harbor documentation packet, a review-only manager brief, a source-linked reference result and focused troubleshooting. Update the existing page metadata and Docs entry. No route, product control or integration is added.
+- Basis: existing October 2026 development-interface guidance for team creation, manager/member reports, goal control and archive/restore. The exercise is instructional, not an executed AgReady team run or a performance comparison. It distinguishes proposed copy from published changes, leaves missing setup steps unknown, and does not imply that more agents guarantee a better result.
+- Validation: all 60 Node tests, noindex preview and indexable production builds, and whitespace checks passed. New regression coverage checks the fictional source packet, bounded manager brief, reference-result limits, original navigation anchors, internal links and production/preview metadata. Independent editorial/static review found no blockers; its suggestion to avoid an exact three-finding quota in the earlier generic brief was applied.
+- Browser-layout QA could not start: Chromium terminated at launch with `socket() failed: Operation not permitted`. No rendered desktop/mobile pass or real team execution test is claimed. The pre-change guide and latest oversight content were readable by public HTTP; new content is checked separately after publication.
+- Pre-change main was `c3667df1ac8d13071a1f9ed2f1cc16d4549fbd1f`; its tree matched the prior reviewed `8cc3789` content. No open pull request or competing recent editing task was found. The connected status API returned no statuses, and the public check-runs endpoint returned HTTP 403; that endpoint was not retried. A Cloudflare check-run ID was therefore not established in this check.
+- Canonicals, sitemap routes, true 404, Pages preview noindex, Search Console verification and GA consent code are unchanged. No GitHub Actions workflow, deployment setting or user-computer resource is used or changed. No Search Console performance measurement is available from the connected tools in this run; no ranking or traffic improvement is claimed.
+
 ## November 10, 2026: review approvals and handle interrupted actions
 
 - Scope: expand the Human oversight guide with a fictional draft-versus-send review, separate states for pending, rejected, completed and uncertain operations, and a reusable handover brief. Update the existing page metadata and Docs entry; no route, product control or integration was added.

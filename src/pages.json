@@ -134,8 +134,8 @@
   {
     "source": "src/docs-agent-teams.html",
     "path": "/docs/agent-teams/",
-    "title": "Work with an AI agent team in AgReady \u2014 AgReady Docs",
-    "description": "Create an agent team, give its manager a clear goal, inspect collaboration, and pause or revise work while keeping control."
+    "title": "Create and verify AI agent teams in AgReady",
+    "description": "Create an AI agent team in AgReady, try a source-based first task, reconcile specialist reports, and troubleshoot missing evidence or blocked work."
   },
   {
     "source": "src/docs-recurring-tasks.html",

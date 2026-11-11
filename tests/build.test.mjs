@@ -878,3 +878,28 @@ test('human oversight guide separates approval, execution evidence and safe hand
  assert.match(preview,/noindex,nofollow/);
  assert.doesNotMatch(preview,/rel="canonical"|property="og:(?:url|image)"|id="breadcrumb-data"/);
 });
+
+test('agent-team exercise separates source evidence, proposed fixes and delivered work',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const html=readFileSync('dist/docs/agent-teams/index.html','utf8');
+ const main=html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)[1];
+ for(const text of ['fictional documentation','not an executed AgReady team run','one session may be sufficient','not built-in role names','Multiple reports repeating the same source are not independent confirmation.','Review only Harbor sources H1–H4','Do not invent missing setup steps.','Do not browse, install anything, change files, publish, contact anyone or schedule work.','Stop after delivering the review in this conversation.','revised setup instructions are not published','not a reason to manufacture a third independent finding','majority of agents agreeing is not a substitute for a supporting source','separately pause or cancel the original team goal']) assert.ok(main.includes(text),text);
+ for(const label of ['H1','H2','H3','H4']) assert.ok(main.includes('['+label+']'),label);
+ assert.match(main,/correct steps and link remain unknown/);
+ assert.match(main,/not an AgReady installation instruction/);
+ assert.match(main,/without creating a team/);
+ assert.match(main,/not exercised in this check/);
+ assert.match(main,/role description does not grant additional access/);
+ assert.match(main,/Archive team/);assert.match(main,/Restore team/);
+ assert.match(main,/id="first-team-exercise"/);assert.match(main,/href="#first-team-exercise"/);
+ // Keep the original generated anchors stable for existing inbound links.
+ for(const anchor of ['section-when-to-use-an-agent-team','section-create-the-team','section-give-the-manager-a-bounded-first-goal','section-inspect-progress-and-results','section-change-direction-or-stop-work','section-if-something-goes-wrong']) assert.ok(main.includes('id="'+anchor+'"'),anchor);
+ assert.match(html,/<title>Create and verify AI agent teams in AgReady<\/title>/);
+ assert.match(html,/name="description" content="Create an AI agent team in AgReady, try a source-based first task/);
+ assert.match(html,/rel="canonical" href="https:\/\/agready.ai\/docs\/agent-teams\/"/);
+ assert.match(readFileSync('dist/docs/index.html','utf8'),/Verify a team result/);
+ build();
+ const preview=readFileSync('dist/docs/agent-teams/index.html','utf8');
+ assert.match(preview,/name="robots" content="noindex,nofollow"/);
+ assert.doesNotMatch(preview,/rel="canonical"|application\/ld\+json/);
+});

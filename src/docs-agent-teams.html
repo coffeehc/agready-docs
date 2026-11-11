@@ -11,11 +11,12 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="header"><div class="container nav"><a class="brand" href="/" aria-label="AgReady home"><span class="brand-mark" aria-hidden="true">a<span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></span>AgReady<span class="brand-suffix">.ai</span></a><nav aria-label="Main navigation"><a href="/product/">Product</a><a href="/docs/">Docs</a><a href="/blog/">Blog</a><a href="/about/">About</a></nav><a class="nav-cta" href="/docs/getting-started/" aria-label="Get started: setup and first-task guide">Get started</a></div></header><section id="analytics-banner" class="analytics-banner" role="region" aria-labelledby="analytics-banner-title" hidden><div class="container analytics-banner-inner"><div><h2 id="analytics-banner-title">Optional Google Analytics</h2><p>Allow Google Analytics to measure page visits, scrolling, outbound links and file-link clicks? You can use this site without it and change your choice in the footer. This choice does not control Cloudflare performance measurement. <a href="/privacy/">Privacy notice</a>.</p></div><div class="analytics-banner-actions"><button id="banner-accept" class="button secondary" type="button">Allow Google Analytics</button><button id="banner-decline" class="button secondary" type="button">Decline Google Analytics</button></div></div></section>
 <main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">DOCUMENTATION</div><h1>Work with an AI agent team in AgReady</h1>
-<p class="reading-lead">An agent team brings a manager and specialist agents together around a goal. Use this guide to create a team, inspect collaboration and keep its work within the limits you set.</p>
+<p class="reading-lead">An agent team brings a manager and specialist agents together around a goal. Create a team, give its manager a bounded brief, and use the fictional documentation review below to check whether its reports support the final answer.</p>
 <aside class="content-note"><strong>Reviewed October 28, 2026</strong><p>This guide describes the current development interface; labels and availability may differ in other versions. The creation form was checked without creating a team. Team execution, archive and restore behavior were reviewed from product documentation and implementation, not exercised in this check.</p></aside>
 <section><h2>When to use an agent team</h2>
 <p>An agent team is useful when a goal involves several specialties and someone needs to coordinate the work. In AgReady, you work with a team manager, who can recruit specialist agents, assign work, review their reports, and bring the results together.</p>
-<p>Start with a normal session for a straightforward task. Use a team when coordination adds value—not simply to increase the number of agents.</p>
+<p>Start with a normal session for a straightforward task. Use a team when coordination adds value, not simply to increase the number of agents. For example, separate reviews of setup instructions and a first-use example may reveal different problems, while the manager combines them into one prioritized result.</p>
+<p>A team is not automatically faster, cheaper or more accurate than one agent. Compare the usefulness of the result, the work required to review it, and any model or tool usage your setup makes visible. Multiple reports repeating the same source are not independent confirmation.</p>
 </section>
 <section><h2>Create the team</h2>
 <ol><li>Select <strong>New team</strong> in the session sidebar.</li><li>Enter a <strong>Team name</strong>.</li><li>Describe its ongoing <strong>Team responsibilities</strong>.</li><li>Select <strong>Create agent team</strong> and wait for initialization.</li><li>Open <strong>View manager session</strong> when the team is ready.</li></ol>
@@ -23,13 +24,36 @@
 </section>
 <section><h2>Give the manager a bounded first goal</h2>
 <p>Describe the outcome, available materials, allowed actions, and how you will judge the result. For example:</p>
-<blockquote class="task-template">Review these product documentation pages and identify the three most important gaps for a first-time user. Use only the supplied pages. Return evidence links and suggested outlines. Do not publish changes, contact anyone, or create recurring tasks.</blockquote>
+<blockquote class="task-template">Review these product documentation pages and identify up to three important gaps for a first-time user. Use only the supplied pages. Return evidence links and suggested outlines. Do not publish changes, contact anyone, or create recurring tasks.</blockquote>
 <p>This is an instruction example, not a claim that the task has been tested successfully.</p>
 <p>The manager may propose a first pilot or ask for a missing decision. Specialist agents are recruited as needed; creating a team does not require filling every possible role in advance.</p>
+</section>
+<section><h2 id="first-team-exercise">Try a source-based documentation review</h2>
+<p>This small exercise uses fictional documentation for an imaginary project called Harbor. It is a reference exercise, not an executed AgReady team run, a product feature claim or a performance comparison. It intentionally needs no web access, private files or external changes. For such a small packet, one session may be sufficient; use it with a team only if you want to examine how the manager coordinates and reconciles work.</p>
+<h3>1. Supply the complete source packet</h3>
+<p>Keep the source labels when copying these excerpts into the manager session. They let you trace a proposed fix back to the material that supports it.</p>
+<ul class="example-sources">
+<li><strong>[H1] Harbor start page:</strong> “New here? Follow the Setup page, then complete the First task.” No prerequisites are listed on the start page.</li>
+<li><strong>[H2] Harbor setup page:</strong> “Before using any example, install the image-reader extension. The extension is needed to extract text from scanned images.”</li>
+<li><strong>[H3] Harbor first-task page:</strong> “In a configured text session, paste the meeting notes below and ask for three action items. This example uses pasted text only.” The page does not explain how to configure a text session.</li>
+<li><strong>[H4] Harbor maintainer note:</strong> “The image-reader extension is not required for the pasted-text first task. We have not published revised setup instructions.”</li>
+</ul>
+<h3>2. Give the manager a review-only brief</h3>
+<p>The suggested review roles below are task instructions, not built-in role names or a promise about how many specialists the manager will recruit.</p>
+<blockquote class="task-template">Review only Harbor sources H1–H4 above for a first-time reader. Inspect prerequisites and the first-task path separately, using specialist help only where useful. Have each review cite source labels and separate an observed gap from a suggested fix. Reconcile the reviews into at most three prioritized gaps, each with evidence, reader impact, a draft wording change and any unresolved question. Do not invent missing setup steps. Do not browse, install anything, change files, publish, contact anyone or schedule work. If reports disagree, show the disagreement and the source that resolves it, or leave it unresolved. Stop after delivering the review in this conversation.</blockquote>
+<h3>3. Compare the delivery with this reference</h3>
+<p>Wording and priority can differ. A grounded answer should identify the following issues without claiming that any correction has already been published:</p>
+<ol>
+<li><strong>The extension requirement is too broad.</strong> H2 says it applies to every example, while H3 describes pasted text and H4 explicitly says that task does not require it. A suggested revision is: “The image-reader extension is required for scanned-image extraction, but not for the pasted-text first task.” That is proposed copy for the fictional pages, not an AgReady installation instruction.</li>
+<li><strong>Text-session preparation is missing from the packet.</strong> H3 requires a configured session but supplies no steps, and H1 only points readers onward. Suggest adding a link to verified text-session setup instructions. The correct steps and link remain unknown; the team should request them rather than invent a URL, command or supported provider.</li>
+</ol>
+<p>H4 also establishes a status boundary: the maintainer has clarified the requirement, but revised setup instructions are not published. The final review should preserve that distinction. “At most three” is a limit, not a reason to manufacture a third independent finding.</p>
+<p><strong>Acceptance check:</strong> can you find the supporting excerpt for each finding, distinguish the proposed wording from a completed edit, and see what is still unknown? If not, ask the manager to revise the result before expanding the task.</p>
 </section>
 <section><h2>Inspect progress and results</h2>
 <p>Open the team information panel to see its organization status, manager, active member count, and goals. <strong>Team chat</strong> shows collaboration records, including assignments, reports, and deliveries.</p>
 <ul><li><strong>Ready</strong> describes the team’s organization, not a completed goal.</li><li>A member report is material for the manager to review.</li><li><strong>Delivered by manager</strong> records the manager’s delivery; inspect the actual result before accepting it as correct.</li></ul>
+<p>Read the final delivery alongside the relevant member reports. If two reports disagree, ask the manager to identify the specific conflicting statements, compare their evidence and carry forward anything unresolved. A majority of agents agreeing is not a substitute for a supporting source. Avoid requesting another full round when one narrow clarification would resolve the issue.</p>
 <p>Teams use the models, tools, Skills, and workspace access available to their sessions. A role description does not grant additional access. If an action requires your approval, review that original request rather than treating the team’s goal as blanket permission.</p>
 </section>
 <section><h2>Change direction or stop work</h2>
@@ -38,7 +62,13 @@
 </section>
 <section><h2>If something goes wrong</h2>
 <p>If creation reports an error, use <strong>Retry creation</strong> with the original details instead of repeatedly creating new teams. If work is blocked, ask the manager for the affected goal, evidence collected, attempted approaches, and the exact decision or access required.</p>
-<p>Assess the team by useful, verified deliverables—not by how many members it created or how much conversation it produced.</p>
+<ul>
+<li><strong>The team is ready but no useful result appears:</strong> check that you gave the manager a specific goal after creation. Request the current goal state, last completed step and exact blocker; do not create duplicate teams just to restart the same work.</li>
+<li><strong>Reports repeat each other:</strong> ask the manager to narrow overlapping assignments and explain what each review adds. More specialists are not automatically the next step.</li>
+<li><strong>The delivery lacks evidence:</strong> request source labels or links for the affected findings and mark unsupported conclusions as unverified. Do not treat a polished summary as proof that a source was read.</li>
+<li><strong>A tool or action is unavailable:</strong> identify the exact missing access or approval. Team membership does not resolve a model connection problem or grant tool permissions. Follow <a href="/docs/tools-and-runtime-assets/">tool readiness checks</a> before expanding access.</li>
+</ul>
+<p>Assess the team by useful, verified deliverables, not by how many members it created or how much conversation it produced. If the task no longer benefits from separate reviews, use a <a href="/docs/sessions-and-context/#resume-brief">reviewed handover brief</a> for a single session and separately pause or cancel the original team goal to avoid overlapping work.</p>
 </section>
 <p>Related guides: <a href="/docs/what-can-agready-do/">AgReady capabilities</a>, <a href="/docs/sessions-and-context/">Sessions and context</a>, and <a href="/docs/human-oversight/">Human oversight</a>.</p></main>
 <footer class="container footer"><a class="brand" href="/">AgReady<span class="brand-suffix">.ai</span></a><a class="footer-link" href="/faq/">FAQ</a><a class="footer-link" href="/privacy/">Privacy</a><a class="footer-link" href="mailto:hello@agready.ai">hello@agready.ai</a><button class="privacy-link" id="privacy-open" type="button">Google Analytics preference</button><span class="footer-year">© 2026 AgReady</span></footer>
