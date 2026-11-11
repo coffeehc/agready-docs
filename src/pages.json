@@ -160,5 +160,23 @@
     "path": "/blog/grok-bot-self-hosted-alternative/",
     "title": "AgReady: A Self-Hosted Grok Bot Alternative",
     "description": "Explore AgReady as a self-hosted Grok Bot alternative, with infrastructure you operate, compatible model choice and tools for research and repeatable work."
+  },
+  {
+    "source": "src/blog-agent-skills-mcp-a2a.html",
+    "path": "/blog/agent-skills-vs-mcp-vs-a2a/",
+    "title": "Agent Skills vs MCP vs A2A: a practical guide | AgReady",
+    "description": "Compare Agent Skills, MCP and A2A with a practical research workflow. Learn where reusable instructions, tool connections and remote agents fit in AgReady."
+  },
+  {
+    "source": "src/blog-agent-memory-context-skills.html",
+    "path": "/blog/ai-agent-memory-vs-context-vs-skills/",
+    "title": "AI agent memory vs context vs skills | AgReady",
+    "description": "Separate AI agent memory, context windows and reusable skills. Use a practical handover template to keep stable facts, current task state and methods distinct."
+  },
+  {
+    "source": "src/blog-self-hosted-agent-security.html",
+    "path": "/blog/self-hosted-ai-agent-security-checklist/",
+    "title": "Self-hosted AI agent security checklist | AgReady",
+    "description": "Plan a self-hosted AI agent deployment with a practical checklist for model data flow, tool permissions, secrets, runtime isolation, approvals and recovery."
   }
 ]

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="site-revision" content="keyword-guides-20261111-v1"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title><meta name="description" content="{{DESCRIPTION}}"><meta name="robots" content="{{ROBOTS}}">
+<meta name="google-site-verification" content="{{VERIFICATION}}"><meta name="ga4-measurement-id" content="{{GA_ID}}">
+<link rel="canonical" href="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:type" content="article"><meta property="og:title" content="{{TITLE}}"><meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:image" content="{{ORIGIN}}/social.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header"><div class="container nav"><a class="brand" href="/" aria-label="AgReady home"><span class="brand-mark" aria-hidden="true">a<span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></span>AgReady<span class="brand-suffix">.ai</span></a><nav aria-label="Main navigation"><a href="/product/">Product</a><a href="/docs/">Docs</a><a href="/blog/">Blog</a><a href="/about/">About</a></nav><a class="nav-cta" href="/docs/getting-started/" aria-label="Get started: setup and first-task guide">Get started</a></div></header><section id="analytics-banner" class="analytics-banner" role="region" aria-labelledby="analytics-banner-title" hidden><div class="container analytics-banner-inner"><div><h2 id="analytics-banner-title">Optional Google Analytics</h2><p>Allow Google Analytics to measure page visits, scrolling, outbound links and file-link clicks? You can use this site without it and change your choice in the footer. This choice does not control Cloudflare performance measurement. <a href="/privacy/">Privacy notice</a>.</p></div><div class="analytics-banner-actions"><button id="banner-accept" class="button secondary" type="button">Allow Google Analytics</button><button id="banner-decline" class="button secondary" type="button">Decline Google Analytics</button></div></div></section>
+<main tabindex="-1" id="main" class="container reading-page">
+<div class="eyebrow">PRACTICAL GUIDE · <time datetime="2026-11-11">NOVEMBER 11, 2026</time></div>
+<h1>AI agent memory vs context vs skills: what to save between tasks</h1>
+<p class="reading-lead">Use context for the task in front of you, memory for information that remains useful across sessions, and skills for repeatable methods. Keeping those roles distinct makes it easier to resume work and correct stale assumptions.</p>
+<p>Anthropic's November 6, 2026 article, <a href="https://www.anthropic.com/research/components-of-agent-memory">The components of agent memory</a>, distinguishes retained knowledge between sessions from model training and context compaction. It is a useful distinction for anyone building a continuing agent workflow, including a self-hosted workspace.</p>
+<h2 id="context-memory-skills">What belongs in each layer?</h2>
+<dl class="troubleshooting">
+<dt>Context: what the model can use for this response</dt><dd><p>Context can contain instructions, the relevant conversation, selected memories, loaded skill instructions and tool results. The context window has a limit. A long conversation may use summaries or selected history rather than include every earlier message in every request.</p></dd>
+<dt>Memory: what should remain useful later</dt><dd><p>Memory holds durable information that can be retrieved for another session. Examples include an accepted project decision or a stable reporting preference. A stored record still needs to be relevant, current and available to the task that uses it.</p></dd>
+<dt>Skills: how to perform a recurring type of work</dt><dd><p>A skill describes a method, with supporting material where needed. A comparison skill might require source references, like-for-like fields and explicit unknowns. The <a href="https://agentskills.io/specification">Agent Skills specification</a> packages those instructions separately from the changing input for each task.</p></dd>
+</dl>
+<p>These categories overlap at execution time: selected memory and skill instructions can become part of the active context. The useful distinction is their purpose and lifetime, not a promise that they occupy three isolated boxes.</p>
+<h2 id="what-to-save">A worked example: a continuing research project</h2>
+<p>Imagine a fictional team preparing a monthly documentation review. It has five pieces of information. Here is how to organize them:</p>
+<ul>
+<li><strong>“Use concise English summaries for the monthly review.”</strong> A stable preference, if the user wants it to continue, belongs in memory with the project scope.</li>
+<li><strong>“Compare coverage, setup effort and update frequency, and cite each finding.”</strong> A reusable review method belongs in a skill.</li>
+<li><strong>“This month, review products Cedar, Harbor and Maple.”</strong> Current task input belongs in the task brief.</li>
+<li><strong>“The Cedar source was checked; Harbor and Maple remain unread.”</strong> Current progress belongs in a work record or handover, with source references and dates.</li>
+<li><strong>“A password for the source system.”</strong> This belongs in the supported credential mechanism, never in a skill, memory note or reusable prompt.</li>
+</ul>
+<p>Saving every temporary status as a durable memory creates stale information to reconcile later. Keeping only a vague “research in progress” summary loses the evidence needed to resume. Preserve the changing work state separately and link back to the actual source packet.</p>
+<h2 id="handover-template">A short handover for the next session</h2>
+<p>This example is a reusable brief for a fictional workflow, not an executed AgReady result. Fill it with references the next session can actually access.</p>
+<pre class="task-template"><code>Goal: prepare the monthly documentation comparison.
+
+Stable preference: concise English summary for this project.
+Method: compare coverage, setup effort and update frequency.
+Cite the source for each factual comparison; mark unknowns explicitly.
+
+Current inputs: Cedar, Harbor and Maple source packet, version 3.
+Verified progress: Cedar's setup page was read on November 11, 2026.
+Pending: read Harbor and Maple; check source dates; draft the comparison.
+Uncertain: whether the earlier export created a file. Check before retrying.
+
+Current exception: this month's draft must use bullets, not a table.
+Allowed now: inspect the supplied sources and return a draft here.
+Do not send, publish, change saved preferences or contact other agents.
+
+Before continuing, summarize what is accessible and what is missing.</code></pre>
+<p>A useful continuation preserves the pending items and the uncertain export. It follows the current bullet-format exception without treating it as a permanent preference. If the source packet is unavailable, it asks for that input rather than filling the gaps from memory.</p>
+<h2 id="diagnose-memory">Diagnose the failure before adding more memory</h2>
+<ul>
+<li><strong>The agent used an old deadline.</strong> Check the current source and whether the task clearly superseded the earlier date. Correct the relevant record instead of creating another contradictory note.</li>
+<li><strong>The agent forgot a reporting preference.</strong> Check whether it was saved, whether the project scope matches and whether it was selected for this task.</li>
+<li><strong>The agent repeated a completed action.</strong> Improve the execution record and outcome checks. A formatting preference cannot resolve an uncertain external action.</li>
+<li><strong>The agent follows a method inconsistently.</strong> Inspect the skill's instructions and test them on a small input. More biographical memory is unlikely to clarify an ambiguous method.</li>
+<li><strong>The agent missed a source.</strong> Check retrieval and document coverage. A larger context window cannot make an unread document appear in the task.</li>
+</ul>
+<p>For a memory check, first inspect the saved entry. Then use a fresh, harmless task that needs the preference without repeating its exact answer in the prompt. A correct response is useful evidence, but by itself it does not establish which retrieval path supplied the information.</p>
+<h2 id="agready-memory">How AgReady separates these concerns</h2>
+<p>AgReady has session context and compression, cross-session memory, and reusable Skills. Its current development design keeps session continuity summaries separate from long-term memory. Long-term records can hold stable preferences, accepted decisions and facts; temporary task progress belongs with the session's work state.</p>
+<p>This description is based on development source checked November 11, 2026. It describes existing capability and design, not a guarantee that every useful fact is retained or that every release exposes identical controls.</p>
+<p>Use <a href="/docs/sessions-and-context/">sessions and context</a> to resume work, <a href="/docs/memory-and-context/">the memory guide</a> to inspect and correct saved information, and <a href="/docs/skills-and-reusable-work/">the Skills guide</a> to package a method. Start with one small project and keep its current brief authoritative.</p>
+<p>If the task also needs new tools or a remote specialist, see <a href="/blog/agent-skills-vs-mcp-vs-a2a/">Agent Skills vs MCP vs A2A</a>. A connection adds access; it does not decide which information should become a lasting memory.</p>
+<p><a href="/blog/">All articles</a></p>
+</main>
+<footer class="container footer"><a class="brand" href="/">AgReady<span class="brand-suffix">.ai</span></a><a class="footer-link" href="/faq/">FAQ</a><a class="footer-link" href="/privacy/">Privacy</a><a class="footer-link" href="mailto:hello@agready.ai">hello@agready.ai</a><button class="privacy-link" id="privacy-open" type="button">Google Analytics preference</button><span class="footer-year">© 2026 AgReady</span></footer>
+<dialog id="privacy-dialog" aria-labelledby="privacy-title"><form method="dialog"><button class="dialog-close" aria-label="Close Google Analytics preference"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg></button></form><div class="eyebrow">YOUR CHOICE</div><h2 id="privacy-title">Google Analytics preference</h2><p id="analytics-status">Google Analytics is not configured. No Google Analytics script is loaded.</p><p>Cloudflare provides website delivery and performance measurement separately. This preference controls only optional Google Analytics; it does not disable Cloudflare measurement.</p><p>If you allow Google Analytics, it measures page visits, scrolling, outbound links, file-link clicks and selected internal navigation. Enhanced events can include destination URLs and link details. Our manual events omit page query parameters and referrers; this is not a blanket filter for Google’s automatic events. Do not put sensitive information in website URLs. This website does not intentionally send task content, file contents or email addresses.</p><p>Your choice is saved in this browser. Declining Google Analytics does not affect page access. You can change this preference here or clear this site's browser data.</p><p>Read the <a href="/privacy/">Website Privacy Notice</a> for website delivery, performance measurement and contact information.</p><div class="consent-actions"><button class="button primary" id="analytics-accept" type="button">Allow Google Analytics</button><button class="button secondary" id="analytics-decline" type="button">Decline Google Analytics</button></div><p id="consent-feedback" role="status" aria-live="polite"></p></dialog>
+</body></html>

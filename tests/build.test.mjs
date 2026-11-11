@@ -36,7 +36,7 @@ test('invalid analytics ID and unsafe origin fail closed',()=>{
 test('all content pages have real navigation, preview safeguards and no unconfirmed release paths',()=>{
  build();
  const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
- assert.equal(pages.length,27);
+ assert.equal(pages.length,30);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page.path);
@@ -176,7 +176,7 @@ test('404 output is noindex, not canonicalized and excluded from the content sit
  assert.match(missing,/href="\/"/);assert.match(missing,/href="\/docs\/"/);
  assert.match(missing,/name="ga4-measurement-id" content=""/);
  const sitemap=readFileSync('dist/sitemap.xml','utf8');
- assert.equal((sitemap.match(/<loc>/g)||[]).length,28);
+ assert.equal((sitemap.match(/<loc>/g)||[]).length,31);
  assert.doesNotMatch(sitemap,/404/);
  assert.ok(!existsSync('dist/_redirects'));
  build();
@@ -420,7 +420,7 @@ test('related products distinguish information and messaging from native AgReady
  assert.match(html,/href="https:\/\/lead\.agready\.ai\/"/);
  assert.match(html,/href="https:\/\/xletter\.51apis\.com\/"/);
  assert.doesNotMatch(html,/https:\/\/letter\.agready\.ai|github\.com\/coffeehc\/(?:lead|letter)(?:["/])|guaranteed delivery|SMTP-compatible/);
- assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,27);
+ assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,30);
  assert.match(html,/rel="canonical" href="https:\/\/agready\.ai\/product\/"/);
 });
 
@@ -508,7 +508,7 @@ test('docs task paths connect real work to existing guides without inventing res
  const routes=new Set(JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path));
  for(const [,href] of section.matchAll(/href="([^"]+)"/g)) assert.ok(routes.has(href),'Known task-path destination: '+href);
  assert.ok(html.indexOf('id="task-paths"')<html.indexOf('Set up an instance'));
- assert.equal((readFileSync('dist/sitemap.xml','utf8').match(/<loc>/g)||[]).length,28);
+ assert.equal((readFileSync('dist/sitemap.xml','utf8').match(/<loc>/g)||[]).length,31);
 });
 
 
@@ -902,4 +902,38 @@ test('agent-team exercise separates source evidence, proposed fixes and delivere
  const preview=readFileSync('dist/docs/agent-teams/index.html','utf8');
  assert.match(preview,/name="robots" content="noindex,nofollow"/);
  assert.doesNotMatch(preview,/rel="canonical"|application\/ld\+json/);
+});
+
+test('November topic guides have distinct routes, sources, boundaries and discovery links',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const slugs=['agent-skills-vs-mcp-vs-a2a','ai-agent-memory-vs-context-vs-skills','self-hosted-ai-agent-security-checklist'];
+ const blog=readFileSync('dist/blog/index.html','utf8');
+ const articles=slugs.map(slug=>{
+  const route='/blog/'+slug+'/';
+  const html=readFileSync('dist'+route+'index.html','utf8');
+  assert.equal((html.match(/<h1\b/g)||[]).length,1);
+  assert.ok(blog.includes('href="'+route+'"'));
+  assert.ok(html.includes('rel="canonical" href="https://agready.ai'+route+'"'));
+  assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+route+'</loc>'));
+  assert.match(html,/name="robots" content="index,follow"/);
+  assert.match(html,/<time datetime="2026-11-11">/);
+  assert.match(html,/id="breadcrumb-data"/);
+  assert.match(html,/id="privacy-dialog"/);
+  assert.match(html,/id="banner-decline"/);
+  assert.doesNotMatch(html,/googletagmanager\.com\/gtag\/js|api[_-]?key=/);
+  return html;
+ });
+ const [protocols,memory,security]=articles;
+ for(const text of ['Skills, MCP tool runtimes and an A2A Client','A2A v1 JSON-RPC and HTTP+JSON','does not provide an A2A Server','not automatically downloadable Agent Skills packages','not a measured product run','Installed releases, account permissions']) assert.ok(protocols.includes(text),text);
+ for(const link of ['https://agentskills.io/specification','https://modelcontextprotocol.io/docs/learn/architecture','https://a2a-protocol.org/latest/','https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation']) assert.ok(protocols.includes('href="'+link+'"'));
+ for(const text of ['The components of agent memory','temporary status','Uncertain: whether the earlier export created a file. Check before retrying.','Do not send, publish, change saved preferences or contact other agents.','session continuity summaries separate from long-term memory','fictional workflow']) assert.ok(memory.includes(text),text);
+ assert.ok(memory.includes('href="https://www.anthropic.com/research/components-of-agent-memory"'));
+ for(const text of ['not a security audit','A container label alone','does not establish a particular sandbox boundary','A timeout can occur after an external service accepted an operation','within systems you own or are authorized to assess']) assert.ok(security.includes(text),text);
+ for(const link of ['https://cloud.google.com/blog/topics/ai-infrastructure/agent-compute-engine-deep-dive','https://genai.owasp.org/llmrisk/llm062025-excessive-agency/']) assert.ok(security.includes('href="'+link+'"'));
+ build();
+ for(const slug of slugs){
+  const html=readFileSync('dist/blog/'+slug+'/index.html','utf8');
+  assert.match(html,/noindex,nofollow/);
+  assert.doesNotMatch(html,/rel="canonical"|property="og:(?:url|image)"|application\/ld\+json/);
+ }
 });

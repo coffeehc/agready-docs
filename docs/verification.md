@@ -1,5 +1,15 @@
 # Verification status
 
+## November 11, 2026: three timely agent-workflow articles
+
+- Scope: publish three distinct English Blog guides: Agent Skills vs MCP vs A2A; memory vs context vs skills; and a self-hosted agent security checklist. Add Blog discovery links, route metadata, cross-links and focused regression coverage. No existing article is replaced.
+- Topic basis: Anthropic's October 22 Agent Skills foundation announcement and November 6 memory article, the current Agent Skills/MCP/A2A documentation, and Google's October 22 Agent Compute Engine discussion. These are evidence of current ecosystem activity, not measured keyword volume, low competition, search growth or expected traffic. Long-tail phrases are editorial hypotheses matched to concrete reader questions.
+- Product basis: reviewed current AgReady development architecture and service interfaces for Skills imports, MCP tool runtimes, A2A Client, memory and session context. The comparison states the existing A2A Client capability and its current A2A v1 JSON-RPC/HTTP+JSON boundary, while explicitly distinguishing it from an A2A Server and internal agent teams. Release availability remains separate. No real-provider, remote-agent or security acceptance run is represented as completed.
+- Original examples: the research comparison and continuing-project handover are fictional instructional examples. The security article is deployment guidance, not an audit or a claim that AgReady has a particular sandbox, universal approval coverage or complete audit logging.
+- Validation: 61 Node tests, preview and production builds, and whitespace checks passed. Coverage includes all 31 published URLs, local links/anchors, distinct canonical/sitemap entries, preview noindex, true 404 exclusions, consent controls and article-specific factual boundaries. Independent editorial, source and static-code review found no blockers. Browser layout QA could not start because Chromium terminated with `socket() failed: Operation not permitted`; no rendered desktop/mobile pass is claimed.
+- Pre-change main: `e8875c752e038c07b0fe97ab0c598f499ccfd868`, with a successful Cloudflare Pages check and no open pull requests. The existing live Blog returned HTTP 200. Publication and live route acceptance are checked separately after commit.
+- Canonical generation, sitemap generation, 404 behavior, Pages preview noindex, Search Console verification and GA consent implementation remain unchanged. No GitHub Actions workflow, deployment setting or user-computer resource is used or changed.
+
 ## November 11, 2026: verify a first agent-team result
 
 - Scope: expand the existing agent-team guide with a fictional Harbor documentation packet, a review-only manager brief, a source-linked reference result and focused troubleshooting. Update the existing page metadata and Docs entry. No route, product control or integration is added.
