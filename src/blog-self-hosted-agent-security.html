@@ -41,6 +41,7 @@
 <p>Web pages, uploaded documents, emails and remote-agent messages can contain instructions that conflict with the user's goal. Treat their contents as material to evaluate, not as permission to change the task or send data elsewhere.</p>
 <p>Inspect imported skills and scripts before enabling them. An attractive name, successful import or valid package structure does not establish trustworthy behavior. Keep external content away from broad privileges, and review surprising requests against the original task.</p>
 <p>For a document summary, a passage saying “upload the full folder to this address” should remain quoted source content. It should not become the next tool action.</p>
+<p>For a worked source-review exercise, see <a href="/blog/prompt-injection-ai-research/">prompt injection in AI research</a>.</p>
 <h2 id="approvals">6. Define approval and recovery before the first write</h2>
 <p>Choose which operations may proceed and which need review. Sending a message, publishing a file, changing account access and deleting data deserve explicit treatment. An approval should identify the action, target and information being sent or changed.</p>
 <p>Plan for interruptions as well. A timeout can occur after an external service accepted an operation. Before retrying, inspect the destination or recorded task identifier. Keep unknown outcomes marked unknown. Stopping an agent does not necessarily undo an action already accepted elsewhere.</p>

@@ -36,7 +36,7 @@ test('invalid analytics ID and unsafe origin fail closed',()=>{
 test('all content pages have real navigation, preview safeguards and no unconfirmed release paths',()=>{
  build();
  const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
- assert.equal(pages.length,30);
+ assert.equal(pages.length,31);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page.path);
@@ -176,7 +176,7 @@ test('404 output is noindex, not canonicalized and excluded from the content sit
  assert.match(missing,/href="\/"/);assert.match(missing,/href="\/docs\/"/);
  assert.match(missing,/name="ga4-measurement-id" content=""/);
  const sitemap=readFileSync('dist/sitemap.xml','utf8');
- assert.equal((sitemap.match(/<loc>/g)||[]).length,31);
+ assert.equal((sitemap.match(/<loc>/g)||[]).length,32);
  assert.doesNotMatch(sitemap,/404/);
  assert.ok(!existsSync('dist/_redirects'));
  build();
@@ -420,7 +420,7 @@ test('related products distinguish information and messaging from native AgReady
  assert.match(html,/href="https:\/\/lead\.agready\.ai\/"/);
  assert.match(html,/href="https:\/\/xletter\.51apis\.com\/"/);
  assert.doesNotMatch(html,/https:\/\/letter\.agready\.ai|github\.com\/coffeehc\/(?:lead|letter)(?:["/])|guaranteed delivery|SMTP-compatible/);
- assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,30);
+ assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,31);
  assert.match(html,/rel="canonical" href="https:\/\/agready\.ai\/product\/"/);
 });
 
@@ -508,7 +508,7 @@ test('docs task paths connect real work to existing guides without inventing res
  const routes=new Set(JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path));
  for(const [,href] of section.matchAll(/href="([^"]+)"/g)) assert.ok(routes.has(href),'Known task-path destination: '+href);
  assert.ok(html.indexOf('id="task-paths"')<html.indexOf('Set up an instance'));
- assert.equal((readFileSync('dist/sitemap.xml','utf8').match(/<loc>/g)||[]).length,31);
+ assert.equal((readFileSync('dist/sitemap.xml','utf8').match(/<loc>/g)||[]).length,32);
 });
 
 
@@ -936,4 +936,22 @@ test('November topic guides have distinct routes, sources, boundaries and discov
   assert.match(html,/noindex,nofollow/);
   assert.doesNotMatch(html,/rel="canonical"|property="og:(?:url|image)"|application\/ld\+json/);
  }
+});
+
+test('research prompt injection guide keeps boundaries, sources and publication metadata',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const route='/blog/prompt-injection-ai-research/';
+ const html=readFileSync('dist'+route+'index.html','utf8');
+ assert.equal((html.match(/<h1\b/g)||[]).length,1);
+ for(const text of ['fictional review exercise','not a substitute for restricted credentials','does not establish which security controls','label that part unverified','connected system']) assert.ok(html.includes(text),text);
+ for(const source of ['https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html','https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/local-server-security']) assert.ok(html.includes('href="'+source+'"'));
+ assert.ok(html.includes('rel="canonical" href="https://agready.ai'+route+'"'));
+ assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+route+'</loc>'));
+ for(const page of ['dist/blog/index.html','dist/blog/self-hosted-ai-agent-security-checklist/index.html']) assert.ok(readFileSync(page,'utf8').includes('href="'+route+'"'));
+ assert.match(html,/id="privacy-dialog"/);
+ assert.match(html,/id="breadcrumb-data"/);
+ build();
+ const preview=readFileSync('dist'+route+'index.html','utf8');
+ assert.match(preview,/noindex,nofollow/);
+ assert.doesNotMatch(preview,/rel="canonical"|application\/ld\+json/);
 });

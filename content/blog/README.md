@@ -20,3 +20,7 @@ Primary topic evidence (checked November 11, 2026):
 - https://genai.owasp.org/llmrisk/llm062025-excessive-agency/
 
 These sources establish timely subject matter and technical definitions. They do not establish keyword search volume, competition, ranking or customer demand. The articles make no such claims. Product features are described from current development source, with installed-release boundaries stated once where needed. Fictional examples are labeled; no benchmark or customer result is invented.
+
+## November 12, 2026 research safety guide
+
+`/blog/prompt-injection-ai-research/` addresses a focused long-tail research question, distinct from the broad deployment checklist. Its supplier example and task brief are fictional editorial exercises, not product execution evidence. Official MCP local-server security and OWASP prompt-injection prevention guidance were read on November 12. These establish subject relevance, not keyword volume or rising search demand. No GSC metric or security-test result is asserted. Existing deployment safeguards are unchanged.

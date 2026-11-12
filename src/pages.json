@@ -178,5 +178,11 @@
     "path": "/blog/self-hosted-ai-agent-security-checklist/",
     "title": "Self-hosted AI agent security checklist | AgReady",
     "description": "Plan a self-hosted AI agent deployment with a practical checklist for model data flow, tool permissions, secrets, runtime isolation, approvals and recovery."
+  },
+  {
+    "source": "src/blog-research-prompt-injection.html",
+    "path": "/blog/prompt-injection-ai-research/",
+    "title": "Prompt injection in AI research: a practical review guide | AgReady",
+    "description": "Review AI research for indirect prompt injection with a fictional example, bounded task brief and checks for source evidence, tool actions and unexpected sharing."
   }
 ]
