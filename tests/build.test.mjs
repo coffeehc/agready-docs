@@ -416,10 +416,10 @@ test('related products distinguish information and messaging from native AgReady
  assert.match(html,/agent supplies the collection and scheduling workflow/);
  assert.match(html,/Receiving a message does not itself authorize/);
  assert.match(html,/do not imply a preconfigured or tested native AgReady integration/);
- assert.match(html,/href="https:\/\/github.com\/coffeehc\/xletter-skill"/);
+ assert.match(html,/href="https:\/\/letter\.agready\.ai\/skill\.md"/);
  assert.match(html,/href="https:\/\/lead\.agready\.ai\/"/);
- assert.match(html,/href="https:\/\/xletter\.51apis\.com\/"/);
- assert.doesNotMatch(html,/https:\/\/letter\.agready\.ai|github\.com\/coffeehc\/(?:lead|letter)(?:["/])|guaranteed delivery|SMTP-compatible/);
+ assert.match(html,/href="https:\/\/letter\.agready\.ai\/"/);
+ assert.doesNotMatch(html,/xletter\.51apis\.com|xletter-skill|github\.com\/coffeehc\/(?:lead|letter)(?:["/])|guaranteed delivery|SMTP-compatible/);
  assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,31);
  assert.match(html,/rel="canonical" href="https:\/\/agready\.ai\/product\/"/);
 });
@@ -954,4 +954,15 @@ test('research prompt injection guide keeps boundaries, sources and publication 
  const preview=readFileSync('dist'+route+'index.html','utf8');
  assert.match(preview,/noindex,nofollow/);
  assert.doesNotMatch(preview,/rel="canonical"|application\/ld\+json/);
+});
+
+
+test('published sources do not send Letter visitors to retired domains or skill repositories',()=>{
+ const pages=[{source:'src/index.html',path:'/'},...JSON.parse(readFileSync('src/pages.json','utf8'))];
+ for(const page of pages){
+  const source=readFileSync(page.source,'utf8');
+  assert.doesNotMatch(source,/https:\/\/(?:xletter\.51apis\.com|github\.com\/coffeehc\/xletter-skill)(?:[\/"#?]|$)/,page.path);
+ }
+ const product=readFileSync('src/product.html','utf8');
+ assert.match(product,/reading the guide alone does not authorize registration or sending messages/);
 });
