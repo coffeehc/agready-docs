@@ -36,7 +36,7 @@ test('invalid analytics ID and unsafe origin fail closed',()=>{
 test('all content pages have real navigation, preview safeguards and no unconfirmed release paths',()=>{
  build();
  const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
- assert.equal(pages.length,31);
+ assert.equal(pages.length,32);
  for(const page of pages){
   const html=readFileSync('dist'+page.path+'index.html','utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page.path);
@@ -176,7 +176,7 @@ test('404 output is noindex, not canonicalized and excluded from the content sit
  assert.match(missing,/href="\/"/);assert.match(missing,/href="\/docs\/"/);
  assert.match(missing,/name="ga4-measurement-id" content=""/);
  const sitemap=readFileSync('dist/sitemap.xml','utf8');
- assert.equal((sitemap.match(/<loc>/g)||[]).length,32);
+ assert.equal((sitemap.match(/<loc>/g)||[]).length,33);
  assert.doesNotMatch(sitemap,/404/);
  assert.ok(!existsSync('dist/_redirects'));
  build();
@@ -420,7 +420,7 @@ test('related products distinguish information and messaging from native AgReady
  assert.match(html,/href="https:\/\/lead\.agready\.ai\/"/);
  assert.match(html,/href="https:\/\/letter\.agready\.ai\/"/);
  assert.doesNotMatch(html,/xletter\.51apis\.com|xletter-skill|github\.com\/coffeehc\/(?:lead|letter)(?:["/])|guaranteed delivery|SMTP-compatible/);
- assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,31);
+ assert.equal(JSON.parse(readFileSync('src/pages.json','utf8')).length,32);
  assert.match(html,/rel="canonical" href="https:\/\/agready\.ai\/product\/"/);
 });
 
@@ -508,7 +508,7 @@ test('docs task paths connect real work to existing guides without inventing res
  const routes=new Set(JSON.parse(readFileSync('src/pages.json','utf8')).map(p=>p.path));
  for(const [,href] of section.matchAll(/href="([^"]+)"/g)) assert.ok(routes.has(href),'Known task-path destination: '+href);
  assert.ok(html.indexOf('id="task-paths"')<html.indexOf('Set up an instance'));
- assert.equal((readFileSync('dist/sitemap.xml','utf8').match(/<loc>/g)||[]).length,32);
+ assert.equal((readFileSync('dist/sitemap.xml','utf8').match(/<loc>/g)||[]).length,33);
 });
 
 
@@ -965,4 +965,22 @@ test('published sources do not send Letter visitors to retired domains or skill 
  }
  const product=readFileSync('src/product.html','utf8');
  assert.match(product,/reading the guide alone does not authorize registration or sending messages/);
+});
+
+test('interrupted-task guide distinguishes unknown outcomes and avoids duplicate-action promises',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const route='/blog/ai-agent-timeout-before-retry/';
+ const html=readFileSync('dist'+route+'index.html','utf8');
+ assert.equal((html.match(/<h1\b/g)||[]).length,1);
+ for(const text of ['Confirmed not started','Still running','Completed','Unknown','not a reported AgReady run','Do not interpret a missing search result as proof','does not establish','automatic deduplication, rollback or exactly-once execution','connected system']) assert.ok(html.includes(text),text);
+ assert.ok(html.includes('href="https://openai.github.io/openai-agents-python/human_in_the_loop/#recovering-after-a-crash"'));
+ assert.ok(html.includes('rel="canonical" href="https://agready.ai'+route+'"'));
+ assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+route+'</loc>'));
+ for(const page of ['dist/blog/index.html','dist/docs/recurring-tasks/index.html']) assert.ok(readFileSync(page,'utf8').includes('href="'+route+'"'));
+ for(const id of ['privacy-dialog','breadcrumb-data','banner-decline']) assert.ok(html.includes('id="'+id+'"'));
+ assert.doesNotMatch(html,/googletagmanager\.com\/gtag\/js|api[_-]?key=/);
+ build();
+ const preview=readFileSync('dist'+route+'index.html','utf8');
+ assert.match(preview,/noindex,nofollow/);
+ assert.doesNotMatch(preview,/rel="canonical"|application\/ld\+json/);
 });

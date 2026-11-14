@@ -47,6 +47,7 @@ If you cannot access the notes, say so and stop.</pre>
 <section><h2 id="verify-run">Check what actually happened</h2>
 <p>The trigger list shows its status, schedule and <strong>Next run</strong>. Open its details for the last-fired time, fire count and latest error, or <strong>Execution history</strong> for individual attempts and reasons.</p>
 <ul><li><strong>Triggered:</strong> the session was activated; inspect its conversation and output.</li><li><strong>Deferred:</strong> the target may already be running or waiting for approval or user input.</li><li><strong>Trigger error:</strong> inspect the recorded reason.</li><li><strong>Unconfirmed:</strong> do not assume either success or failure.</li></ul>
+<p>Before manually retrying an interrupted run, <a href="/blog/ai-agent-timeout-before-retry/">check its actual outcome and avoid duplicate actions</a>. A missing final reply does not establish that the task failed.</p>
 <p>Execution history covers recorded attempts, not reconstructed activity from before the history feature was enabled.</p>
 <p>Judge the task separately: Did the session use the intended inputs, produce the requested output, and respect its boundaries?</p>
 </section>

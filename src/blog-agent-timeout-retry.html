@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="site-revision" content="agent-retry-20261114-v1"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title><meta name="description" content="{{DESCRIPTION}}"><meta name="robots" content="{{ROBOTS}}">
+<meta name="google-site-verification" content="{{VERIFICATION}}"><meta name="ga4-measurement-id" content="{{GA_ID}}">
+<link rel="canonical" href="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:type" content="article"><meta property="og:title" content="{{TITLE}}"><meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:image" content="{{ORIGIN}}/social.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f3ee">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header"><div class="container nav"><a class="brand" href="/" aria-label="AgReady home"><span class="brand-mark" aria-hidden="true">a<span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></span>AgReady<span class="brand-suffix">.ai</span></a><nav aria-label="Main navigation"><a href="/product/">Product</a><a href="/docs/">Docs</a><a href="/blog/">Blog</a><a href="/about/">About</a></nav><a class="nav-cta" href="/docs/getting-started/" aria-label="Get started: setup and first-task guide">Get started</a></div></header><section id="analytics-banner" class="analytics-banner" role="region" aria-labelledby="analytics-banner-title" hidden><div class="container analytics-banner-inner"><div><h2 id="analytics-banner-title">Optional Google Analytics</h2><p>Allow Google Analytics to measure page visits, scrolling, outbound links and file-link clicks? You can use this site without it and change your choice in the footer. This choice does not control Cloudflare performance measurement. <a href="/privacy/">Privacy notice</a>.</p></div><div class="analytics-banner-actions"><button id="banner-accept" class="button secondary" type="button">Allow Google Analytics</button><button id="banner-decline" class="button secondary" type="button">Decline Google Analytics</button></div></div></section>
+<main tabindex="-1" id="main" class="container reading-page">
+<div class="eyebrow">PRACTICAL GUIDE · <time datetime="2026-11-14">NOVEMBER 14, 2026</time></div>
+<h1>AI agent timeout? Check what happened before you retry</h1>
+<p class="reading-lead">Your agent stopped responding, but did the work stop too? Before asking it to start again, check the result where the action was supposed to happen.</p>
+<p>This guide is for interrupted tasks and agents repeating work. It offers a recovery checklist and a fictional example, not an AgReady reliability benchmark or a guarantee against duplicate actions.</p>
+<h2 id="first-check">Start with the destination, not another “try again”</h2>
+<p>A missing final reply does not tell you whether the task succeeded, failed, or is still running. Ask for a read-only check of the intended destination: the saved document, the published page or the external service's action record. Use the task's time window and any recorded operation identifier to narrow the check. Do not expose credentials in the recovery report.</p>
+<p>For actions with external effects, a timeout can leave the outcome uncertain. OpenAI's <a href="https://openai.github.io/openai-agents-python/human_in_the_loop/#recovering-after-a-crash">Agents SDK recovery guidance</a> explains that an external action can finish before its completion is saved locally. An approval does not guarantee exactly-once execution. It also warns that a simple lookup finding nothing may be insufficient: records can lag or an earlier request can still be running. Treat an unresolved outcome as unknown rather than automatically repeating the action.</p>
+<h2 id="four-states">Separate four outcomes</h2>
+<ul>
+<li><strong>Confirmed not started:</strong> establish that the earlier attempt did not act and is no longer able to act. Retry only the still-authorized unfinished step.</li>
+<li><strong>Still running:</strong> inspect its status instead of launching a competing copy. If you stop it, verify what stopping actually canceled.</li>
+<li><strong>Completed:</strong> inspect the saved result and return its link or missing summary. Do not recreate it just because the final chat reply is absent.</li>
+<li><strong>Unknown:</strong> preserve the available evidence and leave the consequential action pending. State what would resolve the uncertainty.</li>
+</ul>
+<p>A status label in one interface is not always a complete record of another system. Where records conflict, explain the conflict instead of selecting the most convenient answer.</p>
+<h2 id="example">A fictional interrupted weekly brief</h2>
+<p>Imagine you asked an agent to read five project notes, save a weekly brief and return a link. Its conversation ends after “saving the brief.” This is an illustrative scenario, not a reported AgReady run.</p>
+<ol>
+<li>Check the intended folder and the recorded save result without changing anything.</li>
+<li>If the expected document exists, open it. Confirm that it covers the five notes and identifies unresolved decisions.</li>
+<li>If it is complete, return that document's link. The remaining task was delivery of the result, not another document.</li>
+<li>If it is incomplete, identify the missing section. Update only that section if the existing permission covers the edit.</li>
+<li>If you cannot establish whether the save finished, report the uncertainty before creating another copy.</li>
+</ol>
+<p>Sending the brief to other people is a separate action. Permission to prepare or repair it does not authorize distribution. A recovery attempt should not expand the original task.</p>
+<h2 id="recovery-prompt">A recovery prompt you can reuse</h2>
+<pre class="task-template"><code>Check the interrupted task before retrying it.
+First inspect available records and the intended destination without changing anything.
+Separate completed work, work still running, confirmed unfinished work and unknown outcomes.
+For each conclusion, provide the evidence or say what you could not verify.
+Do not recreate an existing result, send again, republish or repeat an uncertain external action.
+Do not interpret a missing search result as proof that the action never happened.
+Return existing results that are complete. List the smallest remaining step.
+Continue only if that step is within my original authorization and its prior outcome is resolved.
+Otherwise explain exactly what needs checking or approval.</code></pre>
+<p>Replace “the interrupted task” with its specific goal and destination when opening a new session. Include useful links and identifiers, not a copied secret or an entire private conversation.</p>
+<h2 id="recurring">If the task is scheduled, check the next run too</h2>
+<p>Stopping one run and disabling future activations are different decisions. A manual retry while a timer remains active can create overlapping work. Check the schedule and next run before resuming; change them only within the user's permission.</p>
+<p>In AgReady, the <a href="/docs/recurring-tasks/#verify-run">recurring task guide</a> explains how to inspect trigger records and session output. A successful activation means a session was started, not that the requested deliverable was completed. Use the <a href="/docs/operations/">operations guide</a> for the documented controls in your installed version.</p>
+<h2 id="agready">Use both places where you have control</h2>
+<p>The Agent Ready vision combines agent work through APIs with human control in AgReady and in the connected system's own UI. For recovery, compare the session's account of its work with the actual destination. Which records and controls are available depends on your installed release, tools and permissions.</p>
+<p>This checklist does not establish that your AgReady deployment or any connected tool provides automatic deduplication, rollback or exactly-once execution. When an important action cannot be verified, keep it unresolved rather than making a confident guess.</p>
+<p>New to AgReady? Follow the <a href="/docs/getting-started/">setup and first-task guide</a> and start with a small read-only task. For more precise task briefs, see <a href="/blog/verifiable-agent-tasks/">give an agent a task you can verify</a>. For resuming in another session, use the <a href="/blog/ai-agent-memory-vs-context-vs-skills/">context and handover guide</a>.</p>
+</main>
+<footer class="container footer"><a class="brand" href="/">AgReady<span class="brand-suffix">.ai</span></a><a class="footer-link" href="/faq/">FAQ</a><a class="footer-link" href="/privacy/">Privacy</a><a class="footer-link" href="mailto:hello@agready.ai">hello@agready.ai</a><button class="privacy-link" id="privacy-open" type="button">Google Analytics preference</button><span class="footer-year">© 2026 AgReady</span></footer>
+<dialog id="privacy-dialog" aria-labelledby="privacy-title"><form method="dialog"><button class="dialog-close" aria-label="Close Google Analytics preference"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg></button></form><div class="eyebrow">YOUR CHOICE</div><h2 id="privacy-title">Google Analytics preference</h2><p id="analytics-status">Google Analytics is not configured. No Google Analytics script is loaded.</p><p>Cloudflare provides website delivery and performance measurement separately. This preference controls only optional Google Analytics; it does not disable Cloudflare measurement.</p><p>If you allow Google Analytics, it measures page visits, scrolling, outbound links, file-link clicks and selected internal navigation. Enhanced events can include destination URLs and link details. Our manual events omit page query parameters and referrers; this is not a blanket filter for Google’s automatic events. Do not put sensitive information in website URLs. This website does not intentionally send task content, file contents or email addresses.</p><p>Your choice is saved in this browser. Declining Google Analytics does not affect page access. You can change this preference here or clear this site's browser data.</p><p>Read the <a href="/privacy/">Website Privacy Notice</a> for website delivery, performance measurement and contact information.</p><div class="consent-actions"><button class="button primary" id="analytics-accept" type="button">Allow Google Analytics</button><button class="button secondary" id="analytics-decline" type="button">Decline Google Analytics</button></div><p id="consent-feedback" role="status" aria-live="polite"></p></dialog>
+</body></html>

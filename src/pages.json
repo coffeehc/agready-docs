@@ -184,5 +184,11 @@
     "path": "/blog/prompt-injection-ai-research/",
     "title": "Prompt injection in AI research: a practical review guide | AgReady",
     "description": "Review AI research for indirect prompt injection with a fictional example, bounded task brief and checks for source evidence, tool actions and unexpected sharing."
+  },
+  {
+    "source": "src/blog-agent-timeout-retry.html",
+    "path": "/blog/ai-agent-timeout-before-retry/",
+    "title": "AI agent timeout: what to check before retrying | AgReady",
+    "description": "Recover an interrupted AI agent task without blindly repeating work. Check saved results, distinguish unknown outcomes and review recurring tasks before retrying."
   }
 ]
