@@ -695,7 +695,8 @@ test('Grok Bot alternative article is discoverable, sourced and release-scoped',
  const blog=readFileSync('dist/blog/index.html','utf8');
  const articleIndex=blog.indexOf('href="'+route+'"');
  assert.ok(articleIndex>=0);
- assert.ok(articleIndex<blog.indexOf('href="/blog/compare-pdf-documents-ai-agent/"'));
+ // The task-based hub groups comparisons under setup instead of date order.
+ assert.ok(articleIndex>blog.indexOf('id="choose-your-setup"'));
  assert.ok(readFileSync('dist/blog/self-hosted-ai-agent-work-you-control/index.html','utf8').includes('href="'+route+'"'));
  for(const path of ['overview','security','faq','skills-routines-and-automations']) assert.ok(html.includes('href="https://docs.x.ai/grok-bot/'+path+'"'));
  assert.match(html,/development-version guides, not verified features of every published release/);
@@ -983,4 +984,28 @@ test('interrupted-task guide distinguishes unknown outcomes and avoids duplicate
  const preview=readFileSync('dist'+route+'index.html','utf8');
  assert.match(preview,/noindex,nofollow/);
  assert.doesNotMatch(preview,/rel="canonical"|application\/ld\+json/);
+});
+
+
+test('blog hub offers goal-based paths without hiding or duplicating article cards',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const html=readFileSync('dist/blog/index.html','utf8');
+ const pages=JSON.parse(readFileSync('src/pages.json','utf8'));
+ const cards=[...html.matchAll(/<article class="post-card">([\s\S]*?)<\/article>/g)].map(m=>m[1]);
+ const articles=pages.filter(p=>p.path.startsWith('/blog/')&&p.path!=='/blog/');
+ assert.equal(cards.length,articles.length);
+ for(const article of articles){
+  assert.equal(cards.filter(c=>c.includes('href="'+article.path+'"')).length,1,article.path);
+ }
+ for(const id of ['first-task','review-and-recover','choose-your-setup']){
+  assert.ok(html.includes('href="#'+id+'"'));
+  assert.ok(html.includes('<h2 id="'+id+'">'));
+ }
+ assert.equal((html.match(/<h3>/g)||[]).length,articles.length);
+ assert.ok(cards.every(c=>!c.includes('<h2>')));
+ assert.match(html,/aria-label="Browse guides by goal"/);
+ assert.match(html,/href="\/docs\/getting-started\/">illustrated setup and first-task guide/);
+ assert.match(html,/illustrative, not measured customer results/);
+ assert.match(html,/rel="canonical" href="https:\/\/agready.ai\/blog\/"/);
+ build();
 });

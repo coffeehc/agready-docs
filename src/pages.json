@@ -26,8 +26,8 @@
   {
     "source": "src/blog.html",
     "path": "/blog/",
-    "title": "Notes on deliberate agentic work. \u2014 AgReady",
-    "description": "Practical methods for defining tasks, inspecting results and keeping the scope of work clear."
+    "title": "Practical AI agent guides: research, documents and setup | AgReady",
+    "description": "Find AI agent tutorials by goal: compare PDFs, research user needs, write a weekly brief, recover interrupted tasks and choose a self-hosted setup."
   },
   {
     "source": "src/blog-verifiable-agent-tasks.html",

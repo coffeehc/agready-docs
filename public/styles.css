@@ -57,3 +57,6 @@ summary:focus-visible{outline:3px solid #6c8934;outline-offset:4px}
 
 /* Wide comparison matrices scroll inside their own keyboard-focusable region. */
 .comparison-table-scroll{max-width:100%;overflow-x:auto;margin:24px 0}.comparison-table-scroll:focus-visible{outline:3px solid var(--green);outline-offset:3px}.product-comparison-table{width:100%;min-width:900px;border-collapse:collapse;table-layout:fixed;font-size:14px;line-height:1.6}.product-comparison-table caption{text-align:left;font-weight:600;margin-bottom:12px}.product-comparison-table th,.product-comparison-table td{padding:12px;border:1px solid var(--line);vertical-align:top;text-align:left;overflow-wrap:anywhere}.product-comparison-table tbody th{font-weight:500}.product-comparison-table td{color:var(--muted)}.product-comparison-table a{color:var(--green);text-decoration:underline}.comparison-sources li{overflow-wrap:anywhere}
+
+/* Blog sections use h2; article titles stay one level below them. */
+.post-card h3{font-size:25px;line-height:1.25;letter-spacing:-.5px;margin:18px 0 17px}.post-card h3 a{text-decoration:underline;text-underline-offset:4px;color:var(--green)}
