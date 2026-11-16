@@ -1009,3 +1009,21 @@ test('blog hub offers goal-based paths without hiding or duplicating article car
  assert.match(html,/rel="canonical" href="https:\/\/agready.ai\/blog\/"/);
  build();
 });
+
+
+test('homepage provides a bounded download path without implying a hosted signup or completed install',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const home=readFileSync('dist/index.html','utf8');
+ const hero=home.match(/<div class="hero-copy">([\s\S]*?)<div class="hero-foot">/)[1];
+ assert.match(hero,/href="\/docs\/getting-started\/" data-cta="open_getting_started"/);
+ assert.match(hero,/href="\/docs\/install-and-start\/#downloads" data-cta="open_download_guide">Choose your download/);
+ assert.match(hero,/Self-hosted Server for Linux and macOS/);
+ assert.match(hero,/architecture and review release terms/);
+ assert.match(hero,/model connection is configured separately/);
+ assert.doesNotMatch(hero,/releases\/download|data-cta="download_complete"|Sign up/);
+ const guide=readFileSync('dist/docs/install-and-start/index.html','utf8');
+ assert.match(guide,/id="downloads"/);
+ for(const platform of ['darwin-arm64','darwin-amd64','linux-amd64','linux-arm64']) assert.ok(guide.includes(platform));
+ assert.match(guide,/SHA256SUMS/);
+ build();
+});

@@ -60,3 +60,6 @@ summary:focus-visible{outline:3px solid #6c8934;outline-offset:4px}
 
 /* Blog sections use h2; article titles stay one level below them. */
 .post-card h3{font-size:25px;line-height:1.25;letter-spacing:-.5px;margin:18px 0 17px}.post-card h3 a{text-decoration:underline;text-underline-offset:4px;color:var(--green)}
+
+/* Keep the download route explicit without crowding the main setup action. */
+.hero-download-note{max-width:440px;margin:18px 0 0;font-size:13px;line-height:1.65;color:var(--muted)}
