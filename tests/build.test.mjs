@@ -1027,3 +1027,15 @@ test('homepage provides a bounded download path without implying a hosted signup
  assert.match(guide,/SHA256SUMS/);
  build();
 });
+
+
+test('archive verification guide uses platform-specific read-only hashes and exact release scope',()=>{
+ build();
+ const html=readFileSync('dist/docs/install-and-start/index.html','utf8');
+ const section=html.split('<h2 id="verify-download">')[1].split('<h2>Before installing</h2>')[0];
+ assert.match(html,/href="#verify-download"/);
+ assert.match(section,/shasum -a 256 \.\/agready-v0\.0\.1-darwin-arm64\.tar\.gz/);
+ assert.match(section,/sha256sum \.\/agready-v0\.0\.1-linux-amd64\.tar\.gz/);
+ for(const text of ['darwin-amd64.tar.gz','linux-arm64.tar.gz','complete 64-character digest','do not extract or run the archive','BINARY_SHA256SUMS','not a digital signature','a newer archive needs the checksum list from its own release']) assert.ok(section.includes(text),text);
+ assert.doesNotMatch(section, /curl.*\|.*(?:sh|bash)|sha256sum -c|sudo /);
+});

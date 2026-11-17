@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="site-revision" content="docs-navigation-v20"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"><meta name="site-revision" content="archive-verification-20261117"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{TITLE}}</title><meta name="description" content="{{DESCRIPTION}}"><meta name="robots" content="{{ROBOTS}}">
 <meta name="google-site-verification" content="{{VERIFICATION}}"><meta name="ga4-measurement-id" content="{{GA_ID}}">
 <link rel="canonical" href="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:type" content="website"><meta property="og:title" content="{{TITLE}}"><meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:image" content="{{ORIGIN}}/social.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f3ee">
@@ -23,8 +23,23 @@
 </ul>
 <p><code>darwin</code> means macOS in these filenames; <code>amd64</code> also covers compatible Intel x86-64 machines. This release does not include a native Windows archive.</p>
 <p>On a Mac, use <strong>Apple menu → About This Mac</strong>: an Apple chip means Apple silicon; an Intel processor means Intel. On Linux, the read-only command <code>uname -m</code> reports the current architecture: <code>x86_64</code> maps to AMD64 and <code>aarch64</code> to ARM64. For a remote installation, check the <strong>target server</strong>, not the computer running your browser. If the result differs, verify compatibility rather than guessing.</p>
-<p>Before using a package, read the <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/LICENSE">LICENSE</a> and <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/EULA.md">EULA</a>. Compare the downloaded archive with its exact filename in <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/SHA256SUMS">SHA256SUMS</a>; do not use the binary checksum list for an archive. Follow the <a href="https://github.com/coffeehc/agready-docs/releases/tag/v0.0.1">release instructions</a> for installation. Downloading or extracting a package does not install a service or configure a model.</p>
+<p>Before using a package, read the <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/LICENSE">LICENSE</a> and <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/EULA.md">EULA</a>. Compare the downloaded archive with its exact filename in <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/SHA256SUMS">SHA256SUMS</a>; do not use the binary checksum list for an archive. Use the <a href="#verify-download">checksum steps below</a>, then follow the <a href="https://github.com/coffeehc/agready-docs/releases/tag/v0.0.1">release instructions</a> for installation. Downloading or extracting a package does not install a service or configure a model.</p>
 <p>Prefer the installer? Follow the <a href="#installer">download-and-review steps below</a> instead. Runtime Assets and tool plugins remain separate from the Server.</p></section>
+<h2 id="verify-download">Verify your downloaded archive</h2>
+<p>Before extracting or running a manually downloaded package, check that its bytes match the checksum published for that release. Save the archive and the release's <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/SHA256SUMS">SHA256SUMS</a> file in a folder you can inspect. Open a terminal in that folder; the commands below only read the archive and print its SHA-256 digest.</p>
+<p><strong>macOS example, Apple silicon:</strong></p>
+<pre class="task-template">shasum -a 256 ./agready-v0.0.1-darwin-arm64.tar.gz</pre>
+<p>For an Intel Mac, use <code>agready-v0.0.1-darwin-amd64.tar.gz</code> instead.</p>
+<p><strong>Linux example, Intel or AMD x86-64:</strong></p>
+<pre class="task-template">sha256sum ./agready-v0.0.1-linux-amd64.tar.gz</pre>
+<p>For Linux ARM64, use <code>agready-v0.0.1-linux-arm64.tar.gz</code> instead. These examples are pinned to v0.0.1; a newer archive needs the checksum list from its own release.</p>
+<ol>
+<li>Open <code>SHA256SUMS</code> as text and find the line with the <strong>exact archive filename</strong>. The published list prefixes archive names with <code>./</code>, which means the current folder.</li>
+<li>Compare the complete 64-character digest, not just its first or last characters, with the terminal output.</li>
+<li>If the digest matches, continue with the release instructions. This checks the download, not whether installation, startup or a model connection will work.</li>
+</ol>
+<p>If the file is missing, check the folder and actual filename. If the digest differs, <strong>do not extract or run the archive</strong>: confirm you selected the correct release and platform, download again from the official release, and recheck. If it still differs, stop and report the version, filename and mismatch without credentials or private configuration.</p>
+<p>Do not use <code>BINARY_SHA256SUMS</code> to check a <code>.tar.gz</code> archive. A matching digest is not a digital signature or an independent guarantee that the publisher is trustworthy, and it does not grant a license.</p>
 <h2>Before installing</h2>
 <ul>
 <li>Choose Linux or macOS, then the matching amd64 or arm64 package. Do not choose by operating system alone.</li>
