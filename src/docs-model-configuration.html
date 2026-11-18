@@ -26,6 +26,15 @@
 <dt>Context tokens and capability settings</dt><dd><p>Values supported by the model and connection</p><p>A larger configured value does not increase the provider's actual limit or add capabilities.</p></dd>
 </dl>
 <p><code>https://api.example.com/v1</code> and <code>example-chat-model</code> in the <a href="/docs/getting-started/#model">illustrated walkthrough</a> are fictional placeholders, not working configuration values. This guide does not claim universal provider compatibility.</p>
+<h2 id="local-model-address">Connect a local model: check which machine makes the request</h2>
+<p>A model running on your laptop is not automatically reachable from an AgReady Server on another machine. Before changing the Base URL, identify three places: the browser displaying the Web UI, the machine running AgReady Server, and the service providing the model API. The model endpoint must be reachable from the Server, not just from your browser.</p>
+<dl class="troubleshooting">
+<dt>AgReady Server and the model service run on the same machine</dt><dd><p>A loopback address such as <code>127.0.0.1</code> refers back to that machine. Check the model service's actual listening port and API base path; do not reuse the Web UI address as the model endpoint. Loopback addresses are local, not a way to reach another host. See <a href="https://www.rfc-editor.org/rfc/rfc6761.html#section-6.3">the local-name definition in RFC 6761</a>.</p></dd>
+<dt>AgReady Server is remote, but the model runs on your laptop</dt><dd><p>A loopback address entered for the remote Server points back to the Server, not to your laptop. Ask the administrator for an approved private connection and model endpoint that the Server can reach. Opening the model in your laptop browser does not verify that route.</p></dd>
+<dt>A service runs in a container</dt><dd><p>Network isolation can give a container a different view of addresses from its host. Do not assume a loopback address reaches another container or the host. Have the administrator check the actual network mode and approved service address. This is general networking guidance, not a claim that a particular container deployment is supported by AgReady. See <a href="https://docs.docker.com/engine/network/">Docker's networking overview</a>.</p></dd>
+</dl>
+<p>Do not disable a firewall, skip TLS verification or publish an unauthenticated model endpoint to make a test pass. Once reachability is established, still check the API protocol, base path, credentials and exact model identifier. Network access alone does not prove model compatibility, tool calling or image support.</p>
+<p>Use <strong>Test connection</strong>, inspect <strong>Latest test result</strong>, then run the <a href="#verify-model">small text verification task</a>. If it fails, keep the error and which of the three locations produced it; share only redacted details, not credentials or private network configuration.</p>
 <h2>Test, save and verify</h2>
 <ol>
 <li>Use <strong>Test connection</strong> on your own configuration.</li>

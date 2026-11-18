@@ -1,5 +1,13 @@
 # Verification status
 
+## November 18, 2026: local model connection address checks
+
+- Scope: expand the existing model connection guide to separate the browser, AgReady Server and model API locations, explain loopback and container-network boundaries, and link the check from the FAQ. Update the existing description; no new route, configuration, provider or compatibility claim.
+- Basis: existing AgReady Server-reachability guidance, RFC 6761 section 6.3 and Docker's networking overview, read November 18. The guidance is diagnostic, not an executed local-model or container-deployment acceptance test. No firewall, credential, TLS or network setting was changed.
+- Validation: all 68 Node tests, noindex preview and indexable production builds, and whitespace checks passed. Independent review found no content blocker and caught a test-section delimiter error; the delimiter and explicit boundary assertions were corrected before the final rerun. Existing route, canonical, sitemap, 404, Pages preview noindex, GSC marker and GA consent coverage remains in place.
+- Browser QA could not start: cloud Chromium terminated with `socket() failed: Operation not permitted`. No rendered desktop/mobile pass, real model connection, GSC measurement or traffic gain is claimed.
+- Pre-change main `349d244a016af25e813d5d686cb62f089edd6181` had a successful Cloudflare Pages deployment and no open PR. Publication and live-page acceptance are checked separately. No GitHub Actions workflow or user-computer resource was used.
+
 ## November 11, 2026: three timely agent-workflow articles
 
 - Scope: publish three distinct English Blog guides: Agent Skills vs MCP vs A2A; memory vs context vs skills; and a self-hosted agent security checklist. Add Blog discovery links, route metadata, cross-links and focused regression coverage. No existing article is replaced.

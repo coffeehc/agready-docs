@@ -1039,3 +1039,24 @@ test('archive verification guide uses platform-specific read-only hashes and exa
  for(const text of ['darwin-amd64.tar.gz','linux-arm64.tar.gz','complete 64-character digest','do not extract or run the archive','BINARY_SHA256SUMS','not a digital signature','a newer archive needs the checksum list from its own release']) assert.ok(section.includes(text),text);
  assert.doesNotMatch(section, /curl.*\|.*(?:sh|bash)|sha256sum -c|sudo /);
 });
+
+
+test('local model address guidance separates browser, server and model without unsafe shortcuts',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const html=readFileSync('dist/docs/model-configuration/index.html','utf8');
+ const start='<h2 id="local-model-address">', end='<h2 id="section-test-save-and-verify">';
+ assert.ok(html.includes(start));
+ assert.ok(html.includes(end));
+ assert.ok(html.indexOf(end)>html.indexOf(start));
+ const section=html.split(start)[1].split(end)[0];
+ assert.ok(section);
+ for(const text of ['browser displaying the Web UI','machine running AgReady Server','service providing the model API','127.0.0.1','points back to the Server, not to your laptop','actual network mode','not a claim that a particular container deployment is supported','Do not disable a firewall','skip TLS verification','unauthenticated model endpoint','Network access alone does not prove model compatibility']) assert.ok(section.includes(text),text);
+ assert.match(section,/href="https:\/\/www.rfc-editor.org\/rfc\/rfc6761.html#section-6.3"/);
+ assert.match(section,/href="https:\/\/docs.docker.com\/engine\/network\/"/);
+ assert.match(html,/href="#local-model-address"/);
+ assert.match(section,/href="#verify-model"/);
+ assert.match(readFileSync('dist/faq/index.html','utf8'),/href="\/docs\/model-configuration\/#local-model-address"/);
+ assert.match(html,/check local model addresses from the Server/);
+ assert.doesNotMatch(section,/docker run|sudo |--network[= ]|--insecure/);
+ build();
+});

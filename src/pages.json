@@ -75,7 +75,7 @@
     "source": "src/docs-model-configuration.html",
     "path": "/docs/model-configuration/",
     "title": "AgReady model configuration \u2014 Setup, testing and troubleshooting",
-    "description": "Configure an AgReady model connection, verify a small text task, and troubleshoot failed tests, model selection, context limits and tool readiness."
+    "description": "Configure an AgReady model connection, check local model addresses from the Server, verify a small text task, and troubleshoot connection and tool failures."
   },
   {
     "source": "src/docs-sessions-and-context.html",
