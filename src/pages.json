@@ -116,8 +116,8 @@
   {
     "source": "src/docs-operations.html",
     "path": "/docs/operations/",
-    "title": "Plan upgrades and recovery \u2014 AgReady",
-    "description": "Prepare AgReady maintenance, check backups and understand the separate steps and limits of upgrades, restoration and validation."
+    "title": "Backup and recovery checklist \u2014 AgReady",
+    "description": "Plan AgReady backups and upgrades, coordinate database recovery points, and use a recovery checklist to verify restored data and service before confirmation."
   },
   {
     "source": "src/blog-self-hosted-ai-agent.html",

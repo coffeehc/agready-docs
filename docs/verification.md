@@ -1,5 +1,13 @@
 # Verification status
 
+## November 19, 2026: reusable backup and recovery checklist
+
+- Scope: expand the existing operations guide with a copyable private recovery worksheet, recovery-point coordination and evidence-based acceptance checks. Update its title/description and Docs discovery link. No new route, product control or recovery capability is claimed.
+- Basis: the existing version-scoped operations guide. The worksheet is explicitly a planning template, not an application form or an executed recovery drill. It separates snapshot completion, database/file consistency, service access, bounded task/tool checks and final restore confirmation; secrets must not be copied into it.
+- Validation: all 69 Node tests, noindex preview and indexable production builds, and whitespace checks passed. Coverage includes the worksheet anchor, internal discovery link, factual/permission boundaries and production/preview metadata. Canonical, sitemap, 404, Pages preview noindex, GSC verification and GA consent implementation remain unchanged.
+- Pre-change main `e99c71d0421a2fa65402cb78d245eaac7baf607d` had a successful Cloudflare Pages check and no open pull requests. Publication and deployed output are verified separately. No GitHub Actions or user-computer resource was used.
+- No authorized GA4/GSC connector or existing cloud-browser tab was available. No new login or settings change was attempted. No impressions, clicks, downloads, usage, recovery success or traffic gain is claimed. Automated build checks are not rendered visual QA.
+
 ## November 18, 2026: local model connection address checks
 
 - Scope: expand the existing model connection guide to separate the browser, AgReady Server and model API locations, explain loopback and container-network boundaries, and link the check from the FAQ. Update the existing description; no new route, configuration, provider or compatibility claim.

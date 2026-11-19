@@ -10,7 +10,7 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="header"><div class="container nav"><a class="brand" href="/" aria-label="AgReady home"><span class="brand-mark" aria-hidden="true">a<span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></span>AgReady<span class="brand-suffix">.ai</span></a><nav aria-label="Main navigation"><a href="/product/">Product</a><a href="/docs/">Docs</a><a href="/blog/">Blog</a><a href="/about/">About</a></nav><a class="nav-cta" href="/docs/getting-started/" aria-label="Get started: setup and first-task guide">Get started</a></div></header><section id="analytics-banner" class="analytics-banner" role="region" aria-labelledby="analytics-banner-title" hidden><div class="container analytics-banner-inner"><div><h2 id="analytics-banner-title">Optional Google Analytics</h2><p>Allow Google Analytics to measure page visits, scrolling, outbound links and file-link clicks? You can use this site without it and change your choice in the footer. This choice does not control Cloudflare performance measurement. <a href="/privacy/">Privacy notice</a>.</p></div><div class="analytics-banner-actions"><button id="banner-accept" class="button secondary" type="button">Allow Google Analytics</button><button id="banner-decline" class="button secondary" type="button">Decline Google Analytics</button></div></div></section>
-<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">DOCUMENTATION</div><h1>Plan upgrades and recovery</h1>
+<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">DOCUMENTATION</div><h1>Plan backups, upgrades and recovery</h1>
 <p class="reading-lead">Before changing an AgReady instance, identify what you need to preserve, create a backup you can inspect, and decide how you will verify the instance afterward. Treat an application upgrade, a data backup and a restore as separate operations.</p>
 <p>This guide describes the source associated with v0.0.1. Download scripts can change independently. Check your installed controls and current release instructions before making changes; no recovery drill is reported here.</p>
 <h2>Record the starting point</h2>
@@ -44,6 +44,31 @@
 <li>Confirm the restore only after validation. Confirmation cleans up recovery control and rollback material. If validation fails, stop the instance and have the administrator assess rollback rather than confirming or deleting recovery files.</li>
 </ol>
 <p>Use the recovery commands documented by the installed version with the correct recovery configuration. These operations replace data; they are not routine troubleshooting steps. A stopped task in the chat interface is not a stopped Server service.</p>
+<h2 id="recovery-checklist">A backup and recovery checklist you can reuse</h2>
+<p>Copy this worksheet into an approved private maintenance record before a recovery drill. It is a planning template, not an AgReady form or evidence that a restore has passed. Record non-sensitive identifiers and evidence locations, not passwords, tokens, encryption keys or the contents of <code>recovery.yml</code>.</p>
+<pre><code>Recovery record
+Owner and authorized maintenance window:
+Installed version, platform and installation method:
+Isolated recovery target and permitted test scope:
+Snapshot identifier, completion time and timezone:
+Secure recovery configuration location reference (no secrets):
+Separate database recovery point, if applicable:
+Expected sample data and configuration to check:
+External dependencies that need separate recovery or checks:
+Protected pre-restore state and approved rollback procedure:
+
+Validation record (Pass / Fail / Not checked, with evidence)
+Service startup and expected version:
+Authorized browser access:
+Expected configuration and selected sample data:
+Database and file recovery points checked together, if applicable:
+Small non-sensitive task result:
+Required tool checks within the permitted scope:
+Remaining gaps and administrator decision:
+Restore confirmation: pending until validation is accepted</code></pre>
+<p>Choose the expected sample data before restoring, so you can compare the recovered instance with a known recovery point rather than with a vague expectation that everything is present. A newer application snapshot and an older database backup are not automatically a consistent pair. Ask the responsible administrator to assess the combination.</p>
+<p>Keep <strong>Not checked</strong> distinct from <strong>Pass</strong>. A successful login does not prove that data, model access or tools work. A successful model task does not prove that a connected business system was restored. Limit tool checks to authorized, non-destructive actions; do not send messages or change external records just to test recovery.</p>
+<p>Accept only the recovery scope that the evidence supports. If a required check fails or remains unverified, leave confirmation pending and use the failure guidance below. This checklist does not replace the installed version's recovery instructions.</p>
 <h2>If maintenance fails</h2>
 <p>Preserve the error, installed version and the last completed stage. Do not repeatedly rerun upgrades, remove recovery-control files or initialize a new repository to suppress an error. Share only redacted diagnostic excerpts with the administrator.</p>
 <p>For initial startup and connection problems, begin with <a href="/docs/install-and-start/">Install and start</a> and the <a href="/docs/getting-started/#troubleshooting">first-use diagnostic checks</a>.</p><p>Start with <a href="/docs/install-and-start/">installation</a> and <a href="/docs/human-oversight/">human oversight</a> when planning changes.</p><p><a href="/docs/">All documentation</a></p></main>

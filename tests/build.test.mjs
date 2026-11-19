@@ -1060,3 +1060,20 @@ test('local model address guidance separates browser, server and model without u
  assert.doesNotMatch(section,/docker run|sudo |--network[= ]|--insecure/);
  build();
 });
+
+
+test('recovery checklist separates planning, verification and destructive confirmation',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const html=readFileSync('dist/docs/operations/index.html','utf8');
+ const start='<h2 id="recovery-checklist">', end='<h2 id="section-if-maintenance-fails">';
+ assert.ok(html.includes(start));
+ assert.ok(html.includes(end));
+ assert.ok(html.indexOf(end)>html.indexOf(start));
+ const section=html.split(start)[1].split(end)[0];
+ for(const text of ['not an AgReady form','not passwords, tokens, encryption keys','completion time and timezone','Separate database recovery point','Pass / Fail / Not checked','pending until validation is accepted','not automatically a consistent pair','do not send messages or change external records','leave confirmation pending']) assert.ok(section.includes(text),text);
+ assert.match(html,/no recovery drill is reported here/);
+ assert.match(html,/rel="canonical" href="https:\/\/agready.ai\/docs\/operations\/"/);
+ assert.match(readFileSync('dist/docs/index.html','utf8'),/href="\/docs\/operations\/#recovery-checklist"/);
+ build();
+ assert.match(readFileSync('dist/docs/operations/index.html','utf8'),/name="robots" content="noindex,nofollow"/);
+});
