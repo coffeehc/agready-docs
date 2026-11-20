@@ -1077,3 +1077,19 @@ test('recovery checklist separates planning, verification and destructive confir
  build();
  assert.match(readFileSync('dist/docs/operations/index.html','utf8'),/name="robots" content="noindex,nofollow"/);
 });
+
+
+test('download source guidance keeps catalog selection separate from pinned archives',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const html=readFileSync('dist/docs/install-and-start/index.html','utf8');
+ const start='<h2 id="download-channels">', end='<h2 id="verify-download">';
+ assert.ok(html.includes(start)); assert.ok(html.indexOf(end)>html.indexOf(start));
+ const section=html.split(start)[1].split(end)[0];
+ for(const text of ['Version-pinned manual archive','Catalog-driven installer','not proof that its public packages are available','binary_sha256','same release','stop before extraction or execution','reported version']) assert.ok(section.includes(text),text);
+ assert.match(section,/href="https:\/\/download.agready.ai\/agready\/versions.json"/);
+ assert.match(html,/href="#download-channels"/);
+ assert.doesNotMatch(section,/v0\.0\.2|latest stable|guaranteed/);
+ assert.equal((html.match(/releases\/download\/v0\.0\.1\/agready-v0\.0\.1-(?:darwin|linux)-(?:arm64|amd64)\.tar\.gz/g)||[]).length,4);
+ assert.match(readFileSync('README.md','utf8'),/open_download_guide.*records the homepage guide-link click/);
+ build();
+});

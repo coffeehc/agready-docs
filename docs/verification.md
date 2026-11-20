@@ -1,5 +1,13 @@
 # Verification status
 
+## November 20, 2026: distinguish installer and manual download sources
+
+- Scope: add an installer-versus-manual-archive decision section to the existing install guide, clarify that GitHub latest is repository-specific, and explain version-matched archive checksums. Preserve all four v0.0.1 archive links and checksum examples. Update page metadata and correct the README inventory of the already-shipped open_download_guide event; no tracking code or settings changed.
+- Basis: existing release materials and installer/catalog source inspected at product commit 75696a9 on November 19. Catalog binary_sha256 values describe unpacked executables, not tar.gz files. Source release metadata does not prove current public package availability. No v0.0.2 delivery, latest-stable selection, mirror synchronization or clean installation is claimed.
+- Validation: 70 Node tests, preview and production builds, and whitespace checks passed. The new test checks section boundaries, the catalog link, unchanged pinned archive choices and the absence of unverified version claims. Existing canonical, sitemap, real 404, Pages preview noindex, GSC verification and GA consent coverage remains unchanged.
+- Pre-change main a3d1eb6 had a successful Cloudflare Pages check and no open pull requests; today's work had not already landed. Existing automatic Pages publication is verified separately. No GitHub Actions, user-computer resource, new login, permissions or production download test was used.
+- GitHub latest Release remains v0.0.1. Metadata-only archive counters were macOS amd64 0, macOS arm64 0, Linux amd64 1 and Linux arm64 0. These are cumulative mirror counters, not unique people, successful installations or active use. No new GSC/GA4 property data or rendered visual acceptance is claimed.
+
 ## November 19, 2026: reusable backup and recovery checklist
 
 - Scope: expand the existing operations guide with a copyable private recovery worksheet, recovery-point coordination and evidence-based acceptance checks. Update its title/description and Docs discovery link. No new route, product control or recovery capability is claimed.

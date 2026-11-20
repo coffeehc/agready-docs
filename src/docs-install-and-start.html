@@ -14,7 +14,7 @@
 <p class="reading-lead">Install AgReady on the machine that will host your instance, start its server, and open that instance in your browser. The AgReady website is documentation—not a hosted account or your running instance.</p>
 <p>This guide covers the v0.0.1 release and its associated installer defaults. The download entrypoint and platform modules can change independently. Review the installer you actually download. These instructions are based on release materials, not a claim that a clean installation was tested here.</p>
 <section aria-labelledby="downloads"><h2 id="downloads">Choose your download</h2>
-<p>These are the four verified <strong>AgReady Server v0.0.1</strong> archives, published October 26, 2026. They include the Web UI. Check the <a href="https://github.com/coffeehc/agready-docs/releases/latest">latest release</a> for newer versions before choosing; the links below stay pinned to v0.0.1.</p>
+<p>These are the four verified <strong>AgReady Server v0.0.1</strong> archives, published October 26, 2026. They include the Web UI. Check the <a href="https://github.com/coffeehc/agready-docs/releases/latest">latest GitHub release</a> for newer versions before choosing; the links below stay pinned to v0.0.1.</p>
 <ul>
 <li><strong>macOS · Apple silicon:</strong> <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/agready-v0.0.1-darwin-arm64.tar.gz">Download macOS ARM64 (.tar.gz)</a> — <code>darwin-arm64</code>.</li>
 <li><strong>macOS · Intel:</strong> <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/agready-v0.0.1-darwin-amd64.tar.gz">Download macOS Intel / AMD64 (.tar.gz)</a> — <code>darwin-amd64</code>.</li>
@@ -25,8 +25,23 @@
 <p>On a Mac, use <strong>Apple menu → About This Mac</strong>: an Apple chip means Apple silicon; an Intel processor means Intel. On Linux, the read-only command <code>uname -m</code> reports the current architecture: <code>x86_64</code> maps to AMD64 and <code>aarch64</code> to ARM64. For a remote installation, check the <strong>target server</strong>, not the computer running your browser. If the result differs, verify compatibility rather than guessing.</p>
 <p>Before using a package, read the <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/LICENSE">LICENSE</a> and <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/EULA.md">EULA</a>. Compare the downloaded archive with its exact filename in <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/SHA256SUMS">SHA256SUMS</a>; do not use the binary checksum list for an archive. Use the <a href="#verify-download">checksum steps below</a>, then follow the <a href="https://github.com/coffeehc/agready-docs/releases/tag/v0.0.1">release instructions</a> for installation. Downloading or extracting a package does not install a service or configure a model.</p>
 <p>Prefer the installer? Follow the <a href="#installer">download-and-review steps below</a> instead. Runtime Assets and tool plugins remain separate from the Server.</p></section>
+<h2 id="download-channels">Installer or manual archive: keep the release sources separate</h2>
+<p>The installer and the manual links above are two different ways to obtain AgReady Server. Do not assume they select the same version just because they appear on this page.</p>
+<ul>
+<li><strong>Version-pinned manual archive:</strong> the four GitHub links above select v0.0.1 explicitly. The GitHub latest-release page describes that repository's releases, not the current version selected by the download-host installer.</li>
+<li><strong>Catalog-driven installer:</strong> the installer source reads the Server version from the download host's <a href="https://download.agready.ai/agready/versions.json">version catalog</a>. The script and its platform modules can change separately from these pinned links. Review the downloaded script, the selected version and that release's instructions before execution.</li>
+</ul>
+<p>If the two sources show different versions, first decide which release you intend to install. A newer version recorded in a source repository is not proof that its public packages are available. This guide does not certify the current download-host version or promise that the GitHub mirror has every release.</p>
+<p>Keep each package with its own release metadata and checksums:</p>
+<ol>
+<li>Match the version, operating system and architecture in the archive filename to the release you selected.</li>
+<li>Get <code>SHA256SUMS</code> from that same release and find the exact archive filename. Do not reuse the v0.0.1 list for a different version or substitute a similarly named package.</li>
+<li>Use the <a href="#verify-download">archive verification steps</a> before extraction. A catalog field named <code>binary_sha256</code> describes the unpacked executable, not the compressed archive; <code>BINARY_SHA256SUMS</code> is also not the archive checksum list.</li>
+<li>If the package or its matching checksum list cannot be retrieved, or the digest differs, stop before extraction or execution. Preserve the error and chosen release details for the administrator rather than bypassing the check.</li>
+</ol>
+<p>After installation, check the running Server's reported version and follow the startup checks below. Opening a download link, saving a file or finishing a checksum check does not establish that the Server is installed or ready for a task.</p>
 <h2 id="verify-download">Verify your downloaded archive</h2>
-<p>Before extracting or running a manually downloaded package, check that its bytes match the checksum published for that release. Save the archive and the release's <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/SHA256SUMS">SHA256SUMS</a> file in a folder you can inspect. Open a terminal in that folder; the commands below only read the archive and print its SHA-256 digest.</p>
+<p>Before extracting or running a manually downloaded package, check that its bytes match the checksum published for that release. Save the archive and its matching release checksum list (the examples here use <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/SHA256SUMS">v0.0.1 SHA256SUMS</a>) in a folder you can inspect. Open a terminal in that folder; the commands below only read the archive and print its SHA-256 digest.</p>
 <p><strong>macOS example, Apple silicon:</strong></p>
 <pre class="task-template">shasum -a 256 ./agready-v0.0.1-darwin-arm64.tar.gz</pre>
 <p>For an Intel Mac, use <code>agready-v0.0.1-darwin-amd64.tar.gz</code> instead.</p>

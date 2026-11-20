@@ -69,7 +69,7 @@
     "source": "src/docs-install-and-start.html",
     "path": "/docs/install-and-start/",
     "title": "Install and start AgReady \u2014 AgReady",
-    "description": "Install AgReady Server on Linux or macOS, check startup and open your instance using release-specific installation guidance."
+    "description": "Choose an AgReady Server installer or version-pinned Linux/macOS archive, verify matching release checksums, and check startup before your first task."
   },
   {
     "source": "src/docs-model-configuration.html",
