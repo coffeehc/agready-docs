@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="site-revision" content="archive-verification-20261117"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"><meta name="site-revision" content="manual-linux-amd64-20261121"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{TITLE}}</title><meta name="description" content="{{DESCRIPTION}}"><meta name="robots" content="{{ROBOTS}}">
 <meta name="google-site-verification" content="{{VERIFICATION}}"><meta name="ga4-measurement-id" content="{{GA_ID}}">
 <link rel="canonical" href="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:type" content="website"><meta property="og:title" content="{{TITLE}}"><meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:image" content="{{ORIGIN}}/social.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f3ee">
@@ -23,7 +23,7 @@
 </ul>
 <p><code>darwin</code> means macOS in these filenames; <code>amd64</code> also covers compatible Intel x86-64 machines. This release does not include a native Windows archive.</p>
 <p>On a Mac, use <strong>Apple menu → About This Mac</strong>: an Apple chip means Apple silicon; an Intel processor means Intel. On Linux, the read-only command <code>uname -m</code> reports the current architecture: <code>x86_64</code> maps to AMD64 and <code>aarch64</code> to ARM64. For a remote installation, check the <strong>target server</strong>, not the computer running your browser. If the result differs, verify compatibility rather than guessing.</p>
-<p>Before using a package, read the <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/LICENSE">LICENSE</a> and <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/EULA.md">EULA</a>. Compare the downloaded archive with its exact filename in <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/SHA256SUMS">SHA256SUMS</a>; do not use the binary checksum list for an archive. Use the <a href="#verify-download">checksum steps below</a>, then follow the <a href="https://github.com/coffeehc/agready-docs/releases/tag/v0.0.1">release instructions</a> for installation. Downloading or extracting a package does not install a service or configure a model.</p>
+<p>Before using a package, read the <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/LICENSE">LICENSE</a> and <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/EULA.md">EULA</a>. Compare the downloaded archive with its exact filename in <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/SHA256SUMS">SHA256SUMS</a>; do not use the binary checksum list for an archive. Use the <a href="#verify-download">checksum steps below</a>, then see the <a href="#manual-linux-amd64">manual example for Linux AMD64</a> or read your package’s bundled instructions for its platform. Downloading or extracting a package does not install a service or configure a model.</p>
 <p>Prefer the installer? Follow the <a href="#installer">download-and-review steps below</a> instead. Runtime Assets and tool plugins remain separate from the Server.</p></section>
 <h2 id="download-channels">Installer or manual archive: keep the release sources separate</h2>
 <p>The installer and the manual links above are two different ways to obtain AgReady Server. Do not assume they select the same version just because they appear on this page.</p>
@@ -51,7 +51,7 @@
 <ol>
 <li>Open <code>SHA256SUMS</code> as text and find the line with the <strong>exact archive filename</strong>. The published list prefixes archive names with <code>./</code>, which means the current folder.</li>
 <li>Compare the complete 64-character digest, not just its first or last characters, with the terminal output.</li>
-<li>If the digest matches, continue with the release instructions. This checks the download, not whether installation, startup or a model connection will work.</li>
+<li>If the digest matches, continue with the <a href="#manual-linux-amd64">Linux AMD64 manual example</a> or your package’s bundled instructions. This checks the download, not whether installation, startup or a model connection will work.</li>
 </ol>
 <p>If the file is missing, check the folder and actual filename. If the digest differs, <strong>do not extract or run the archive</strong>: confirm you selected the correct release and platform, download again from the official release, and recheck. If it still differs, stop and report the version, filename and mismatch without credentials or private configuration.</p>
 <p>Do not use <code>BINARY_SHA256SUMS</code> to check a <code>.tar.gz</code> archive. A matching digest is not a digital signature or an independent guarantee that the publisher is trustworthy, and it does not grant a license.</p>
@@ -63,12 +63,25 @@
 <li>Keep the provider credentials you intend to use available privately. Do not put them in a support message or shell command copied into public logs.</li>
 </ul>
 <p>The release includes Server archives with the Web UI. Runtime Assets and tool plugins are separate; installing the Server does not prove tools are ready.</p>
+<h2 id="manual-linux-amd64">Use the v0.0.1 archive manually on Linux AMD64</h2>
+<p>Use this example only for the <strong>v0.0.1 Linux AMD64 (x86-64)</strong> archive. If you want this exact release, do not run the catalog-driven installer instead. For macOS or Linux ARM64, consult the instructions in the archive for that platform rather than reusing the commands below.</p>
+<p>After the <a href="#verify-download">archive checksum matches</a>, open a terminal in the folder with the download. Extract into a new, writable directory so these steps do not write into an existing instance:</p>
+<pre class="task-template">mkdir agready-manual-v0.0.1 &amp;&amp;
+  tar -xzf ./agready-v0.0.1-linux-amd64.tar.gz -C agready-manual-v0.0.1 &amp;&amp;
+  cd agready-manual-v0.0.1/agready-v0.0.1-linux-amd64</pre>
+<p>Continue only if all three commands succeed. Stay in the extracted directory and read the bundled <code>README.md</code>, <code>LICENSE</code> and <code>EULA.md</code>. If you are authorized to use this release, check the executable:</p>
+<pre class="task-template">./agready version</pre>
+<p>The verified Linux AMD64 executable reports <code>Version:0.0.1</code> and <code>GitTag:v0.0.1</code>. That confirms the reported version, not whether the service is running.</p>
+<p>The bundled README gives this start command, also run from the extracted directory:</p>
+<pre class="task-template">./agready start</pre>
+<p>This manual path does not set up the installer’s managed systemd service. The executable uses <code>./config.yml</code> by default. In an isolated Linux test without a stable device identifier, it created a configuration file but stopped before serving the Web UI. If startup fails, consult the terminal error and ask your administrator or support rather than changing the device identifier or bypassing license checks.</p>
+<p>Only after the server starts and the Web UI opens at your administrator-approved address, continue to <a href="/docs/getting-started/#setup">initial setup and the first task</a>. Extraction and a successful version check are not a readiness check.</p>
 <h2 id="installer">Download and review the installer</h2>
 <p>Download without executing:</p>
 <pre class="task-template">curl -fsSL https://download.agready.ai/agready/install.sh -o install-agready.sh</pre>
 <p>Inspect the saved script and the platform modules it retrieves. Confirm its destinations and requested privileges before running it:</p>
 <pre class="task-template">bash install-agready.sh</pre>
-<p>For manually downloaded archives, use the release's SHA256SUMS for archive checksums. BINARY_SHA256SUMS describes binary checksums; do not compare an archive to a binary digest. A checksum establishes a match with the supplied digest, not permission to use the software.</p>
+<p>The platform start steps below cover the installer path. If you downloaded the pinned archive instead, use the <a href="#manual-linux-amd64">manual Linux AMD64 example</a> or the instructions bundled for your platform.</p>
 <h2>Start on Linux</h2>
 <p>The default installation puts the executable at <code>/usr/local/bin/agready</code> and uses <code>/opt/agready/server</code> as the server working directory. The installer uses elevated privileges where needed, creates a systemd service named <code>agready-server</code>, enables and restarts it, and checks readiness.</p>
 <p>Inspect the final installer output. To investigate without restarting:</p>

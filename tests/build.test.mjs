@@ -1093,3 +1093,26 @@ test('download source guidance keeps catalog selection separate from pinned arch
  assert.match(readFileSync('README.md','utf8'),/open_download_guide.*records the homepage guide-link click/);
  build();
 });
+
+test('manual v0.0.1 Linux AMD64 path stays pinned and separates version, startup and readiness',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const html=readFileSync('dist/docs/install-and-start/index.html','utf8');
+ const start='<h2 id="manual-linux-amd64">', end='<h2 id="installer">';
+ const verify='<h2 id="verify-download">';
+ assert.ok(html.includes(verify));
+ assert.ok(html.indexOf(start)>html.indexOf(verify));
+ assert.ok(html.indexOf(end)>html.indexOf(start));
+ const section=html.split(start)[1].split(end)[0];
+ for(const phrase of ['Linux AMD64 (x86-64)','do not run the catalog-driven installer instead','README.md','EULA.md','Version:0.0.1','GitTag:v0.0.1','./config.yml','without a stable device identifier','stopped before serving the Web UI','Only after the server starts and the Web UI opens']) assert.ok(section.includes(phrase),phrase);
+ assert.match(section,/href="#verify-download"/);
+ assert.match(section,/mkdir agready-manual-v0\.0\.1 &amp;&amp;/);
+ assert.match(section,/tar -xzf \.\/agready-v0\.0\.1-linux-amd64\.tar\.gz -C agready-manual-v0\.0\.1 &amp;&amp;/);
+ assert.match(section,/Continue only if all three commands succeed/);
+ assert.match(section,/cd agready-manual-v0\.0\.1\/agready-v0\.0\.1-linux-amd64/);
+ assert.match(section,/<pre class="task-template">\.\/agready version<\/pre>/);
+ assert.match(section,/<pre class="task-template">\.\/agready start<\/pre>/);
+ assert.match(section,/href="\/docs\/getting-started\/#setup"/);
+ assert.match(html,/class="docs-page-toc".*href="#manual-linux-amd64"/);
+ assert.doesNotMatch(section,/curl |sudo |systemctl |install\.sh|no license (?:needed|required)|v0\.0\.2/);
+ build();
+});
