@@ -604,7 +604,7 @@ test('FAQ answers download decisions with release and privacy boundaries',()=>{
  const main=html.match(/<main\b[\s\S]*?<\/main>/)[0];
  assert.match(html,/<title>AgReady FAQ/);
  for(const id of ['install','models','privacy','first-task']) assert.ok(main.includes('id="'+id+'"'));
- for(const path of ['/docs/install-and-start/#downloads','/docs/model-configuration/','/docs/tools-and-runtime-assets/','/docs/operations/','/privacy/']) assert.ok(main.includes('href="'+path+'"'));
+ for(const path of ['/docs/install-and-start/#downloads','/docs/model-configuration/','/docs/tools-and-runtime-assets/','/docs/operations/#recovery-checklist','/privacy/']) assert.ok(main.includes('href="'+path+'"'));
  assert.match(main,/does not include a native Windows Server archive/);
  assert.match(main,/Normal installation and upgrade do not migrate xAgent data/);
  assert.match(main,/SQLite migration is not supported/);
@@ -1114,5 +1114,25 @@ test('manual v0.0.1 Linux AMD64 path stays pinned and separates version, startup
  assert.match(section,/href="\/docs\/getting-started\/#setup"/);
  assert.match(html,/class="docs-page-toc".*href="#manual-linux-amd64"/);
  assert.doesNotMatch(section,/curl |sudo |systemctl |install\.sh|no license (?:needed|required)|v0\.0\.2/);
+ build();
+});
+
+test('xAgent FAQ routes fresh installations separately from existing data migration',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const html=readFileSync('dist/faq/index.html','utf8');
+ const answer=html.match(/<h3 id="xagent-migration">[\s\S]*?<\/section>/)?.[0];
+ assert.ok(answer);
+ assert.match(answer,/grew out of a branch of xAgent/);
+ assert.match(answer,/Normal installation and upgrade do not migrate xAgent data/);
+ const fresh=answer.match(/<p><strong>Starting fresh\?<\/strong>[\s\S]*?<\/p>/)?.[0];
+ const existing=answer.match(/<p><strong>Keeping xAgent data\?<\/strong>[\s\S]*?<\/p>/)?.[0];
+ assert.ok(fresh); assert.ok(existing);
+ assert.match(fresh,/href="\/docs\/install-and-start\/#downloads"/);
+ assert.doesNotMatch(existing,/install-and-start|install\.sh|\.tar\.gz|v0\.0\.2/);
+ assert.match(existing,/href="https:\/\/github\.com\/coffeehc\/agready-docs\/releases\/tag\/v0\.0\.1"/);
+ for(const phrase of ['separate PostgreSQL-to-PostgreSQL migration tool','SQLite migration is not supported','does not list a separate download','source and target versions']) assert.ok(existing.includes(phrase),phrase);
+ assert.match(existing,/href="\/docs\/operations\/#recovery-checklist"/);
+ assert.match(readFileSync('dist/docs/install-and-start/index.html','utf8'),/id="downloads"/);
+ assert.match(readFileSync('dist/docs/operations/index.html','utf8'),/id="recovery-checklist"/);
  build();
 });
