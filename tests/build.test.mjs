@@ -575,6 +575,19 @@ test('PDF comparison tutorial separates source coverage from spreadsheet deliver
  for(const text of ['not a completed product test','Text-based PDF','Scanned PDF','not stated','unreadable','not executable formulas','Do not overwrite originals','not evidence of a completed Excel export','Session files']) assert.ok(html.includes(text),text);
  assert.match(html,/class="task-template"/);
  assert.match(html,/reddit.com\/r\/copilotstudio\/comments\/1rsw7bs/);
+ assert.match(html,/id="answer-key"/);
+ assert.match(html,/These are check[\s\n]+totals, not evidence of coverage/);
+ assert.match(html,/at least two USB 3\.0 data ports AND Gigabit Ethernet/);
+ for(const path of [
+  '532-raspberry-pi-3-model-b/documents/RP-008338-DS-2-raspberry-pi-3-b-plus-product-brief.pdf',
+  '892-raspberry-pi-5/documents/RP-008348-DS-10-raspberry-pi-5-product-brief.pdf',
+  '584-raspberry-pi-zero-2-w/documents/RP-008359-DS-1-raspberry-pi-zero-2-w-product-brief.pdf',
+ ]) {
+  const source='https://pip-assets.raspberrypi.com/categories/'+path;
+  assert.ok(html.includes('href="'+source+'"'));
+  assert.ok(html.includes('href="'+source+'#page=3"'));
+ }
+ for(const phrase of ['not an OCR test','not generated or exported by AgReady','300&nbsp;Mbps','Wired Ethernet is not stated']) assert.ok(html.includes(phrase),phrase);
  assert.ok(html.includes('rel="canonical" href="https://agready.ai'+path+'"'));
  for(const file of ['dist/blog/index.html','dist/docs/index.html']) assert.ok(readFileSync(file,'utf8').includes('href="'+path+'"'));
  assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai'+path+'</loc>'));
