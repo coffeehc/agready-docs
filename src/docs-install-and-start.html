@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="site-revision" content="manual-linux-amd64-20261121"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"><meta name="site-revision" content="download-platform-check-20261124"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{TITLE}}</title><meta name="description" content="{{DESCRIPTION}}"><meta name="robots" content="{{ROBOTS}}">
 <meta name="google-site-verification" content="{{VERIFICATION}}"><meta name="ga4-measurement-id" content="{{GA_ID}}">
 <link rel="canonical" href="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:type" content="website"><meta property="og:title" content="{{TITLE}}"><meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:image" content="{{ORIGIN}}/social.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f3ee">
@@ -15,6 +15,10 @@
 <p>This guide covers the v0.0.1 release and its associated installer defaults. The download entrypoint and platform modules can change independently. Review the installer you actually download. These instructions are based on release materials, not a claim that a clean installation was tested here.</p>
 <section aria-labelledby="downloads"><h2 id="downloads">Choose your download</h2>
 <p>These are the four verified <strong>AgReady Server v0.0.1</strong> archives, published October 26, 2026. They include the Web UI. Check the <a href="https://github.com/coffeehc/agready-docs/releases/latest">latest GitHub release</a> for newer versions before choosing; the links below stay pinned to v0.0.1.</p>
+<h3 id="find-your-platform">Find the right archive for your machine</h3>
+<p>Check the machine where AgReady Server will run. For a remote installation, check the <strong>target server</strong>, not the computer running your browser.</p>
+<p><strong>macOS:</strong> Open <a href="https://support.apple.com/en-us/116943">Apple menu → About This Mac</a>. An Apple chip means Apple silicon (ARM64); an Intel processor means AMD64. Use this check rather than the architecture of a Terminal process that might be <a href="https://developer.apple.com/documentation/apple-silicon/about-the-rosetta-translation-environment">running under Rosetta</a>.</p>
+<p><strong>Linux:</strong> On the target machine, run <a href="https://www.gnu.org/software/coreutils/manual/html_node/uname-invocation.html"><code>uname -m</code></a> and <code>getconf LONG_BIT</code>, if available. With a 64-bit userspace (<code>LONG_BIT</code> reports <code>64</code>), <code>x86_64</code> maps to AMD64 and <code>aarch64</code> to ARM64. A <a href="https://www.raspberrypi.com/documentation/computers/linux_kernel.html">64-bit kernel can coexist with 32-bit userspace</a>. If the result is <code>32</code>, different, or unclear, do not guess; ask the administrator to confirm the operating system and architecture. These checks identify an archive candidate, not whether it will run on that system.</p>
 <ul>
 <li><strong>macOS · Apple silicon:</strong> <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/agready-v0.0.1-darwin-arm64.tar.gz">Download macOS ARM64 (.tar.gz)</a> — <code>darwin-arm64</code>.</li>
 <li><strong>macOS · Intel:</strong> <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/agready-v0.0.1-darwin-amd64.tar.gz">Download macOS Intel / AMD64 (.tar.gz)</a> — <code>darwin-amd64</code>.</li>
@@ -22,7 +26,6 @@
 <li><strong>Linux · ARM 64-bit:</strong> <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/agready-v0.0.1-linux-arm64.tar.gz">Download Linux ARM64 (.tar.gz)</a> — <code>linux-arm64</code>.</li>
 </ul>
 <p><code>darwin</code> means macOS in these filenames; <code>amd64</code> also covers compatible Intel x86-64 machines. This release does not include a native Windows archive.</p>
-<p>On a Mac, use <strong>Apple menu → About This Mac</strong>: an Apple chip means Apple silicon; an Intel processor means Intel. On Linux, the read-only command <code>uname -m</code> reports the current architecture: <code>x86_64</code> maps to AMD64 and <code>aarch64</code> to ARM64. For a remote installation, check the <strong>target server</strong>, not the computer running your browser. If the result differs, verify compatibility rather than guessing.</p>
 <p>Before using a package, read the <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/LICENSE">LICENSE</a> and <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/EULA.md">EULA</a>. Compare the downloaded archive with its exact filename in <a href="https://github.com/coffeehc/agready-docs/releases/download/v0.0.1/SHA256SUMS">SHA256SUMS</a>; do not use the binary checksum list for an archive. Use the <a href="#verify-download">checksum steps below</a>, then see the <a href="#manual-linux-amd64">manual example for Linux AMD64</a> or read your package’s bundled instructions for its platform. Downloading or extracting a package does not install a service or configure a model.</p>
 <p>Prefer the installer? Follow the <a href="#installer">download-and-review steps below</a> instead. Runtime Assets and tool plugins remain separate from the Server.</p></section>
 <h2 id="download-channels">Installer or manual archive: keep the release sources separate</h2>

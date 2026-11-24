@@ -604,7 +604,16 @@ test('installation download chooser maps the verified release assets to target p
  }
  for(const file of ['LICENSE','EULA.md','SHA256SUMS']) assert.ok(html.includes('/releases/download/v0.0.1/'+file));
  assert.match(html,/links below stay pinned to v0.0.1/);
- assert.match(html,/Apple silicon/); assert.match(html,/target server/);
+ const chooser=html.split('<section aria-labelledby="downloads">')[1].split('</section>')[0];
+ const beforeArchives=chooser.split('<ul>')[0];
+ for(const phrase of ['id="find-your-platform"','target server','About This Mac','running under Rosetta','uname -m','getconf LONG_BIT','32-bit userspace','not whether it will run']) assert.ok(beforeArchives.includes(phrase),phrase);
+ assert.match(beforeArchives,/<code>64<\/code>.*<code>x86_64<\/code> maps to AMD64 and <code>aarch64<\/code> to ARM64/);
+ assert.match(beforeArchives,/<code>32<\/code>, different, or unclear, do not guess/);
+ assert.match(chooser,/Apple silicon:<\/strong> <a href="[^"]+-darwin-arm64\.tar\.gz"/);
+ assert.match(chooser,/macOS · Intel:<\/strong> <a href="[^"]+-darwin-amd64\.tar\.gz"/);
+ assert.match(chooser,/Linux · Intel or AMD 64-bit \(x86-64\):<\/strong> <a href="[^"]+-linux-amd64\.tar\.gz"/);
+ assert.match(chooser,/Linux · ARM 64-bit:<\/strong> <a href="[^"]+-linux-arm64\.tar\.gz"/);
+ assert.match(readFileSync('dist/docs/getting-started/index.html','utf8'),/href="\/docs\/install-and-start\/#find-your-platform">Check the operating system and architecture/);
  assert.match(html,/This release does not include a native Windows archive/);
  assert.match(html,/Downloading or extracting a package does not install a service or configure a model/);
  assert.match(html,/id="installer"/);
