@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="site-revision" content="download-platform-check-20261124"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"><meta name="site-revision" content="web-ui-local-check-20261125"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{TITLE}}</title><meta name="description" content="{{DESCRIPTION}}"><meta name="robots" content="{{ROBOTS}}">
 <meta name="google-site-verification" content="{{VERIFICATION}}"><meta name="ga4-measurement-id" content="{{GA_ID}}">
 <link rel="canonical" href="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:type" content="website"><meta property="og:title" content="{{TITLE}}"><meta property="og:description" content="{{DESCRIPTION}}"><meta property="og:url" content="{{ORIGIN}}{{PAGE_PATH}}"><meta property="og:image" content="{{ORIGIN}}/social.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f3ee">
@@ -95,9 +95,18 @@ journalctl -u agready-server -n 100 --no-pager</pre>
 <p>The macOS installer does not automatically activate a managed service. For a fresh installation using the default paths, the printed start command is equivalent to:</p>
 <pre class="task-template">cd &quot;$HOME/.local/share/agready/server&quot; &amp;&amp; &quot;$HOME/.local/bin/agready&quot; start</pre>
 <p>Use the actual command printed by your installer if you selected different paths or it found an existing executable. Inspect the terminal output to determine whether startup succeeded.</p>
-<h2>Open your instance</h2>
+<h2 id="open-web-ui">Open your instance</h2>
 <p>The Linux installer defaults to checking <code>http://127.0.0.1:18888/</code> for readiness. This is a local check, not a statement that the server listens only on loopback. In a browser on the same machine, that address refers to that machine. On your laptop, it does not refer to a remote server.</p>
 <p>For a remote instance, use the address or secure connection method approved by its administrator. Do not disable certificate checks or authentication, or open a public port merely to make the page load. Do not infer a macOS address from a Linux readiness check; confirm your actual startup configuration.</p>
+<h3 id="web-ui-not-opening">If the AgReady Web UI won't open</h3>
+<p>For the default Linux installer setup, run this check <strong>on the machine running AgReady Server</strong>, not on your laptop if the server is remote. If the administrator configured another port or protocol, use the confirmed local address instead. If you do not have terminal access to that machine, ask its administrator to run the check.</p>
+<pre class="task-template">curl -q --noproxy 127.0.0.1 --max-time 5 -sS -o /dev/null -w 'HTTP %{http_code}\n' http://127.0.0.1:18888/</pre>
+<p>This sends one request to the local address without credentials, does not follow redirects and prints the status instead of the response body. Use the result to decide what to check next:</p>
+<ul>
+<li><strong>Connection refused or timed out:</strong> Check the service status, recent logs and actual listening address on the server. Do not assume you need to reinstall or open a firewall port.</li>
+<li><strong>An HTTP response:</strong> Something is answering locally. A success or redirect is not proof that it is the AgReady UI, that login works, or that a model is ready. A 4xx or 5xx response is an HTTP error, not a connection refusal. Record the exact status and ask the administrator to identify the responding service if it is unclear.</li>
+<li><strong>The local UI works but the remote browser does not:</strong> Check the approved remote URL, VPN or proxy with the administrator. A local HTTP response does not verify any of those paths.</li>
+</ul>
 <h2>Confirm the next step</h2>
 <p>A successful download is not a running service. A running service is not yet a configured model. Once the instance opens, follow <a href="/docs/getting-started/#setup">Get started</a> to initialize it, then test a real model connection and run the small text-only task.</p>
 <p>If a login screen appears instead of first-time setup, do not initialize the instance again. Ask its administrator for access. For other failures, use the <a href="/docs/getting-started/#troubleshooting">diagnostic checks</a>.</p><p><a href="/docs/">All documentation</a> · <a href="/docs/getting-started/">Get started</a></p></main>
