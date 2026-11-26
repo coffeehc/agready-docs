@@ -1158,3 +1158,16 @@ test('xAgent FAQ routes fresh installations separately from existing data migrat
  assert.match(readFileSync('dist/docs/operations/index.html','utf8'),/id="recovery-checklist"/);
  build();
 });
+
+test('first-task guide routes readers to distinct file and PDF checks',()=>{
+ build();
+ const start=readFileSync('dist/docs/getting-started/index.html','utf8');
+ const next=start.split('id="next-file-task"')[1]?.split('</section>')[0]??'';
+ assert.ok(next.includes('href="/docs/tools-and-runtime-assets/#first-tool-check"'));
+ assert.ok(next.includes('href="/blog/compare-pdf-documents-ai-agent/"'));
+ assert.match(next,/A correct answer alone does not prove the tool ran/);
+ assert.match(next,/spreadsheet as a separate optional check/);
+ const pdf=readFileSync('dist/blog/compare-pdf-documents-ai-agent/index.html','utf8');
+ assert.ok(pdf.includes('href="/docs/tools-and-runtime-assets/#first-tool-check"'));
+ assert.match(pdf,/does not establish PDF parsing or spreadsheet export/);
+});
