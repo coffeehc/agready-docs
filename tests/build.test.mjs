@@ -1171,3 +1171,23 @@ test('first-task guide routes readers to distinct file and PDF checks',()=>{
  assert.ok(pdf.includes('href="/docs/tools-and-runtime-assets/#first-tool-check"'));
  assert.match(pdf,/does not establish PDF parsing or spreadsheet export/);
 });
+
+test('PDF comparison teaches a missing-source check before spreadsheet delivery',()=>{
+ const route='blog/compare-pdf-documents-ai-agent';
+ const file='dist/'+route+'/index.html';
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const html=readFileSync(file,'utf8');
+ const start=html.indexOf('<section id="missing-pdf-check">');
+ const end=html.indexOf('<h2>Make spreadsheet delivery a separate check</h2>');
+ assert.ok(start>html.indexOf('<section id="answer-key">') && html.includes('<section id="answer-key">'));
+ assert.ok(end>start);
+ const check=html.slice(start,end);
+ for(const phrase of ['fresh session','leave the Pi 5 brief out','all three documents on the expected list','missing,\nor attached but unreadable','Pi 5 brief should be reported missing','Do not compare the boards or create a spreadsheet yet','before asking for a workbook']){
+  assert.ok(check.includes(phrase),phrase);
+ }
+ assert.ok(check.includes('href="#answer-key"'));
+ assert.ok(html.includes('rel="canonical" href="https://agready.ai/'+route+'/"'));
+ assert.ok(readFileSync('dist/sitemap.xml','utf8').includes('<loc>https://agready.ai/'+route+'/</loc>'));
+ build();
+ assert.match(readFileSync(file,'utf8'),/name="robots" content="noindex,nofollow"/);
+});
