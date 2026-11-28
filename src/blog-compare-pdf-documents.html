@@ -10,7 +10,7 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="header"><div class="container nav"><a class="brand" href="/" aria-label="AgReady home"><span class="brand-mark" aria-hidden="true">a<span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></span></span>AgReady<span class="brand-suffix">.ai</span></a><nav aria-label="Main navigation"><a href="/product/">Product</a><a href="/docs/">Docs</a><a href="/blog/">Blog</a><a href="/about/">About</a></nav><a class="nav-cta" href="/docs/getting-started/" aria-label="Get started: setup and first-task guide">Get started</a></div></header><section id="analytics-banner" class="analytics-banner" role="region" aria-labelledby="analytics-banner-title" hidden><div class="container analytics-banner-inner"><div><h2 id="analytics-banner-title">Optional Google Analytics</h2><p>Allow Google Analytics to measure page visits, scrolling, outbound links and file-link clicks? You can use this site without it and change your choice in the footer. This choice does not control Cloudflare performance measurement. <a href="/privacy/">Privacy notice</a>.</p></div><div class="analytics-banner-actions"><button id="banner-accept" class="button secondary" type="button">Allow Google Analytics</button><button id="banner-decline" class="button secondary" type="button">Decline Google Analytics</button></div></div></section>
-<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">WORKFLOW TUTORIAL · UPDATED NOVEMBER 27, 2026</div>
+<main tabindex="-1" id="main" class="container reading-page"><div class="eyebrow">WORKFLOW TUTORIAL · UPDATED NOVEMBER 28, 2026</div>
 <h1>Compare PDF documents with an AI agent, then build a table you can check</h1>
 <p class="reading-lead">Several PDFs, different layouts, one comparison table. The useful result is not just a neat spreadsheet: each value should lead back to its source, and missing information should stay visible.</p>
 <p>This guide describes a workflow to try in AgReady, not a completed product test or customer case. PDF reading, OCR and spreadsheet creation depend on the tools available in your instance. Start with a small, non-sensitive set and verify the result before expanding it.</p>
@@ -74,9 +74,23 @@ Do not use earlier sessions, web search, or model knowledge to fill
 a gap. Do not compare the boards or create a spreadsheet yet.</pre>
 <p><strong>What to check:</strong> The Pi 5 brief should be reported missing, with a request to attach it. If an attached brief cannot be opened, it should be reported as unreadable, not counted as checked. A two-row table presented as the complete comparison fails this check.</p>
 <p>When all three originals are available and readable, return to the three-file brief above. Review that result against the <a href="#answer-key">publisher's specs</a> before asking for a workbook.</p></section>
-<section><h2>Make spreadsheet delivery a separate check</h2>
+<section id="checked-excel-export"><h2>Make spreadsheet delivery a separate check</h2>
 <p>A table in chat, CSV text and an Excel workbook are different deliverables. CSV stores plain-text tabular data, not multiple worksheets or workbook formatting. It can contain text that Excel or another spreadsheet application interprets as a formula, but it does not guarantee that formula meaning or behavior will be preserved across applications. Do not rename a CSV file to <code>.xlsx</code> and call it a workbook.</p>
 <p>If your instance has suitable file-generation tools, request the reviewed data in the format you need. Keep extracted strings as text rather than formulas, especially values beginning with spreadsheet formula characters. This also matters for CSV: see <a href="https://owasp.org/www-community/attacks/CSV_Injection">OWASP’s CSV injection guidance</a>. Ask for an actual saved file, then open <strong>Session files</strong> and download the result using the available control.</p>
+<h3>Copy this brief after approving the comparison</h3>
+<pre class="task-template">Use only the comparison I just approved in this session. Save a new
+file named pi-comparison-reviewed.xlsx. Do not overwrite an existing file.
+
+In a sheet named Comparison, use one row per board and field. Include
+Board, Field, Reviewed value, Status, Source file, and Physical PDF page.
+Keep units, qualifiers, and the difference between not stated and
+unreadable. Do not add values from memory or treat blanks as zero.
+Store values taken from the PDFs as text, not formulas.
+
+If you cannot create and save a real XLSX, say so and keep the reviewed
+table in chat. Do not rename a CSV or claim an export succeeded.
+If saved, report the filename and the number of data rows.</pre>
+<p>Open the workbook yourself. Pick one decision-driving row and trace it back to the PDF. In this exercise, the Pi 3 Model B+ Ethernet row should still say that the stated maximum is 300&nbsp;Mbps, not just “Gigabit Ethernet.” The Pi Zero 2 W wired Ethernet entry should still say “not stated,” not “none.” A workbook that opens but changes either meaning fails the export check.</p>
 <ul><li>Does the file open in the application you plan to use?</li><li>Do product IDs, leading zeros, dates and decimal separators still mean the same thing?</li><li>Does each decision-driving value retain its source reference?</li><li>Are missing fields and unreadable sections still visible after export?</li><li>If calculations were requested, do verified inputs reproduce the totals?</li></ul>
 <p>If file creation is unavailable, a checked table in the conversation is a useful intermediate result. It is not evidence of a completed Excel export.</p></section>
 <section><h2>Correct one field without repeating everything</h2>

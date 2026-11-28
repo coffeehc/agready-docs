@@ -1191,3 +1191,14 @@ test('PDF comparison teaches a missing-source check before spreadsheet delivery'
  build();
  assert.match(readFileSync(file,'utf8'),/name="robots" content="noindex,nofollow"/);
 });
+
+test('PDF comparison provides a checked XLSX handoff without claiming export',()=>{
+ build({SITE_PUBLISH:'true',SITE_ORIGIN:'https://agready.ai'});
+ const html=readFileSync('dist/blog/compare-pdf-documents-ai-agent/index.html','utf8');
+ const section=html.split('<section id="checked-excel-export">')[1]?.split('</section>')[0]??'';
+ assert.ok(section.length);
+ for(const phrase of ['comparison I just approved','pi-comparison-reviewed.xlsx','Physical PDF page','text, not formulas','cannot create and save a real XLSX','number of data rows','300&nbsp;Mbps','“not stated,” not “none.”']){
+  assert.ok(section.includes(phrase),phrase);
+ }
+ assert.ok(html.indexOf('id="checked-excel-export"') > html.indexOf('id="missing-pdf-check"'));
+});
